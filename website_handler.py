@@ -28,6 +28,46 @@ def strGetPassword():
     return strPassword
 
 # %% define functions for handling the browser
+def objRunProcess():
+    # get user name and password
+    strUserName = strGetUserName()
+    strPassword = strGetPassword()
+
+    # set up the webdriver
+    objDriver = webdriver.Edge()
+
+
+def blnLogin(pobjDriver, pstrUserName, pstrPassword):
+    # open the login url
+    pobjDriver.get(g.STR_URL_LOGIN)
+
+    # find the user id and password input fields, and login button
+    objUserName = pobjDriver.find_element('id', g.STR_ELEMENT_ID_USERNAME)
+    objPassword = objDriver.find_element('id', g.STR_ELEMENT_ID_PASSWORD)
+    objLoginButton = pobjDriver.find_element('id', g.STR_ELEMENT_ID_LOGIN)
+
+    # open the login page
+    objDriver.get(g.STR_URL_LOGIN)
+
+    # input username, password and click the login button
+    objUserName.send_keys(pstrUserName)
+    objPassword.send_keys(pstrPassword)
+    objLoginButton.click()
+
+    # attempt to find error box
+    try:
+        # the error box appeared, the login failed
+        objError = pobjDriver.find_element('id', g.STR_ELEMENT_ID_LOGIN_ERROR)
+
+        # change the login indicator
+        blnLoginSuccess = False
+    except:
+        # error box not found, login successful
+        blnLoginSuccess = True
+
+    return blnLoginSuccess
+
+
 
 # store user name
 strUserName = 'ivan.zustiak@zurich.com'
