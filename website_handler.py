@@ -28,21 +28,6 @@ def strGetPassword():
     return strPassword
 
 # %% define functions for handling the browser
-def objRunProcess():
-    # get user name and password
-    strUserName = strGetUserName()
-    strPassword = strGetPassword()
-
-    # set up the webdriver
-    objDriver = webdriver.Edge()
-
-    # log in to the page
-    blnContinue = blnLogin(objDriver, strUserName, strPassword)
-
-    # discard the password
-    del strPassword
-
-
 def blnLogin(pobjDriver, pstrUserName, pstrPassword):
     # open the login url
     pobjDriver.get(g.STR_URL_LOGIN)
@@ -160,6 +145,23 @@ def blnAbsenceDetails(
 
     return blnSubmitted
 
+# %% define process handling
+def objRunProcess():
+    # get user name and password
+    strUserName = strGetUserName()
+    strPassword = strGetPassword()
+
+    # set up the webdriver
+    objDriver = webdriver.Edge()
+
+    # log in to the page
+    blnContinue = blnLogin(objDriver, strUserName, strPassword)
+
+    # discard the password
+    del strPassword
+
+    if blnContinue:
+        
 
 # store user name
 strUserName = 'ivan.zustiak@zurich.com'
