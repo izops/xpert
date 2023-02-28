@@ -74,9 +74,6 @@ def blnLogin(pobjDriver, pstrUserName, pstrPassword):
     return blnLoginSuccess
 
 def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
-    # open URL with the absence menu
-    pobjDriver.get(g.STR_URL_ADD_ABSENCE)
-
     # identify element with the absence type dropdown
     objAbsenceType = pobjDriver.find_element(
         'xpath',
