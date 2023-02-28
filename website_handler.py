@@ -105,6 +105,64 @@ def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
 
     return blnLoaded
 
+def blnAbsenceDetails(
+    pobjDriver,
+    pstrAbsenceType,
+    pstrDateFrom,
+    pstrDateTo = ''
+):
+    # set up the interaction based on the absence type
+    if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
+        # find the start date input field
+        objDateStart = pobjDriver.find_element(
+            'xpath',
+            g.STR_ELEMENT_XPATH_ABSENCE_DATE_START
+        )
+
+        # type in the start date
+        objDateStart.send_keys(pstrDateFrom)
+
+        # find the end date if applicable
+        if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
+            objDateEnd = pobjDriver.find_element(
+                'xpath',
+                g.STR_ELEMENT_XPATH_ABSENCE_DATE_END
+            )
+
+            # type in the end date
+            objDateEnd.send_keys(pstrDateTo)
+
+    # for safety reasons activate notes field
+    objNotes = pobjDriver.find_element(
+        'id',
+        g.STR_ELEMENT_ID_ABSENCE_NOTE
+    )
+    objNotes.click()
+
+    # localize the submit button
+    objSubmit = pobjDriver.find_element(
+        'id',
+        g.STR_ELEMENT_ID_ABSENCE_SUBMIT
+    )
+
+    # submit the absence
+    objSubmit.click()
+
+    # verify that the page loaded back to the main menu
+    try:
+        pobjDriver.find_element(
+            'xpath',
+            g.STR_ELEMENT_XPATH_ABSENCE_MAIN
+        )
+
+        # main menu title found, the absence was submitted successfully
+        blnSubmitted = True
+    except:
+        # main menu title not found, absence failed
+        blnSubmitted = False
+
+    return blnSubmitted
+
 
 # store user name
 strUserName = 'ivan.zustiak@zurich.com'
