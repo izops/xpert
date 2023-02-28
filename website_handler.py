@@ -7,8 +7,27 @@ from selenium.webdriver.common.keys import Keys
 import getpass
 import time
 
-# scripts
+# import scripts
 import globals as g
+
+# %% define user interaction functions
+def strGetUserName():
+    # get user name from the local environment
+    strUserName = getpass.getuser() + g.STR_USER_DOMAIN
+
+    return strUserName
+
+def strGetPassword():
+    # put together prompt message
+    strMessage = 'Please, provide your password.'
+    strMessage += ' (it will be hidden and discarded afterwards)\n'
+
+    # ask user for their password
+    strPassword = getpass.getpass(strMessage)
+
+    return strPassword
+
+# %% define functions for handling the browser
 
 # store user name
 strUserName = 'ivan.zustiak@zurich.com'
