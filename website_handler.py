@@ -36,6 +36,12 @@ def objRunProcess():
     # set up the webdriver
     objDriver = webdriver.Edge()
 
+    # log in to the page
+    blnContinue = blnLogin(objDriver, strUserName, strPassword)
+
+    # discard the password
+    del strPassword
+
 
 def blnLogin(pobjDriver, pstrUserName, pstrPassword):
     # open the login url
@@ -57,7 +63,7 @@ def blnLogin(pobjDriver, pstrUserName, pstrPassword):
     # attempt to find error box
     try:
         # the error box appeared, the login failed
-        objError = pobjDriver.find_element('id', g.STR_ELEMENT_ID_LOGIN_ERROR)
+        pobjDriver.find_element('id', g.STR_ELEMENT_ID_LOGIN_ERROR)
 
         # change the login indicator
         blnLoginSuccess = False
@@ -67,6 +73,37 @@ def blnLogin(pobjDriver, pstrUserName, pstrPassword):
 
     return blnLoginSuccess
 
+def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
+    # open URL with the absence menu
+    pobjDriver.get(g.STR_URL_ADD_ABSENCE)
+
+    # identify element with the absence type dropdown
+    objAbsenceType = pobjDriver.find_element(
+        'xpath',
+        g.STR_ELEMENT_XPATH_ABSENCE_TYPE
+    )
+
+    # select the absence type
+    objAbsenceType.send_keys(pstrAbsenceType)
+
+    # wait for javascript to load the dropdown menu
+    time.sleep(1)
+
+    # select the absence type from the dropdown and confirm
+    objAbsenceType.send_keys(Keys.TAB)
+    objAbsenceType.send_keys(Keys.ENTER)
+
+    # check if the absence detail loaded or not
+    try:
+        pobjDriver.find_element('xpath', g.STR_ELEMENT_XPATH_ABSENCE_DETAIL)
+
+        # absence detail found on the page, set the indicator to positive
+        blnLoaded = True
+    except:
+        # the absence detail not loaded, change the indicator to negative
+        blnLoaded = False
+
+    return blnLoaded
 
 
 # store user name
