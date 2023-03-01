@@ -1,6 +1,6 @@
 # %% contains public constants for xperience automation
 
-# URLs
+# %% URLs
 # login URL
 STR_URL_LOGIN = 'https://my.xperience.app/zurich/login.jsp'
 
@@ -8,11 +8,7 @@ STR_URL_LOGIN = 'https://my.xperience.app/zurich/login.jsp'
 STR_URL_ADD_ABSENCE = 'https://my.xperience.app/zurich/web/timesystem?'
 STR_URL_ADD_ABSENCE += '__mvcevent=absenceList&id=0'
 
-# user name
-STR_USER_DOMAIN = '@zurich.com'
-
-# selenium elements
-# IDs
+# %% selenium elements - IDs
 STR_ELEMENT_ID_USERNAME = 'user'
 STR_ELEMENT_ID_PASSWORD = 'pwd'
 STR_ELEMENT_ID_LOGIN = 'loginButton'
@@ -20,7 +16,7 @@ STR_ELEMENT_ID_LOGIN_ERROR = 'errorBox'
 STR_ELEMENT_ID_ABSENCE_NOTE = 'absenceDetailFM_note'
 STR_ELEMENT_ID_ABSENCE_SUBMIT = 'absenceDetailFM_submitRequest'
 
-# xpaths
+# %% selenium elements - xpaths
 # absence type dropdown
 STR_ELEMENT_XPATH_ABSENCE_TYPE = "//input[@class='ng-scope ng-isolate-scope"
 STR_ELEMENT_XPATH_ABSENCE_TYPE += " custom-combobox-input ui-widget ui-widget"
@@ -46,10 +42,24 @@ STR_ELEMENT_XPATH_ABSENCE_DATE_START += " @name='startDate']"
 STR_ELEMENT_XPATH_ABSENCE_DATE_END = STR_ELEMENT_XPATH_ABSENCE_DATE 
 STR_ELEMENT_XPATH_ABSENCE_DATE_END += " @name='endDate']"
 
-
+# %% website keywords
 # absence keywords
 STR_ABSENCE_TYPE_HOME_OFFICE = 'home office'
 STR_ABSENCE_TYPE_DOCTOR = 'doctor'
 STR_ABSENCE_TYPE_PERSONAL_DAY = 'personal day'
 STR_ABSENCE_TYPE_VACATION = 'vacation'
 STR_ABSENCE_TYPE_SICK_LEAVE = 'sick leave'
+
+# %% regular expressions
+# data input - date start, date end, absence type
+STR_REGEX_DATA_INPUT = '((?:[1-9]|0[1-9]|[1-2][0-9]|3[0-1])\/(?:[1-9]|0[1-9]'
+STR_REGEX_DATA_INPUT += '|1[0-2])\/20[0-9]{2})\t((?:[1-9]|0[1-9]|[1-2][0-9]|3'
+STR_REGEX_DATA_INPUT += '[0-1])\/(?:[1-9]|0[1-9]|1[0-2])\/20[0-9]{2})\t(Home'
+STR_REGEX_DATA_INPUT +=' office|Vacation|Personal day|Sick leave)'
+
+# %% other constants
+# user name
+STR_USER_DOMAIN = '@zurich.com'
+
+# calendar data path
+STR_PATH_CALENDAR_DATA = 'c:/repositories/emea_oth_xpert/data/calendar_data.txt'
