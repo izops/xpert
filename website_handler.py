@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 # other modules
 import getpass
 import time
+import re
 
 # import scripts
 import globals as g
@@ -145,6 +146,31 @@ def blnAbsenceDetails(
 
     return blnSubmitted
 
+def lstReadData(pstrPath):
+    # open the file, read only
+    objCalendarData = open(pstrPath, 'r')
+
+    # initialize a list of values read from the source file
+    lstCalendarData = []
+
+    # read in the file
+    for strRow in objCalendarData:
+        # try to match the row with regex
+        objMatch = re.match(g.STR_REGEX_DATA_INPUT, strRow)
+
+        if objMatch:
+            # there is a match, parse the data into a tuple
+            tplEntry = objMatch.group(1), objMatch.group(2), objMatch.group(3)
+
+            # add the data point to the output list
+            lstCalendarData.append(tplEntry)
+
+    # close the file
+    objCalendarData.close()
+
+    return lstCalendarData
+
+
 # %% define process handling
 def objRunProcess():
     # get user name and password
@@ -159,8 +185,6 @@ def objRunProcess():
 
     # discard the password
     del strPassword
-
-    if blnContinue:
         
 
 # store user name
