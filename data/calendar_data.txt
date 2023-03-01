@@ -1,1 +1,3 @@
 From	To	Absence type
+1/3/2020	3/3/2022	Home office
+12/5/2022	14/05/2022	Vacation
