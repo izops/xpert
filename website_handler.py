@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 import getpass
 import time
 import re
+import os
 
 # import scripts
 import globals as g
@@ -147,6 +148,9 @@ def blnAbsenceDetails(
     return blnSubmitted
 
 def lstReadData(pstrPath):
+    # verify the file exists
+    assert os.path.isfile(pstrPath), 'The file ' + pstrPath + ' does\'nt exist'
+
     # open the file, read only
     objCalendarData = open(pstrPath, 'r')
 
@@ -173,19 +177,62 @@ def lstReadData(pstrPath):
 
 # %% define process handling
 def objRunProcess():
-    # get user name and password
-    strUserName = strGetUserName()
-    strPassword = strGetPassword()
+    # read the calendar data from the source file
+    lstCalendarData = lstReadData(g.STR_PATH_CALENDAR_DATA)
 
-    # set up the webdriver
-    objDriver = webdriver.Edge()
+    # continue if there is any calendar entry
+    if len(lstCalendarData) > 0:
+        # get user name and password
+        strUserName = strGetUserName()
+        strPassword = strGetPassword()
 
-    # log in to the page
-    blnContinue = blnLogin(objDriver, strUserName, strPassword)
+        # set up the webdriver
+        objDriver = webdriver.Edge()
 
-    # discard the password
-    del strPassword
-        
+        # log in to the page
+        blnContinue = blnLogin(objDriver, strUserName, strPassword)
+
+        # discard the password
+        del strPassword
+
+        if blnContinue:
+            # if login successful, add the absence entry for each data point
+            for tplAbsence in lstCalendarData:
+                # work with home office data for now
+                if tplAbsence[2].lower() == g.STR_ABSENCE_TYPE_HOME_OFFICE:
+                    # open a new absence entry
+                    blnContinue = blnOpenNewAbsence(
+                        objDriver,
+                        tplAbsence[2].lower()
+                    )
+
+                    # use the end date only if different from the start date
+                    if tplAbsence[0] != tplAbsence[1]:
+                        strEndDate = tplAbsence[1]
+                    else:
+                        # don't use an end date
+                        strEndDate = ''
+
+                    # submit the absence
+                    blnContinue = blnContinue and blnAbsenceDetails(
+                        objDriver,
+                        tplAbsence[2],
+                        tplAbsence[0],
+                        strEndDate
+                    )
+                else:
+                    # unsupported type of absence
+                    print('Unsupported type of absence: ' + tplAbsence)
+        else:
+            # login failed, prepare the message
+            strMessage = 'Login failed. Either you provided incorrect'
+            strMessage += ' credentials or your password expired.'
+            
+            # inform the user about failed login
+            print(strMessage)
+    else:
+        # there are no calendar entries to submit
+        print('There were 0 entries read from the data file, process ends here')
 
 # store user name
 strUserName = 'ivan.zustiak@zurich.com'
