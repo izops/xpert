@@ -52,3 +52,9 @@ def dttConvertDate(pstrYYYYMMDD):
     )
 
     return dttConverted
+
+def strConvertDate(pdttDateTime):
+    # convert date to YYYYMMDD date
+    strConverted = pdttDateTime.strftime('%Y%m%d')
+
+    return strConverted
