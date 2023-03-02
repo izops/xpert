@@ -63,3 +63,6 @@ STR_USER_DOMAIN = '@zurich.com'
 
 # calendar data path
 STR_PATH_CALENDAR_DATA = 'c:/repositories/emea_oth_xpert/data/calendar_data.txt'
+
+# calendar time period - hours
+INT_CALENDAR_TIME_UNIT_HOURS = 60
