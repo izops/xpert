@@ -8,15 +8,13 @@ import pywintypes
 import globals as g
 
 # %% define functions
-# open Outlook session
-
 def objCreateRecipient():
     # initialize Outlook application and connect to its namespace
     objOutlook = win32com.client.Dispatch('Outlook.Application')
     objNamespace = objOutlook.GetNamespace('MAPI')
 
     # get own email address based on the user name
-    strEmail = getpass.getuser + g.STR_USER_DOMAIN
+    strEmail = getpass.getuser() + g.STR_USER_DOMAIN
 
     # create a recipient object based on own email address
     objRecipient = objNamespace.CreateRecipient(strEmail)
@@ -74,7 +72,7 @@ def lstGetStatuses(pstrDateStart, pstrDateEnd):
     while dttDateCurrent <= dttDateEnd:
         # get status of the calendar for the day by hours
         strStatus = strGetStatus(
-            objCreateRecipient,
+            objRecipient,
             strConvertDate(dttDateCurrent),
             g.INT_CALENDAR_TIME_UNIT_HOURS
         )
