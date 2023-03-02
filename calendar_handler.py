@@ -23,7 +23,6 @@ def objCreateRecipient():
 
     return objRecipient
 
-
 def strGetStatus(
     pobjRecipient,
     pstrYYYYMMDD,
@@ -31,13 +30,7 @@ def strGetStatus(
 ):
     # put together a datetime value for checking the status
     # using arbitrary time to get data from the correct date
-    dttStartDate = datetime.datetime(
-        int(pstrYYYYMMDD[:4]),
-        int(pstrYYYYMMDD[4:6]),
-        int(pstrYYYYMMDD[6:]),
-        1,
-        0
-    )
+    dttStartDate = dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(hours = 1)
 
     # convert source time to pywin time
     objPywinTime = pywintypes.Time(dttStartDate)
@@ -51,3 +44,11 @@ def strGetStatus(
 
     return strCalendarStatus
 
+def dttConvertDate(pstrYYYYMMDD):
+    dttConverted = datetime.datetime(
+        int(pstrYYYYMMDD[:4]),
+        int(pstrYYYYMMDD[4:6]),
+        int(pstrYYYYMMDD[6:])
+    )
+
+    return dttConverted
