@@ -58,3 +58,34 @@ def strConvertDate(pdttDateTime):
     strConverted = pdttDateTime.strftime('%Y%m%d')
 
     return strConverted
+
+def lstGetStatuses(pstrDateStart, pstrDateEnd):
+    # create Outlook recipient
+    objRecipient = objCreateRecipient()
+
+    # convert the date to the datetime value
+    dttDateCurrent = dttConvertDate(pstrDateStart)
+    dttDateEnd = dttConvertDate(pstrDateEnd)
+
+    # initialize a list of calendar statuses
+    lstStatuses = []
+
+    # get calendar statuses for each day in the start-end date range
+    while dttDateCurrent <= dttDateEnd:
+        # get status of the calendar for the day by hours
+        strStatus = strGetStatus(
+            objCreateRecipient,
+            strConvertDate(dttDateCurrent),
+            g.INT_CALENDAR_TIME_UNIT_HOURS
+        )
+
+        # keep only first 24 hours from the output
+        strStatus = strStatus[:24]
+
+        # save the statuses
+        lstStatuses.append(strStatus)
+
+        # go to the next day
+        dttDateCurrent += datetime.timedelta(days = 1)
+
+    return lstStatuses
