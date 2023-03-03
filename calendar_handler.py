@@ -99,5 +99,8 @@ def intAnalyzeCalendarStatus(pstrStatus):
     elif pstrStatus == str(g.INT_MEETING_BUSY) * 24:
         # full day busy
         intFullDayStatus = g.INT_MEETING_BUSY
+    else:
+        # not a full day meeting
+        intFullDayStatus = -1
 
     return intFullDayStatus
