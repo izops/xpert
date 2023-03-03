@@ -57,6 +57,13 @@ STR_REGEX_DATA_INPUT += '|1[0-2])\/20[0-9]{2})\t((?:[1-9]|0[1-9]|[1-2][0-9]|3'
 STR_REGEX_DATA_INPUT += '[0-1])\/(?:[1-9]|0[1-9]|1[0-2])\/20[0-9]{2})\t(Home'
 STR_REGEX_DATA_INPUT +=' office|Vacation|Personal day|Sick leave)'
 
+# %% Outlook API meeting status constants
+INT_MEETING_FREE = 0
+INT_MEETING_TENTATIVE = 1
+INT_MEETING_BUSY = 2
+INT_MEETING_OUT_OF_OFFICE = 3
+INT_MEETING_WORKING_ELSEWHERE = 5
+
 # %% other constants
 # user name
 STR_USER_DOMAIN = '@zurich.com'

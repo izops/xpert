@@ -87,3 +87,17 @@ def lstGetStatuses(pstrDateStart, pstrDateEnd):
         dttDateCurrent += datetime.timedelta(days = 1)
 
     return lstStatuses
+
+def intAnalyzeCalendarStatus(pstrStatus):
+    # check the all day statuses against the Outlook values
+    if pstrStatus == str(g.INT_MEETING_OUT_OF_OFFICE) * 24:
+        # full day out of office
+        intFullDayStatus = g.INT_MEETING_OUT_OF_OFFICE
+    elif pstrStatus == str(g.INT_MEETING_WORKING_ELSEWHERE) * 24:
+        # full day working elsewhere
+        intFullDayStatus = g.INT_MEETING_WORKING_ELSEWHERE
+    elif pstrStatus == str(g.INT_MEETING_BUSY) * 24:
+        # full day busy
+        intFullDayStatus = g.INT_MEETING_BUSY
+
+    return intFullDayStatus
