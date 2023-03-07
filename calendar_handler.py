@@ -143,8 +143,8 @@ def lstGetFullDayOutputInPeriod(
             # get the all day status of the day
             intAllDayStatus = intAnalyzeCalendarStatus(strCurrentStatus)
             
-            # store the date and status
-            tplDailyStatus = (dttCurrentDay, intAllDayStatus)
+            # store the date from, date to and status
+            tplDailyStatus = (dttCurrentDay, dttCurrentDay, intAllDayStatus)
 
             # store it in the list
             lstCalendarPeriod.append(tplDailyStatus)
@@ -153,3 +153,22 @@ def lstGetFullDayOutputInPeriod(
         dttCurrentDay += datetime.timedelta(days = 1)
     
     return lstCalendarPeriod
+
+def lstAggregateCalendarOutput(plstDailyStatus):
+    # initialize a looping variable
+    intAggregate = 0
+
+    # set the stopping bound (moving)
+    intUntil = len(plstDailyStatus)
+
+    # aggregate the data
+    if plstDailyStatus[0][1] == plstDailyStatus[1][0] \
+    and plstDailyStatus[0][2] == plstDailyStatus[0][1]:
+        # two neighbouring dates, merge into one record
+        plstDailyStatus[0][1] = plstDailyStatus[1][0]
+
+        # remove the merged observation
+        plstDailyStatus.pop(2)
+
+        # shorten the loop length
+        intUntil = len(plstDailyStatus)
