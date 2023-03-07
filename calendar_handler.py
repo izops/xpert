@@ -137,15 +137,11 @@ def lstGetFullDayOutputInPeriod(
 
     # get status for each day of the period
     for strCurrentStatus in lstCalendarStatuses:
+        # continue only if the day is either weekday or all days are requested
         if (dttCurrentDay.weekday() < 5 and blnRemoveWeekend) \
         or not blnRemoveWeekend:
             # get the all day status of the day
             intAllDayStatus = intAnalyzeCalendarStatus(strCurrentStatus)
-
-            # # fix the case when there is no all day meeting
-            # if intAllDayStatus < 0:
-            #     # special case of no all day meeting
-            #     intAllDayStatus = g.INT_MEETING_FREE
             
             # store the date and status
             tplDailyStatus = (dttCurrentDay, intAllDayStatus)
