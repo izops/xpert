@@ -116,12 +116,16 @@ def intAnalyzeCalendarStatus(pstrStatus):
         # full day busy
         intFullDayStatus = g.INT_MEETING_BUSY
     else:
-        # not a full day meeting
-        intFullDayStatus = -1
+        # not a full day meeting, set to free
+        intFullDayStatus = g.INT_MEETING_FREE
 
     return intFullDayStatus
 
-def lstGetFullDayOutputInPeriod(pstrPeriodStart, pstrPeriodEnd):
+def lstGetFullDayOutputInPeriod(
+    pstrPeriodStart,
+    pstrPeriodEnd,
+    blnRemoveWeekend = True
+):
     # get calendar statuses for every day
     lstCalendarStatuses = lstGetCalendarStatuses(pstrPeriodStart, pstrPeriodEnd)
 
@@ -133,22 +137,23 @@ def lstGetFullDayOutputInPeriod(pstrPeriodStart, pstrPeriodEnd):
 
     # get status for each day of the period
     for strCurrentStatus in lstCalendarStatuses:
-        # get the all day status of the day
-        intAllDayStatus = intAnalyzeCalendarStatus(strCurrentStatus)
+        if (dttCurrentDay.weekday() < 5 and blnRemoveWeekend) \
+        or not blnRemoveWeekend:
+            # get the all day status of the day
+            intAllDayStatus = intAnalyzeCalendarStatus(strCurrentStatus)
 
-        # convert status to the word representation
-        if intAllDayStatus < 0:
-            # special case of no all day meeting
-            strWordStatus = g.STR_MEETING_FREE
-        else:
-            # all usual cases for full day meetings
-            strWordStatus = strConvertAbsence(intAllDayStatus)
+            # # fix the case when there is no all day meeting
+            # if intAllDayStatus < 0:
+            #     # special case of no all day meeting
+            #     intAllDayStatus = g.INT_MEETING_FREE
+            
+            # store the date and status
+            tplDailyStatus = (dttCurrentDay, intAllDayStatus)
 
-        # store the date and status
-        tplDailyStatus = (dttCurrentDay.strftime('%d/%m/%Y'), strWordStatus)
-
-        # store it in the list
-        lstCalendarPeriod.append(tplDailyStatus)
+            # store it in the list
+            lstCalendarPeriod.append(tplDailyStatus)
 
         # increment day to the next one in the period
         dttCurrentDay += datetime.timedelta(days = 1)
+    
+    return lstCalendarPeriod
