@@ -162,13 +162,28 @@ def lstAggregateCalendarOutput(plstDailyStatus):
     intUntil = len(plstDailyStatus)
 
     # aggregate the data
-    if plstDailyStatus[0][1] == plstDailyStatus[1][0] \
-    and plstDailyStatus[0][2] == plstDailyStatus[0][1]:
-        # two neighbouring dates, merge into one record
-        plstDailyStatus[0][1] = plstDailyStatus[1][0]
+    while intAggregate + 1 < intUntil:
+        if plstDailyStatus[
+            intAggregate
+        ][1] + datetime.timedelta(days = 1) == plstDailyStatus[
+            intAggregate + 1
+        ][0] \
+        and plstDailyStatus[
+            intAggregate
+        ][2] == plstDailyStatus[intAggregate + 1][2]:
+            # two neighbouring dates with mathcing status
+            # merge into one record as a tuple
+            plstDailyStatus[intAggregate] = plstDailyStatus[intAggregate][0], \
+                plstDailyStatus[intAggregate+1][0], \
+                plstDailyStatus[intAggregate][2]
 
-        # remove the merged observation
-        plstDailyStatus.pop(2)
+            # remove the merged observation
+            plstDailyStatus.pop(intAggregate + 1)
 
-        # shorten the loop length
-        intUntil = len(plstDailyStatus)
+            # shorten the loop length
+            intUntil = len(plstDailyStatus)
+        else:
+            # current pair of records can't be merged, move to the next one
+            intAggregate += 1
+
+    return plstDailyStatus
