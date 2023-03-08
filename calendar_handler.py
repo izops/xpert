@@ -195,11 +195,11 @@ def lstConvertAggregatedOutput(plstAggregatedData):
     # process dates and statuses to human readable form
     for tplEntry in plstAggregatedData:
         # convert the start date and add a tab
-        strConvertedEntry = strConvertDate(tplEntry[0])
+        strConvertedEntry = tplEntry[0].strftime('%d/%m/%Y')
         strConvertedEntry += '\t'
 
         # convert the end date and add a tab
-        strConvertedEntry += strConvertDate(tplEntry[1])
+        strConvertedEntry += tplEntry[1].strftime('%d/%m/%Y')
         strConvertedEntry += '\t'
 
         # convert status and add a line break
@@ -210,3 +210,13 @@ def lstConvertAggregatedOutput(plstAggregatedData):
         lstStringOutput.append(strConvertedEntry)
 
     return lstStringOutput
+
+def OutputCalendarData(plstStringData):
+    # open a new text file for writing
+    objOutput = open(g.STR_PATH_CALENDAR_DATA, 'w')
+
+    # write contents of the list into the file
+    objOutput.writelines(plstStringData)
+
+    # close the file
+    objOutput.close()
