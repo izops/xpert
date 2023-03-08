@@ -58,11 +58,11 @@ def blnLogin(pobjDriver, pstrUserName, pstrPassword):
 
     # find the user id and password input fields, and login button
     objUserName = pobjDriver.find_element('id', g.STR_ELEMENT_ID_USERNAME)
-    objPassword = objDriver.find_element('id', g.STR_ELEMENT_ID_PASSWORD)
+    objPassword = pobjDriver.find_element('id', g.STR_ELEMENT_ID_PASSWORD)
     objLoginButton = pobjDriver.find_element('id', g.STR_ELEMENT_ID_LOGIN)
 
     # open the login page
-    objDriver.get(g.STR_URL_LOGIN)
+    pobjDriver.get(g.STR_URL_LOGIN)
 
     # input username, password and click the login button
     objUserName.send_keys(pstrUserName)
