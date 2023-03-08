@@ -187,3 +187,26 @@ def lstAggregateCalendarOutput(plstDailyStatus):
             intAggregate += 1
 
     return plstDailyStatus
+
+def lstConvertAggregatedOutput(plstAggregatedData):
+    # initialize a list for outputs
+    lstStringOutput = []
+
+    # process dates and statuses to human readable form
+    for tplEntry in plstAggregatedData:
+        # convert the start date and add a tab
+        strConvertedEntry = strConvertDate(tplEntry[0])
+        strConvertedEntry += '\t'
+
+        # convert the end date and add a tab
+        strConvertedEntry += strConvertDate(tplEntry[1])
+        strConvertedEntry += '\t'
+
+        # convert status and add a line break
+        strConvertedEntry += strConvertAbsence(tplEntry[2])
+        strConvertedEntry += '\n'
+
+        # append the converted entry to the list
+        lstStringOutput.append(strConvertedEntry)
+
+    return lstStringOutput
