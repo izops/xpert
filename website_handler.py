@@ -14,6 +14,16 @@ import globals as g
 
 # %% define user interaction functions
 def strGetUserName():
+    '''
+    Looks into OS environment and retrieves the username of the current user,
+    appends the name of the domain to create a corporate email address
+
+    Inputs:
+        - None
+
+    Outputs:
+        - strUserName - corporate email address based on environment username
+    '''
     # get user name from the local environment
     strUserName = getpass.getuser() + g.STR_USER_DOMAIN
 
@@ -31,6 +41,18 @@ def strGetPassword():
 
 # %% define functions for handling the browser
 def blnLogin(pobjDriver, pstrUserName, pstrPassword):
+    '''
+    Uses selenium webdriver to open xperience website and login using 
+    the provided credentials. Checks if the login was successfull.
+
+    Inputs:
+        - pobjDriver - selenium webbrowser driver used to navigate websites
+        - pstrUserName - username for logging into xperience platform
+        - pstrPassword - password for the website login page
+
+    Outputs:
+        - blnLoginSuccess - boolean indicator of success of the login process
+    '''
     # open the login url
     pobjDriver.get(g.STR_URL_LOGIN)
 
@@ -61,6 +83,18 @@ def blnLogin(pobjDriver, pstrUserName, pstrPassword):
     return blnLoginSuccess
 
 def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
+    '''
+    Uses selenium to open a new instance of absence submission in xperience.
+    Checks if the instance was opened successfully.
+
+    Inputs:
+        - pobjDriver - selenium webbrowser driver used to navigate the website
+        - pstrAbsenceType - name of the absence instance that will be opened
+
+    Outputs:
+        - blnLoaded - boolean indicator of successful creating of a new absence
+        instance
+    '''
     # identify element with the absence type dropdown
     objAbsenceType = pobjDriver.find_element(
         'xpath',
@@ -95,6 +129,20 @@ def blnAbsenceDetails(
     pstrDateFrom,
     pstrDateTo = ''
 ):
+    '''
+    Uses selenium to fill details about specific absence. Checks if the absence
+    was submitted.
+
+    Inputs:
+        - pobjDriver - selenium webdriver used for navigating websites
+        - pstrAbsenceType - xperience absence type that is being filled in
+        - pstrDateFrom - start date of the absence in DD/MM/YYYY format
+        - pstrDateTo - optional argument, end date of the absence in DD/MM/YYYY
+        format
+
+    Outputs:
+        - blnSubmitted - indicator if the absence was successfully submitted
+    '''
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
         # find the start date input field
@@ -148,6 +196,16 @@ def blnAbsenceDetails(
     return blnSubmitted
 
 def lstReadData(pstrPath):
+    '''
+    Reads calendar data saved in a text file.
+
+    Inputs:
+        - pstrPath - full path to the file with the calendar data saved
+
+    Outputs:
+        - lstCalendarData - list of the parsed calendar data containing tuples
+        of start date, end date and absence type
+    '''
     # verify the file exists
     assert os.path.isfile(pstrPath), 'The file ' + pstrPath + ' does\'nt exist'
 
@@ -174,9 +232,18 @@ def lstReadData(pstrPath):
 
     return lstCalendarData
 
-
 # %% define process handling
 def objRunProcess():
+    '''
+    Handles entire process of obtaining login info, logging into xperience
+    website, reading calendar data and submitting all relevant entries
+
+    Inputs:
+        - None
+
+    Outputs:
+        - None, but the entire process is run
+    '''
     # read the calendar data from the source file
     lstCalendarData = lstReadData(g.STR_PATH_CALENDAR_DATA)
 
