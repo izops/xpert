@@ -78,7 +78,9 @@ STR_MEETING_WORKING_ELSEWHERE = 'Working elsewhere'
 STR_USER_DOMAIN = '@zurich.com'
 
 # calendar data path
-STR_PATH_CALENDAR_DATA = 'c:/repositories/emea_oth_xpert/data/calendar_data.txt'
+STR_PATH_CALENDAR_DATA = 'c:/repositories/emea_oth_xpert/data/'
+STR_FILE_CALENDAR_DATA = 'calendar_data.txt'
+STR_FULL_PATH_CALENDAR_DATA = STR_PATH_CALENDAR_DATA + STR_FILE_CALENDAR_DATA
 
 # calendar time period - hours
 INT_CALENDAR_TIME_UNIT_HOURS = 60

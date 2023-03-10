@@ -1,3 +1,4 @@
-From	To	Absence type
-1/3/2020	3/3/2022	Home office
-12/5/2022	14/05/2022	Vacation
+01/03/2023	01/03/2023	Working elsewhere
+02/03/2023	03/03/2023	Free
+06/03/2023	06/03/2023	Free
+07/03/2023	08/03/2023	Working elsewhere

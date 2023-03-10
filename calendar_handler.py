@@ -342,7 +342,7 @@ def OutputCalendarData(plstStringData):
         - None, a new text file is created to contain the provided data
     '''
     # open a new text file for writing
-    objOutput = open(g.STR_PATH_CALENDAR_DATA, 'w')
+    objOutput = open(g.STR_FULL_PATH_CALENDAR_DATA, 'w')
 
     # write contents of the list into the file
     objOutput.writelines(plstStringData)

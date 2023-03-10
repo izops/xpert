@@ -245,7 +245,7 @@ def objRunProcess():
         - None, but the entire process is run
     '''
     # read the calendar data from the source file
-    lstCalendarData = lstReadData(g.STR_PATH_CALENDAR_DATA)
+    lstCalendarData = lstReadData(g.STR_FULL_PATH_CALENDAR_DATA)
 
     # continue if there is any calendar entry
     if len(lstCalendarData) > 0:
