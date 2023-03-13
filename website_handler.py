@@ -218,7 +218,7 @@ def lstReadData(pstrPath):
     # read in the file
     for strRow in objCalendarData:
         # try to match the row with regex
-        objMatch = re.match(g.STR_REGEX_DATA_INPUT, strRow)
+        objMatch = re.match(g.STR_REGEX_DATA_INPUT, strRow, re.IGNORECASE)
 
         if objMatch:
             # there is a match, parse the data into a tuple
