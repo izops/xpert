@@ -281,40 +281,43 @@ def lstAggregateCalendarOutput(plstDailyStatus):
         objects, status is an Outlook API constant
 
     Outputs:
-        - plstDailyStatus - list of aggregated dates
+        - lstStatuses - list of aggregated dates
     '''
+    # to avoid modifying the original list, clone the input
+    lstStatuses = plstDailyStatus.copy()
+
     # initialize a looping variable
     intAggregate = 0
 
     # set the stopping bound (moving)
-    intUntil = len(plstDailyStatus)
+    intUntil = len(lstStatuses)
 
     # aggregate the data
     while intAggregate + 1 < intUntil:
-        if plstDailyStatus[
+        if lstStatuses[
             intAggregate
-        ][1] + datetime.timedelta(days = 1) == plstDailyStatus[
+        ][1] + datetime.timedelta(days = 1) == lstStatuses[
             intAggregate + 1
         ][0] \
-        and plstDailyStatus[
+        and lstStatuses[
             intAggregate
-        ][2] == plstDailyStatus[intAggregate + 1][2]:
+        ][2] == lstStatuses[intAggregate + 1][2]:
             # two neighbouring dates with mathcing status
             # merge into one record as a tuple
-            plstDailyStatus[intAggregate] = plstDailyStatus[intAggregate][0], \
-                plstDailyStatus[intAggregate+1][0], \
-                plstDailyStatus[intAggregate][2]
+            lstStatuses[intAggregate] = lstStatuses[intAggregate][0], \
+                lstStatuses[intAggregate+1][0], \
+                lstStatuses[intAggregate][2]
 
             # remove the merged observation
-            plstDailyStatus.pop(intAggregate + 1)
+            lstStatuses.pop(intAggregate + 1)
 
             # shorten the loop length
-            intUntil = len(plstDailyStatus)
+            intUntil = len(lstStatuses)
         else:
             # current pair of records can't be merged, move to the next one
             intAggregate += 1
 
-    return plstDailyStatus
+    return lstStatuses
 
 def lstConvertAggregatedOutput(plstAggregatedData, pblnXperienceOutput = False):
     '''
