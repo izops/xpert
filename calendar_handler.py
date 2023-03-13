@@ -102,28 +102,49 @@ def strConvertDate(pdttDateTime):
 
     return strConverted
 
-def strConvertAbsence(pintAbsenceCode):
+def strConvertAbsence(pintAbsenceCode, pblnXperience = False):
     '''
-    Converts Outlook absence code to word representation
+    Converts Outlook absence code to word representation corresponding with the
+    selected output type
 
     Inputs:
         - pintAbsenceCode - Outlook API numeric code of meeting status
+        - pblnXperience - optional boolean indicator if the values should be
+        converted to Outlook or Xperience naming, default output is Outlook
 
     Outputs:
         - strAbsence - word representation of the corresponding meeting status
     '''
-    if pintAbsenceCode == g.INT_MEETING_FREE:
-        strAbsence = g.STR_MEETING_FREE
-    elif pintAbsenceCode == g.INT_MEETING_TENTATIVE:
-        strAbsence = g.STR_MEETING_TENTATIVE
-    elif pintAbsenceCode == g.INT_MEETING_BUSY:
-        strAbsence = g.STR_MEETING_BUSY
-    elif pintAbsenceCode == g.INT_MEETING_OUT_OF_OFFICE:
-        strAbsence = g.STR_MEETING_OUT_OF_OFFICE
-    elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
-        strAbsence = g.STR_MEETING_WORKING_ELSEWHERE
+    if pblnXperience:
+        # use xperience naming
+        if pintAbsenceCode == g.INT_MEETING_FREE:
+            # working from home
+            strAbsence = g.STR_ABSENCE_TYPE_HOME_OFFICE
+        elif pintAbsenceCode == g.INT_MEETING_TENTATIVE:
+            strAbsence = g.STR_MEETING_TENTATIVE
+        elif pintAbsenceCode == g.INT_MEETING_BUSY:
+            strAbsence = g.STR_MEETING_BUSY
+        elif pintAbsenceCode == g.INT_MEETING_OUT_OF_OFFICE:
+            strAbsence = g.STR_MEETING_OUT_OF_OFFICE
+        elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
+            # working from office
+            strAbsence = g.STR_ABSENCE_TYPE_NONE
+        else:
+            strAbsence = 'Unknown absence code'
     else:
-        strAbsence = 'Unknown absence code'
+        # use standard outlook naming
+        if pintAbsenceCode == g.INT_MEETING_FREE:
+            strAbsence = g.STR_MEETING_FREE
+        elif pintAbsenceCode == g.INT_MEETING_TENTATIVE:
+            strAbsence = g.STR_MEETING_TENTATIVE
+        elif pintAbsenceCode == g.INT_MEETING_BUSY:
+            strAbsence = g.STR_MEETING_BUSY
+        elif pintAbsenceCode == g.INT_MEETING_OUT_OF_OFFICE:
+            strAbsence = g.STR_MEETING_OUT_OF_OFFICE
+        elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
+            strAbsence = g.STR_MEETING_WORKING_ELSEWHERE
+        else:
+            strAbsence = 'Unknown absence code'
 
     return strAbsence
 
@@ -295,7 +316,7 @@ def lstAggregateCalendarOutput(plstDailyStatus):
 
     return plstDailyStatus
 
-def lstConvertAggregatedOutput(plstAggregatedData):
+def lstConvertAggregatedOutput(plstAggregatedData, pblnXperienceOutput = False):
     '''
     Converts list of aggregated data with time period and corresponding statuses
     to a human-readable form containing dates in DD/MM/YYYY format and word
@@ -304,10 +325,14 @@ def lstConvertAggregatedOutput(plstAggregatedData):
     Inputs:
         - plstAggregatedData - list of tuples containing start date, end date,
         and status. Dates are datetime objects, status is an Outlook constant
+        - pblnXperienceOutput - optional boolean indicator to specify if the
+        output should be converted to output submittable to xperience, default
+        value is set to false (= Outlook output chosen instead)
 
     Outputs:
         - lstStringOutput - list of tuples containing start, end dates in
-        DD/MM/YYYY formats
+        DD/MM/YYYY formats, and calendar all day status either in Outlook or
+        Xperience format
     '''
     # initialize a list for outputs
     lstStringOutput = []
@@ -323,7 +348,7 @@ def lstConvertAggregatedOutput(plstAggregatedData):
         strConvertedEntry += '\t'
 
         # convert status and add a line break
-        strConvertedEntry += strConvertAbsence(tplEntry[2])
+        strConvertedEntry += strConvertAbsence(tplEntry[2], pblnXperienceOutput)
         strConvertedEntry += '\n'
 
         # append the converted entry to the list

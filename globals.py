@@ -49,6 +49,7 @@ STR_ABSENCE_TYPE_DOCTOR = 'doctor'
 STR_ABSENCE_TYPE_PERSONAL_DAY = 'personal day'
 STR_ABSENCE_TYPE_VACATION = 'vacation'
 STR_ABSENCE_TYPE_SICK_LEAVE = 'sick leave'
+STR_ABSENCE_TYPE_NONE = 'working from office'
 
 # %% regular expressions
 # data input - date start, date end, absence type
