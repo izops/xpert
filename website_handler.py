@@ -290,6 +290,19 @@ def objRunProcess():
                         tplAbsence[0],
                         strEndDate
                     )
+
+                    # stop if the submission failed
+                    if not blnContinue:
+                        # submission check not passed, prepare error message
+                        strMessage = 'Submission of absence from '
+                        strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
+                        strMessage += ', ' + tplAbsence[2] + ' failed.'
+
+                        # display the message
+                        print(strMessage)
+
+                        # break the loop
+                        break
                 else:
                     # unsupported type of absence
                     print('Unsupported type of absence: ' + tplAbsence)
@@ -303,5 +316,3 @@ def objRunProcess():
     else:
         # there are no calendar entries to submit
         print('There were 0 entries read from the data file, process ends here')
-
-# %%
