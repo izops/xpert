@@ -1,5 +1,4 @@
 # %% import modules
-import re
 import win32com.client
 import getpass
 import datetime
