@@ -61,9 +61,6 @@ def blnLogin(pobjDriver, pstrUserName, pstrPassword):
     objPassword = pobjDriver.find_element('id', g.STR_ELEMENT_ID_PASSWORD)
     objLoginButton = pobjDriver.find_element('id', g.STR_ELEMENT_ID_LOGIN)
 
-    # open the login page
-    pobjDriver.get(g.STR_URL_LOGIN)
-
     # input username, password and click the login button
     objUserName.send_keys(pstrUserName)
     objPassword.send_keys(pstrPassword)
@@ -303,3 +300,5 @@ def objRunProcess():
     else:
         # there are no calendar entries to submit
         print('There were 0 entries read from the data file, process ends here')
+
+# %%
