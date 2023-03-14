@@ -92,6 +92,9 @@ def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
         - blnLoaded - boolean indicator of successful creating of a new absence
         instance
     '''
+    # open the URL for adding a new absence
+    pobjDriver.get(g.STR_URL_ADD_ABSENCE)
+
     # identify element with the absence type dropdown
     objAbsenceType = pobjDriver.find_element(
         'xpath',
