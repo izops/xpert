@@ -1,3 +1,7 @@
+# %%
+# Contains methods and functions to acquire and output data from Outlook 
+# calendar
+
 # %% import modules
 import win32com.client
 import getpass

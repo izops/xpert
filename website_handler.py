@@ -1,3 +1,8 @@
+# %%
+# Contains functions and methods that read data inputs for Xperience submission,
+# and that operate the Xperience website and submit the absence details. 
+# Currently submits only full-day home office absences.
+
 # %% import modules
 # selenium elements
 from selenium import webdriver
