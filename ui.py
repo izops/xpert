@@ -10,6 +10,15 @@ import website_handler as w
 # %% define user interaction methods
 
 def intGreeting():
+    '''
+    Outputs the introduction and asks for the type of work that should be done
+
+    Inputs:
+        - None
+
+    Outputs:
+        - intContinue - indication of the process that should be run
+    '''
     # set initial return value
     intContinue = -1
 
