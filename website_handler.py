@@ -156,10 +156,17 @@ def blnAbsenceDetails(
 
         # find the end date if applicable
         if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
+            # locate end date field
             objDateEnd = pobjDriver.find_element(
                 'xpath',
                 g.STR_ELEMENT_XPATH_ABSENCE_DATE_END
             )
+
+            # activate the field to activate autofill by sending null key
+            objDateEnd.send_keys(Keys.NULL)
+
+            # clear the contents of the input field
+            objDateEnd.clear()
 
             # type in the end date
             objDateEnd.send_keys(pstrDateTo)
@@ -296,7 +303,7 @@ def objRunProcess():
                         # submission check not passed, prepare error message
                         strMessage = 'Submission of absence from '
                         strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
-                        strMessage += ', ' + tplAbsence[2] + ' failed.'
+                        strMessage += ', ' + tplAbsence[2] + ', failed.'
 
                         # display the message
                         print(strMessage)
