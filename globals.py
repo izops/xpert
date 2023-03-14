@@ -73,6 +73,27 @@ STR_MEETING_TENTATIVE = 'Tentative'
 STR_MEETING_OUT_OF_OFFICE = 'Out of office'
 STR_MEETING_WORKING_ELSEWHERE = 'Working elsewhere'
 
+# %% user interaction
+# name
+STR_UI_BOT_NAME = '''
+                                                                      
+                                                               ,d     
+                                                               88     
+8b,     ,d8  8b,dPPYba,    ,adPPYba,  8b,dPPYba,     888     MM88MMM  
+ `Y8, ,8P'   88P'    "8a  a8P_____88  88P'   "Y8     888       88     
+   )888(     88       d8  8PP"""""""  88                       88     
+ ,d8" "8b,   88b,   ,a8"  "8b,   ,aa  88             888       88,    
+8P'     `Y8  88`YbbdP"'    `"Ybbd8"'  88             888       "Y888  
+             88                                                       
+             88                                                       
+
+'''
+
+STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar '
+STR_UI_INTRO += 'or submit your absences to Xperience (currently I do only '
+STR_UI_INTRO += 'home office absences).\nHow can I help you? [1/2/c(ancel)]\n'
+STR_UI_INTRO += '\t1. Analyze my calendar\n'
+STR_UI_INTRO += '\t2. Submit my absences to Xperience\n'
 
 # %% other constants
 # user name
