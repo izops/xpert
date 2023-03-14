@@ -91,9 +91,17 @@ STR_UI_BOT_NAME = '''
 
 STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar '
 STR_UI_INTRO += 'or submit your absences to Xperience (currently I do only '
-STR_UI_INTRO += 'home office absences).\nHow can I help you? [1/2/c(ancel)]\n'
-STR_UI_INTRO += '\t1. Analyze my calendar\n'
-STR_UI_INTRO += '\t2. Submit my absences to Xperience\n'
+STR_UI_INTRO += 'home office absences).\n'
+
+STR_UI_OFFER = 'How can I help you? [1/2/3/c(ancel)]\n'
+STR_UI_OFFER += '\t1. Analyze my calendar\n'
+STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
+STR_UI_OFFER += '\t3. Analyze my calendar and then submit my absences to '
+STR_UI_OFFER += 'Xperience\n'
+
+LST_UI_ANSWERS = ['1', '2', '3', 'c', 'cancel', 'c(ancel)']
+
+STR_UI_GOODBYE_CANCEL = 'All right then, good bye!'
 
 # %% other constants
 # user name
