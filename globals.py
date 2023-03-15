@@ -58,6 +58,9 @@ STR_REGEX_DATA_INPUT += '|1[0-2])\/20[0-9]{2})\t((?:[1-9]|0[1-9]|[1-2][0-9]|3'
 STR_REGEX_DATA_INPUT += '[0-1])\/(?:[1-9]|0[1-9]|1[0-2])\/20[0-9]{2})\t(Home'
 STR_REGEX_DATA_INPUT +=' office|Vacation|Personal day|Sick leave)'
 
+# user input date
+STR_REGEX_DATE = '^20[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1-2][0-9]|3[01])$'
+
 # %% Outlook constants
 # API meeting status constants
 INT_MEETING_FREE = 0
@@ -81,7 +84,7 @@ STR_UI_BOT_NAME = '''
                                                                88     
 8b,     ,d8  8b,dPPYba,    ,adPPYba,  8b,dPPYba,     888     MM88MMM  
  `Y8, ,8P'   88P'    "8a  a8P_____88  88P'   "Y8     888       88     
-   )888(     88       d8  8PP"""""""  88                       88     
+   >888<     88       d8  8PP"""""""  88                       88     
  ,d8" "8b,   88b,   ,a8"  "8b,   ,aa  88             888       88,    
 8P'     `Y8  88`YbbdP"'    `"Ybbd8"'  88             888       "Y888  
              88                                                       
@@ -89,10 +92,12 @@ STR_UI_BOT_NAME = '''
 
 '''
 
+# intro message
 STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar '
 STR_UI_INTRO += 'or submit your absences to Xperience (currently I do only '
 STR_UI_INTRO += 'home office absences).\n'
 
+# process options
 STR_UI_OFFER = 'How can I help you? [1/2/3/c(ancel)]\n'
 STR_UI_OFFER += '\t1. Analyze my calendar\n'
 STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
@@ -101,7 +106,19 @@ STR_UI_OFFER += 'Xperience\n'
 
 LST_UI_ANSWERS = ['1', '2', '3', 'c', 'cancel', 'c(ancel)']
 
-STR_UI_GOODBYE_CANCEL = 'All right then, good bye!'
+# process choices
+INT_UI_CHOICE_CALENDAR = 1
+INT_UI_CHOICE_XPERIENCE = 2
+INT_UI_CHOICE_ALL = 3
+
+# request date inputs
+STR_UI_REQUEST_DATE = 'Please, provide <PLACEHOLDER> date in YYYYMMDD format:\n'
+STR_UI_REQUEST_PLACEHOLDER = '<PLACEHOLDER>'
+STR_UI_REQUEST_DATE_START = 'start'
+STR_UI_REQUEST_DATE_END = 'end'
+
+# goodbyes
+STR_UI_GOODBYE_CANCEL = 'All right then, goodbye!'
 
 # %% other constants
 # user name
