@@ -1,20 +1,44 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# xper:t - submit your absence automatically
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+The code contains an interactive bot that analyzes your Outlook calendar and
+submits your absences to Xperience attendance system.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Requirements
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Installation of python with following modules required:
+- win32com.client `pip install pywin32`
+- pywintypes `pip install pypiwin32`
+- selenium `pip install selenium`
+
+
+## Outlook convention
+
+- Every day that *does not* contain all-day meeting is considered to be
+**working from home**
+- Every day that contains all-day meeting flagged as **working elsewhere** in Outlook is considered to be **working from office**
+- Every day that contains all-day meeting flagged as **out of office** or
+**busy** is excluded from the submission to Xperience
+- If a day contains **out of office** or **working elsewhere** flagged
+meeting(s) for only part of the day, is excluded from the submission to
+Xperience
+
+
+## Description
+
+The xper:t bot uses Outlook API to read person's own calendar, extracts information about all day meetings and outputs the findings to a text file. It can also use the output of the calendar scraping and submit the information to Xperience attendance system.
+
+Note: As of now, xper:t can only submit home office absences to Xperience
+system.
+
+
+## Usage
+
+Launch script called `launcher.py` and follow the instructions. The calendar
+extraction provides data in the format required for the submission to Xperience.
+
+
+## Contact
+
+To report a problem, please contact
+[the author](mailto:ivan.zustiak@zurich.com).
