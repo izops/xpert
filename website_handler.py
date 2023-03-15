@@ -245,7 +245,7 @@ def lstReadData(pstrPath):
     return lstCalendarData
 
 # %% define process handling
-def objRunProcess():
+def RunProcess():
     '''
     Handles entire process of obtaining login info, logging into xperience
     website, reading calendar data and submitting all relevant entries
