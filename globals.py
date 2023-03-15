@@ -132,7 +132,7 @@ STR_UI_GOODBYE = 'Thanks for stopping by and have a nice day! (°͜°)ﾉ'
 STR_USER_DOMAIN = '@zurich.com'
 
 # calendar data path
-STR_PATH_CALENDAR_DATA = 'c:/repositories/emea_oth_xpert/data/'
+STR_PATH_CALENDAR_DATA = './data/'
 STR_FILE_CALENDAR_DATA = 'calendar_data.txt'
 STR_FULL_PATH_CALENDAR_DATA = STR_PATH_CALENDAR_DATA + STR_FILE_CALENDAR_DATA
 
