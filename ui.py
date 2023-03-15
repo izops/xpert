@@ -74,9 +74,17 @@ def strGetDate(pstrPlaceholderReplacement):
 
     return strDate
 
+# %% define the master method to launch the process parts
 def RunProcess(pintChoice):
     '''
-    
+    Based on the input runs Outlook calendar analysis, submission of absences to
+    Xperience or both
+
+    Inputs:
+        - pintChoice - numeric indication of the process to be run
+
+    Outputs:
+        - None, either one or two processes are run
     '''
     # analyze the calendar
     if pintChoice in [g.INT_UI_CHOICE_CALENDAR, g.INT_UI_CHOICE_ALL]:
