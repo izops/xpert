@@ -220,8 +220,15 @@ def intAnalyzeCalendarStatus(pstrStatus):
         # full day busy
         intFullDayStatus = g.INT_MEETING_BUSY
     else:
-        # not a full day meeting, set to free
-        intFullDayStatus = g.INT_MEETING_FREE
+        # not a full day meeting, verify if it contains partial out of office or
+        # working from elsewhere
+        if str(g.INT_MEETING_OUT_OF_OFFICE) in pstrStatus \
+        or str(g.INT_MEETING_WORKING_ELSEWHERE) in pstrStatus:
+            # there is partial absence in the day, set it to mixed
+            intFullDayStatus = g.INT_MEETING_MIXED
+        else:
+            # no issues with the day, set it to free all day status
+            intFullDayStatus = g.INT_MEETING_FREE
 
     return intFullDayStatus
 
