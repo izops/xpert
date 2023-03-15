@@ -380,3 +380,36 @@ def OutputCalendarData(plstStringData):
 
     # close the file
     objOutput.close()
+
+# %% run the process
+def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnXperience = False):
+    '''
+    Runs the process of the calendar analysis in the requested time period.
+    Reads the calendar data from own Outlook calendar, aggregates the output
+    based on the absence types and converts the results to a readable output.
+    The output is then saved to a text file.
+
+    Inputs:
+        - pstrDateStart - start date of the calendar analysis in YYYYMMDD format
+        - pstrDateEnd - end date of the calendar analysis in YYYYMMDD format
+        - pblnXperience - boolean indicator if the output should be in Xperience
+        or standard format, default set to standard
+
+    Outputs:
+        - None, a text file with the calendar data in the requested format is
+        created
+    '''
+    # retrieve all 
+    lstCalendar = lstGetFullDayOutputInPeriod(
+        pstrDateStart,
+        pstrDateEnd
+    )
+
+    # aggregate the days with the same output
+    lstCalendar = lstAggregateCalendarOutput(lstCalendar)
+
+    # convert the calendar info to Xperience output
+    lstCalendar = lstConvertAggregatedOutput(lstCalendar, pblnXperience)
+
+    # output the calendar data to a file
+    OutputCalendarData(lstCalendar)
