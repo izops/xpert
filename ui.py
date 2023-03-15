@@ -75,6 +75,9 @@ def strGetDate(pstrPlaceholderReplacement):
     return strDate
 
 def RunProcess(pintChoice):
+    '''
+    
+    '''
     # analyze the calendar
     if pintChoice in [g.INT_UI_CHOICE_CALENDAR, g.INT_UI_CHOICE_ALL]:
         # request the starting and ending point for the calendar analysis
@@ -93,7 +96,7 @@ def RunProcess(pintChoice):
         
     if pintChoice in [g.INT_UI_CHOICE_XPERIENCE, g.INT_UI_CHOICE_ALL]:
         # run xperience process
-        w.RunProcess()
+        w.SubmitAbsences()
 
         # the process ends here, say goodbye to the user
         print(g.STR_UI_GOODBYE)
