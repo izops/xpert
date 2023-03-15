@@ -132,6 +132,9 @@ def strConvertAbsence(pintAbsenceCode, pblnXperience = False):
         elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
             # working from office
             strAbsence = g.STR_ABSENCE_TYPE_NONE
+        elif pintAbsenceCode == g.INT_MEETING_MIXED:
+            # mixed absences
+            strAbsence = g.STR_MEETING_MIXED
         else:
             strAbsence = 'Unknown absence code'
     else:
