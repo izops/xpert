@@ -74,4 +74,23 @@ def strGetDate(pstrPlaceholderReplacement):
 
     return strDate
 
+def RunProcess(pintChoice):
+    # analyze the calendar
+    if pintChoice in [g.INT_UI_CHOICE_CALENDAR, g.INT_UI_CHOICE_ALL]:
+        # request the starting and ending point for the calendar analysis
+        strDateStart = strGetDate(g.STR_UI_REQUEST_DATE_START)
+        strDateEnd = strGetDate(g.STR_UI_REQUEST_DATE_END)
 
+        # launch the calendar analysis
+        c.AnalyzeCalendar(strDateStart, strDateEnd, True)
+
+        # inform the user about the process end
+        print(g.STR_UI_CALENDAR_ANALYSIS_COMPLETE)
+
+        if pintChoice == g.INT_UI_CHOICE_CALENDAR:
+            # the process ends here, part with the user
+            print(g.STR_UI_GOODBYE)
+        
+    if pintChoice in [g.INT_UI_CHOICE_XPERIENCE, g.INT_UI_CHOICE_ALL]:
+        # run xperience process
+        pass
