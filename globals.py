@@ -69,12 +69,17 @@ INT_MEETING_BUSY = 2
 INT_MEETING_OUT_OF_OFFICE = 3
 INT_MEETING_WORKING_ELSEWHERE = 5
 
+# all day status constant for mixed day absence (non-API)
+INT_MEETING_MIXED = -1
+
 # Office meeting status
 STR_MEETING_FREE = 'Free'
 STR_MEETING_BUSY = 'Busy'
 STR_MEETING_TENTATIVE = 'Tentative'
 STR_MEETING_OUT_OF_OFFICE = 'Out of office'
 STR_MEETING_WORKING_ELSEWHERE = 'Working elsewhere'
+
+STR_MEETING_MIXED = 'Mixed availability status'
 
 # %% user interaction
 # name
@@ -119,6 +124,8 @@ STR_UI_REQUEST_DATE_END = 'end'
 
 # goodbyes
 STR_UI_GOODBYE_CANCEL = 'All right then, goodbye!'
+STR_UI_CALENDAR_ANALYSIS_COMPLETE = 'The calendar analysis is complete.\n'
+STR_UI_GOODBYE = 'Thanks for stopping by and have a nice day! (°͜°)ﾉ'
 
 # %% other constants
 # user name
