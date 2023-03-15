@@ -88,9 +88,12 @@ def RunProcess(pintChoice):
         print(g.STR_UI_CALENDAR_ANALYSIS_COMPLETE)
 
         if pintChoice == g.INT_UI_CHOICE_CALENDAR:
-            # the process ends here, part with the user
+            # the process ends here, say goodbye to the user
             print(g.STR_UI_GOODBYE)
         
     if pintChoice in [g.INT_UI_CHOICE_XPERIENCE, g.INT_UI_CHOICE_ALL]:
         # run xperience process
-        pass
+        w.RunProcess()
+
+        # the process ends here, say goodbye to the user
+        print(g.STR_UI_GOODBYE)
