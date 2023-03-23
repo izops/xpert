@@ -225,7 +225,7 @@ def lstReadData(pstrPath):
         of start date, end date and absence type
     '''
     # verify the file exists
-    assert os.path.isfile(pstrPath), 'The file ' + pstrPath + ' does\'nt exist'
+    assert os.path.isfile(pstrPath), 'The file ' + pstrPath + ' doesn\'t exist'
 
     # open the file, read only
     objCalendarData = open(pstrPath, 'r')
