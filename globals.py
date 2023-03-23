@@ -24,7 +24,7 @@ STR_ELEMENT_XPATH_ABSENCE_TYPE += "-content ui-state-default ui-corner-left"
 STR_ELEMENT_XPATH_ABSENCE_TYPE += " ui-autocomplete-input']"
 
 # absences main menu
-STR_ELEMENT_XPATH_ABSENCE_MAIN = "//div[@class='h1' and text() = 'Absencie'"
+STR_ELEMENT_XPATH_ABSENCE_MAIN = "//div[@class='h1' and text() = 'Absencie']"
 
 # absence detail
 STR_ELEMENT_XPATH_ABSENCE_DETAIL = "//div[@class='h1' and text() = 'Detail"
