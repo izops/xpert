@@ -148,6 +148,9 @@ def blnAbsenceDetails(
     Outputs:
         - blnSubmitted - indicator if the absence was successfully submitted
     '''
+    # convert the date to Slovak standard (dot separator)
+    strDateFrom = pstrDateFrom.replace('/', '.')
+
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
         # find the start date input field
@@ -157,10 +160,13 @@ def blnAbsenceDetails(
         )
 
         # type in the start date
-        objDateStart.send_keys(pstrDateFrom)
+        objDateStart.send_keys(strDateFrom)
 
         # find the end date if applicable
         if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
+            # convert the date to Slovak standard (dot separator)
+            strDateTo = pstrDateTo.replace('/', '.')
+
             # locate end date field
             objDateEnd = pobjDriver.find_element(
                 'xpath',
@@ -174,7 +180,7 @@ def blnAbsenceDetails(
             objDateEnd.clear()
 
             # type in the end date
-            objDateEnd.send_keys(pstrDateTo)
+            objDateEnd.send_keys(strDateTo)
 
     # for safety reasons activate notes field
     objNotes = pobjDriver.find_element(
