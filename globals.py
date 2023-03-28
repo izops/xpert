@@ -42,6 +42,9 @@ STR_ELEMENT_XPATH_ABSENCE_DATE_START += " @name='startDate']"
 STR_ELEMENT_XPATH_ABSENCE_DATE_END = STR_ELEMENT_XPATH_ABSENCE_DATE 
 STR_ELEMENT_XPATH_ABSENCE_DATE_END += " @name='endDate']"
 
+# absence error box
+STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
+
 # %% website keywords
 # absence keywords
 STR_ABSENCE_TYPE_HOME_OFFICE = 'home office'

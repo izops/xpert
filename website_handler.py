@@ -128,7 +128,7 @@ def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
 
     return blnLoaded
 
-def blnAbsenceDetails(
+def strAbsenceDetails(
     pobjDriver,
     pstrAbsenceType,
     pstrDateFrom,
@@ -136,7 +136,7 @@ def blnAbsenceDetails(
 ):
     '''
     Uses selenium to fill details about specific absence. Checks if the absence
-    was submitted.
+    was submitted. If an error is identified, returns it in a string.
 
     Inputs:
         - pobjDriver - selenium webdriver used for navigating websites
@@ -146,10 +146,10 @@ def blnAbsenceDetails(
         format
 
     Outputs:
-        - blnSubmitted - indicator if the absence was successfully submitted
+        - strError - error message retrieved from the website if any found
     '''
     # convert the date to Slovak standard (dot separator)
-    strDateFrom = pstrDateFrom.replace('/', '.')
+    strDateFrom = pstrDateFrom #.replace('/', '.')
 
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
@@ -165,7 +165,7 @@ def blnAbsenceDetails(
         # find the end date if applicable
         if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
             # convert the date to Slovak standard (dot separator)
-            strDateTo = pstrDateTo.replace('/', '.')
+            strDateTo = pstrDateTo #.replace('/', '.')
 
             # locate end date field
             objDateEnd = pobjDriver.find_element(
@@ -200,18 +200,26 @@ def blnAbsenceDetails(
 
     # verify that the page loaded back to the main menu
     try:
-        pobjDriver.find_element(
+        # attempt to locate error box
+        objError = pobjDriver.find_element(
             'xpath',
-            g.STR_ELEMENT_XPATH_ABSENCE_MAIN
+            g.STR_ELEMENT_XPATH_ABSENCE_ERROR
         )
 
-        # main menu title found, the absence was submitted successfully
-        blnSubmitted = True
-    except:
-        # main menu title not found, absence failed
-        blnSubmitted = False
+        # read the error message
+        strError = objError.text
 
-    return blnSubmitted
+        # replace all line breaks with a comma
+        strError = strError.replace('\n', ', ')
+
+        # add indentation and line breaks to the error message
+        strError = '\t' + strError + '\n'
+
+    except:
+        # no error found
+        strError = ''
+
+    return strError
 
 def lstReadData(pstrPath):
     '''
@@ -302,12 +310,15 @@ def SubmitAbsences():
                         strEndDate = ''
 
                     # submit the absence
-                    blnContinue = blnContinue and blnAbsenceDetails(
+                    strError = strAbsenceDetails(
                         objDriver,
                         tplAbsence[2],
                         tplAbsence[0],
                         strEndDate
                     )
+
+                    # update the indicator
+                    blnContinue = blnContinue and len(strError) == 0
 
                     # stop if the submission failed
                     if not blnContinue:
