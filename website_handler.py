@@ -149,7 +149,7 @@ def strAbsenceDetails(
         - strError - error message retrieved from the website if any found
     '''
     # convert the date to Slovak standard (dot separator)
-    strDateFrom = pstrDateFrom #.replace('/', '.')
+    strDateFrom = pstrDateFrom.replace('/', '.')
 
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
@@ -165,7 +165,7 @@ def strAbsenceDetails(
         # find the end date if applicable
         if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
             # convert the date to Slovak standard (dot separator)
-            strDateTo = pstrDateTo #.replace('/', '.')
+            strDateTo = pstrDateTo.replace('/', '.')
 
             # locate end date field
             objDateEnd = pobjDriver.find_element(
