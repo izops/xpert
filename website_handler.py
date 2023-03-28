@@ -149,7 +149,7 @@ def strAbsenceDetails(
         - strError - error message retrieved from the website if any found
     '''
     # convert the date to Slovak standard (dot separator)
-    strDateFrom = pstrDateFrom.replace('/', '.')
+    strDateFrom = pstrDateFrom #.replace('/', '.')
 
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
@@ -165,7 +165,7 @@ def strAbsenceDetails(
         # find the end date if applicable
         if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
             # convert the date to Slovak standard (dot separator)
-            strDateTo = pstrDateTo.replace('/', '.')
+            strDateTo = pstrDateTo #.replace('/', '.')
 
             # locate end date field
             objDateEnd = pobjDriver.find_element(
@@ -278,6 +278,9 @@ def SubmitAbsences():
 
     # continue if there is any calendar entry
     if len(lstCalendarData) > 0:
+        # initialize a message variable
+        strMessage = ''
+
         # get user name and password
         strUserName = strGetUserName()
         strPassword = strGetPassword()
@@ -317,32 +320,33 @@ def SubmitAbsences():
                         strEndDate
                     )
 
-                    # update the indicator
-                    blnContinue = blnContinue and len(strError) == 0
-
-                    # stop if the submission failed
-                    if not blnContinue:
+                    # prepare an error message in case the process failed
+                    if len(strError) > 0:
                         # submission check not passed, prepare error message
-                        strMessage = 'Submission of absence from '
+                        strMessage += 'FAIL: Submission of absence from '
                         strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
-                        strMessage += ', ' + tplAbsence[2] + ', failed.\n'
-                        strMessage += 'No further absences were submitted.'
+                        strMessage += ', ' + tplAbsence[2] + ', failed with '
+                        strMessage += 'the following error:\n'
+                        strMessage += strError
+                    else:
+                        # submission successfull, add the message to the log
+                        strMessage += 'SUCCESS: Submission of absence from '
+                        strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
+                        strMessage += ', ' + tplAbsence[2] + ', succeeded'
 
-                        # display the message
-                        print(strMessage)
-
-                        # break the loop
-                        break
                 else:
                     # unsupported type of absence
-                    print('Unsupported type of absence: ' + tplAbsence)
+                    strMessage = 'Unsupported type of absence: ' + tplAbsence
+
         else:
             # login failed, prepare the message
             strMessage = 'Login failed. Either you provided incorrect'
             strMessage += ' credentials or your password expired.'
-            
-            # inform the user about failed login
-            print(strMessage)
+
     else:
         # there are no calendar entries to submit
-        print('There were 0 entries read from the data file, process ends here')
+        strMessage = 'There were 0 entries read from the data file, '
+        strMessage += 'the process ends here.'
+
+    # print the results of the process
+    print(strMessage)
