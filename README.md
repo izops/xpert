@@ -37,6 +37,10 @@ system.
 Launch script called `launcher.py` and follow the instructions. The calendar
 extraction provides data in the format required for the submission to Xperience.
 
+To use the latest version of the tool, use the version available on branch
+'main'. To use a specific version of the tool, use the following command:
+`git checkout <version number>`
+
 
 ## Contact
 
