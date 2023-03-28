@@ -258,6 +258,25 @@ def lstReadData(pstrPath):
 
     return lstCalendarData
 
+def WriteLog(pstrLogText):
+    '''
+    Opens a text file in the data folder and saves contents of a string to it.
+
+    Inputs:
+        - pstrLogText - string containing text data to be saved in the log
+
+    Outputs:
+        - none, log file is created in the data folder
+    '''
+    # open a new file
+    objLog = open(g.STR_FULL_PATH_LOG, 'w')
+
+    # write the log contents
+    objLog.write(pstrLogText)
+
+    # close the file
+    objLog.close()
+
 # %% define process handling
 def SubmitAbsences():
     '''
@@ -332,7 +351,7 @@ def SubmitAbsences():
                         # submission successfull, add the message to the log
                         strMessage += 'SUCCESS: Submission of absence from '
                         strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
-                        strMessage += ', ' + tplAbsence[2] + ', succeeded'
+                        strMessage += ', ' + tplAbsence[2] + ', succeeded\n'
 
                 else:
                     # unsupported type of absence
@@ -347,6 +366,10 @@ def SubmitAbsences():
         # there are no calendar entries to submit
         strMessage = 'There were 0 entries read from the data file, '
         strMessage += 'the process ends here.'
+
+    # save the log as an external file if any absence was submitted
+    if strMessage.find('\n') >= 0:
+        WriteLog(strMessage)
 
     # print the results of the process
     print(strMessage)
