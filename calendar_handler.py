@@ -57,7 +57,7 @@ def strGetStatus(
     '''
     # put together a datetime value for checking the status
     # using arbitrary time to get data from the correct date
-    dttStartDate = dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(hours = 1)
+    dttStartDate = dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(hours = 12)
 
     # convert source time to pywin time
     objPywinTime = pywintypes.Time(dttStartDate)
