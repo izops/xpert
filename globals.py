@@ -24,7 +24,7 @@ STR_ELEMENT_XPATH_ABSENCE_TYPE += "-content ui-state-default ui-corner-left"
 STR_ELEMENT_XPATH_ABSENCE_TYPE += " ui-autocomplete-input']"
 
 # absences main menu
-STR_ELEMENT_XPATH_ABSENCE_MAIN = "//div[@class='h1' and text() = 'Absencie'"
+STR_ELEMENT_XPATH_ABSENCE_MAIN = "//div[@class='h1' and text() = 'Absencie']"
 
 # absence detail
 STR_ELEMENT_XPATH_ABSENCE_DETAIL = "//div[@class='h1' and text() = 'Detail"
@@ -41,6 +41,9 @@ STR_ELEMENT_XPATH_ABSENCE_DATE_START += " @name='startDate']"
 # absence end date
 STR_ELEMENT_XPATH_ABSENCE_DATE_END = STR_ELEMENT_XPATH_ABSENCE_DATE 
 STR_ELEMENT_XPATH_ABSENCE_DATE_END += " @name='endDate']"
+
+# absence error box
+STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
 
 # %% website keywords
 # absence keywords
@@ -135,6 +138,10 @@ STR_USER_DOMAIN = '@zurich.com'
 STR_PATH_CALENDAR_DATA = './data/'
 STR_FILE_CALENDAR_DATA = 'calendar_data.txt'
 STR_FULL_PATH_CALENDAR_DATA = STR_PATH_CALENDAR_DATA + STR_FILE_CALENDAR_DATA
+
+# log file name
+STR_FILE_LOG = 'process.log'
+STR_FULL_PATH_LOG = STR_PATH_CALENDAR_DATA + STR_FILE_LOG
 
 # calendar time period - hours
 INT_CALENDAR_TIME_UNIT_HOURS = 60

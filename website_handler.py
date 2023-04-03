@@ -128,7 +128,7 @@ def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
 
     return blnLoaded
 
-def blnAbsenceDetails(
+def strAbsenceDetails(
     pobjDriver,
     pstrAbsenceType,
     pstrDateFrom,
@@ -136,7 +136,7 @@ def blnAbsenceDetails(
 ):
     '''
     Uses selenium to fill details about specific absence. Checks if the absence
-    was submitted.
+    was submitted. If an error is identified, returns it in a string.
 
     Inputs:
         - pobjDriver - selenium webdriver used for navigating websites
@@ -146,8 +146,11 @@ def blnAbsenceDetails(
         format
 
     Outputs:
-        - blnSubmitted - indicator if the absence was successfully submitted
+        - strError - error message retrieved from the website if any found
     '''
+    # convert the date to Slovak standard (dot separator)
+    strDateFrom = pstrDateFrom.replace('/', '.')
+
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
         # find the start date input field
@@ -157,10 +160,13 @@ def blnAbsenceDetails(
         )
 
         # type in the start date
-        objDateStart.send_keys(pstrDateFrom)
+        objDateStart.send_keys(strDateFrom)
 
         # find the end date if applicable
         if len(pstrDateTo) > 0 and pstrDateFrom != pstrDateTo:
+            # convert the date to Slovak standard (dot separator)
+            strDateTo = pstrDateTo.replace('/', '.')
+
             # locate end date field
             objDateEnd = pobjDriver.find_element(
                 'xpath',
@@ -174,7 +180,7 @@ def blnAbsenceDetails(
             objDateEnd.clear()
 
             # type in the end date
-            objDateEnd.send_keys(pstrDateTo)
+            objDateEnd.send_keys(strDateTo)
 
     # for safety reasons activate notes field
     objNotes = pobjDriver.find_element(
@@ -194,18 +200,26 @@ def blnAbsenceDetails(
 
     # verify that the page loaded back to the main menu
     try:
-        pobjDriver.find_element(
+        # attempt to locate error box
+        objError = pobjDriver.find_element(
             'xpath',
-            g.STR_ELEMENT_XPATH_ABSENCE_MAIN
+            g.STR_ELEMENT_XPATH_ABSENCE_ERROR
         )
 
-        # main menu title found, the absence was submitted successfully
-        blnSubmitted = True
-    except:
-        # main menu title not found, absence failed
-        blnSubmitted = False
+        # read the error message
+        strError = objError.text
 
-    return blnSubmitted
+        # replace all line breaks with a comma
+        strError = strError.replace('\n', ', ')
+
+        # add indentation and line breaks to the error message
+        strError = '\t' + strError + '\n'
+
+    except:
+        # no error found
+        strError = ''
+
+    return strError
 
 def lstReadData(pstrPath):
     '''
@@ -219,7 +233,7 @@ def lstReadData(pstrPath):
         of start date, end date and absence type
     '''
     # verify the file exists
-    assert os.path.isfile(pstrPath), 'The file ' + pstrPath + ' does\'nt exist'
+    assert os.path.isfile(pstrPath), 'The file ' + pstrPath + ' doesn\'t exist'
 
     # open the file, read only
     objCalendarData = open(pstrPath, 'r')
@@ -244,6 +258,25 @@ def lstReadData(pstrPath):
 
     return lstCalendarData
 
+def WriteLog(pstrLogText):
+    '''
+    Opens a text file in the data folder and saves contents of a string to it.
+
+    Inputs:
+        - pstrLogText - string containing text data to be saved in the log
+
+    Outputs:
+        - none, log file is created in the data folder
+    '''
+    # open a new file
+    objLog = open(g.STR_FULL_PATH_LOG, 'w')
+
+    # write the log contents
+    objLog.write(pstrLogText)
+
+    # close the file
+    objLog.close()
+
 # %% define process handling
 def SubmitAbsences():
     '''
@@ -264,6 +297,9 @@ def SubmitAbsences():
 
     # continue if there is any calendar entry
     if len(lstCalendarData) > 0:
+        # initialize a message variable
+        strMessage = ''
+
         # get user name and password
         strUserName = strGetUserName()
         strPassword = strGetPassword()
@@ -296,36 +332,44 @@ def SubmitAbsences():
                         strEndDate = ''
 
                     # submit the absence
-                    blnContinue = blnContinue and blnAbsenceDetails(
+                    strError = strAbsenceDetails(
                         objDriver,
                         tplAbsence[2],
                         tplAbsence[0],
                         strEndDate
                     )
 
-                    # stop if the submission failed
-                    if not blnContinue:
+                    # prepare an error message in case the process failed
+                    if len(strError) > 0:
                         # submission check not passed, prepare error message
-                        strMessage = 'Submission of absence from '
+                        strMessage += 'FAIL: Submission of absence from '
                         strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
-                        strMessage += ', ' + tplAbsence[2] + ', failed.\n'
-                        strMessage += 'No further absences were submitted.'
+                        strMessage += ', ' + tplAbsence[2] + ', failed with '
+                        strMessage += 'the following error:\n'
+                        strMessage += strError
+                    else:
+                        # submission successfull, add the message to the log
+                        strMessage += 'SUCCESS: Submission of absence from '
+                        strMessage += tplAbsence[0] + ' to ' + tplAbsence[1]
+                        strMessage += ', ' + tplAbsence[2] + ', succeeded\n'
 
-                        # display the message
-                        print(strMessage)
-
-                        # break the loop
-                        break
                 else:
                     # unsupported type of absence
-                    print('Unsupported type of absence: ' + tplAbsence)
+                    strMessage = 'Unsupported type of absence: ' + tplAbsence
+
         else:
             # login failed, prepare the message
             strMessage = 'Login failed. Either you provided incorrect'
             strMessage += ' credentials or your password expired.'
-            
-            # inform the user about failed login
-            print(strMessage)
+
     else:
         # there are no calendar entries to submit
-        print('There were 0 entries read from the data file, process ends here')
+        strMessage = 'There were 0 entries read from the data file, '
+        strMessage += 'the process ends here.'
+
+    # save the log as an external file if any absence was submitted
+    if strMessage.find('\n') >= 0:
+        WriteLog(strMessage)
+
+    # print the results of the process
+    print(strMessage)
