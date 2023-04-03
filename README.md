@@ -43,7 +43,7 @@ extraction provides data in the format required for the submission to Xperience.
 
 To use the latest version of the tool, use the version available on branch
 'main'. To use a specific version of the tool, use the following command:
-`git checkout <version number>`
+`git checkout <version number>`, for example `git checkout V1.1`
 
 
 ## Contact
