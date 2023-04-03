@@ -4,7 +4,7 @@
 ## V1.1
 
 Author: Ivan Zustiak  
-Date: 23 Mar 2023  
+Date: 3 Apr 2023  
 Description:  
 - Calendar reference issue when turning to daylight saving time fixed
 - Reads error messages from Xperience when submitting the absences and logs them
