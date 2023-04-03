@@ -16,7 +16,8 @@ Installation of python with following modules required:
 
 - Every day that *does not* contain all-day meeting is considered to be
 **working from home**
-- Every day that contains all-day meeting flagged as **working elsewhere** in Outlook is considered to be **working from office**
+- Every day that contains all-day meeting flagged as **working elsewhere** in
+Outlook is considered to be **working from office**
 - Every day that contains all-day meeting flagged as **out of office** or
 **busy** is excluded from the submission to Xperience
 - If a day contains **out of office** or **working elsewhere** flagged
@@ -26,7 +27,10 @@ Xperience
 
 ## Description
 
-The xper:t bot uses Outlook API to read person's own calendar, extracts information about all day meetings and outputs the findings to a text file. It can also use the output of the calendar scraping and submit the information to Xperience attendance system.
+The xper:t bot uses Outlook API to read person's own calendar, extracts
+information about all day meetings and outputs the findings to a text file.
+It can also use the output of the calendar scraping and submit the information
+to Xperience attendance system.
 
 Note: As of now, xper:t can only submit home office absences to Xperience
 system.
