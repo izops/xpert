@@ -47,12 +47,12 @@ STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
 
 # %% website keywords
 # absence keywords
-STR_ABSENCE_TYPE_HOME_OFFICE = 'home office'
-STR_ABSENCE_TYPE_DOCTOR = 'doctor'
-STR_ABSENCE_TYPE_PERSONAL_DAY = 'personal day'
-STR_ABSENCE_TYPE_VACATION = 'vacation'
-STR_ABSENCE_TYPE_SICK_LEAVE = 'sick leave'
-STR_ABSENCE_TYPE_NONE = 'working from office'
+STR_ABSENCE_TYPE_HOME_OFFICE = 'Home office'
+STR_ABSENCE_TYPE_DOCTOR = 'Doctor'
+STR_ABSENCE_TYPE_PERSONAL_DAY = 'Personal day'
+STR_ABSENCE_TYPE_VACATION = 'Vacation'
+STR_ABSENCE_TYPE_SICK_LEAVE = 'Sick leave'
+STR_ABSENCE_TYPE_NONE = 'Working from office'
 
 # %% regular expressions
 # data input - date start, date end, absence type
@@ -112,12 +112,20 @@ STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
 STR_UI_OFFER += '\t3. Analyze my calendar and then submit my absences to '
 STR_UI_OFFER += 'Xperience\n'
 
-LST_UI_ANSWERS = ['1', '2', '3', 'c', 'cancel', 'c(ancel)']
+LST_UI_ANSWERS_PROCESS = ['1', '2', '3', 'c', 'cancel', 'c(ancel)']
 
 # process choices
 INT_UI_CHOICE_CALENDAR = 1
 INT_UI_CHOICE_XPERIENCE = 2
 INT_UI_CHOICE_ALL = 3
+
+# request home office convention
+STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
+STR_UI_REQUEST_CONVENTION += 'elsewhere\' all day appointment:\n'
+STR_UI_REQUEST_CONVENTION += '\t1. Working elsewhere means I work from home\n'
+STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from office\n'
+
+LST_UI_ANSWERS_CONVENTION = ['1', '2']
 
 # request date inputs
 STR_UI_REQUEST_DATE = 'Please, provide <PLACEHOLDER> date in YYYYMMDD format:\n'
