@@ -105,21 +105,41 @@ def strConvertDate(pdttDateTime):
 
     return strConverted
 
-def strConvertAbsence(pintAbsenceCode, pblnXperience = False):
+def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
     '''
     Converts Outlook absence code to word representation corresponding with the
     selected output type
 
     Inputs:
         - pintAbsenceCode - Outlook API numeric code of meeting status
-        - pblnXperience - optional boolean indicator if the values should be
-        converted to Outlook or Xperience naming, default output is Outlook
+        - pblnOfficeFocused - optional boolean indicator if the values should be
+        converted with 'working elsewhere' used as home office (True) or as
+        working from home (False)
 
     Outputs:
         - strAbsence - word representation of the corresponding meeting status
     '''
-    if pblnXperience:
-        # use xperience naming
+    if pblnOfficeFocused:
+        # use office-focused naming
+        if pintAbsenceCode == g.INT_MEETING_FREE:
+            # working from office
+            strAbsence = g.STR_ABSENCE_TYPE_NONE
+        elif pintAbsenceCode == g.INT_MEETING_TENTATIVE:
+            strAbsence = g.STR_MEETING_TENTATIVE
+        elif pintAbsenceCode == g.INT_MEETING_BUSY:
+            strAbsence = g.STR_MEETING_BUSY
+        elif pintAbsenceCode == g.INT_MEETING_OUT_OF_OFFICE:
+            strAbsence = g.STR_MEETING_OUT_OF_OFFICE
+        elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
+            # working from home
+            strAbsence = g.STR_ABSENCE_TYPE_HOME_OFFICE
+        elif pintAbsenceCode == g.INT_MEETING_MIXED:
+            # mixed absences
+            strAbsence = g.STR_MEETING_MIXED
+        else:
+            strAbsence = 'Unknown absence code'
+    else:
+        # use home-office-focused naming
         if pintAbsenceCode == g.INT_MEETING_FREE:
             # working from home
             strAbsence = g.STR_ABSENCE_TYPE_HOME_OFFICE
@@ -132,23 +152,6 @@ def strConvertAbsence(pintAbsenceCode, pblnXperience = False):
         elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
             # working from office
             strAbsence = g.STR_ABSENCE_TYPE_NONE
-        elif pintAbsenceCode == g.INT_MEETING_MIXED:
-            # mixed absences
-            strAbsence = g.STR_MEETING_MIXED
-        else:
-            strAbsence = 'Unknown absence code'
-    else:
-        # use standard outlook naming
-        if pintAbsenceCode == g.INT_MEETING_FREE:
-            strAbsence = g.STR_MEETING_FREE
-        elif pintAbsenceCode == g.INT_MEETING_TENTATIVE:
-            strAbsence = g.STR_MEETING_TENTATIVE
-        elif pintAbsenceCode == g.INT_MEETING_BUSY:
-            strAbsence = g.STR_MEETING_BUSY
-        elif pintAbsenceCode == g.INT_MEETING_OUT_OF_OFFICE:
-            strAbsence = g.STR_MEETING_OUT_OF_OFFICE
-        elif pintAbsenceCode == g.INT_MEETING_WORKING_ELSEWHERE:
-            strAbsence = g.STR_MEETING_WORKING_ELSEWHERE
         else:
             strAbsence = 'Unknown absence code'
 
@@ -332,7 +335,7 @@ def lstAggregateCalendarOutput(plstDailyStatus):
 
     return lstStatuses
 
-def lstConvertAggregatedOutput(plstAggregatedData, pblnXperienceOutput = False):
+def lstConvertAggregatedOutput(plstAggregatedData, pblnOfficeFocused = True):
     '''
     Converts list of aggregated data with time period and corresponding statuses
     to a human-readable form containing dates in DD/MM/YYYY format and word
@@ -341,9 +344,9 @@ def lstConvertAggregatedOutput(plstAggregatedData, pblnXperienceOutput = False):
     Inputs:
         - plstAggregatedData - list of tuples containing start date, end date,
         and status. Dates are datetime objects, status is an Outlook constant
-        - pblnXperienceOutput - optional boolean indicator to specify if the
-        output should be converted to output submittable to xperience, default
-        value is set to false (= Outlook output chosen instead)
+        - pblnOfficeFocused - optional boolean indicator to specify the calendar
+        convention for working elsewhere as either home office (True) or work
+        from office (False)
 
     Outputs:
         - lstStringOutput - list of tuples containing start, end dates in
@@ -364,7 +367,7 @@ def lstConvertAggregatedOutput(plstAggregatedData, pblnXperienceOutput = False):
         strConvertedEntry += '\t'
 
         # convert status and add a line break
-        strConvertedEntry += strConvertAbsence(tplEntry[2], pblnXperienceOutput)
+        strConvertedEntry += strConvertAbsence(tplEntry[2], pblnOfficeFocused)
         strConvertedEntry += '\n'
 
         # append the converted entry to the list
@@ -392,7 +395,7 @@ def OutputCalendarData(plstStringData):
     objOutput.close()
 
 # %% run the process
-def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnXperience = False):
+def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
     '''
     Runs the process of the calendar analysis in the requested time period.
     Reads the calendar data from own Outlook calendar, aggregates the output
@@ -402,8 +405,10 @@ def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnXperience = False):
     Inputs:
         - pstrDateStart - start date of the calendar analysis in YYYYMMDD format
         - pstrDateEnd - end date of the calendar analysis in YYYYMMDD format
-        - pblnXperience - boolean indicator if the output should be in Xperience
-        or standard format, default set to standard
+        - pblnOfficeFocused - optional boolean indicator to specify the calendar
+        convention for working elsewhere as either home office (True) or work
+        from office (False)
+
 
     Outputs:
         - None, a text file with the calendar data in the requested format is
@@ -419,7 +424,7 @@ def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnXperience = False):
     lstCalendar = lstAggregateCalendarOutput(lstCalendar)
 
     # convert the calendar info to Xperience output
-    lstCalendar = lstConvertAggregatedOutput(lstCalendar, pblnXperience)
+    lstCalendar = lstConvertAggregatedOutput(lstCalendar, pblnOfficeFocused)
 
     # output the calendar data to a file
     OutputCalendarData(lstCalendar)

@@ -47,12 +47,12 @@ STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
 
 # %% website keywords
 # absence keywords
-STR_ABSENCE_TYPE_HOME_OFFICE = 'home office'
-STR_ABSENCE_TYPE_DOCTOR = 'doctor'
-STR_ABSENCE_TYPE_PERSONAL_DAY = 'personal day'
-STR_ABSENCE_TYPE_VACATION = 'vacation'
-STR_ABSENCE_TYPE_SICK_LEAVE = 'sick leave'
-STR_ABSENCE_TYPE_NONE = 'working from office'
+STR_ABSENCE_TYPE_HOME_OFFICE = 'Home office'
+STR_ABSENCE_TYPE_DOCTOR = 'Doctor'
+STR_ABSENCE_TYPE_PERSONAL_DAY = 'Personal day'
+STR_ABSENCE_TYPE_VACATION = 'Vacation'
+STR_ABSENCE_TYPE_SICK_LEAVE = 'Sick leave'
+STR_ABSENCE_TYPE_NONE = 'Working from office'
 
 # %% regular expressions
 # data input - date start, date end, absence type
