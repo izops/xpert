@@ -13,10 +13,30 @@ import getpass
 import time
 import re
 import os
+import unicodedata
 
 # import scripts
 import globals as g
 
+# %% define helper functions
+def strNormalizeToASCII(pstrInput):
+    '''
+    Normalizes non-ASCII string to the best corresponding ASCII match
+
+    Inputs:
+        - pstrInput - input string to clean up
+
+    Outputs:
+        - string cleaned of all non ascii characters to their best match
+    '''
+    # remove all non ASCII characters from the string
+    strOutput = ''.join(
+        strChar for strChar in unicodedata.normalize('NFD', pstrInput)
+        if unicodedata.category(strChar) != 'Mn'
+    )
+
+    return strOutput
+    
 # %% define user interaction functions
 def strGetUserName():
     '''
@@ -208,6 +228,9 @@ def strAbsenceDetails(
 
         # read the error message
         strError = objError.text
+
+        # normalize non ascii characters
+        strError = strNormalizeToASCII(strError)
 
         # replace all line breaks with a comma
         strError = strError.replace('\n', ', ')
