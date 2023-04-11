@@ -13,10 +13,30 @@ import getpass
 import time
 import re
 import os
+import unicodedata
 
 # import scripts
 import globals as g
 
+# %% define helper functions
+def strNormalizeToASCII(pstrInput):
+    '''
+    Normalizes non-ASCII string to the best corresponding ASCII match
+
+    Inputs:
+        - pstrInput - input string to clean up
+
+    Outputs:
+        - string cleaned of all non ascii characters to their best match
+    '''
+    # remove all non ASCII characters from the string
+    strOutput = ''.join(
+        strChar for strChar in unicodedata.normalize('NFD', pstrInput)
+        if unicodedata.category(strChar) != 'Mn'
+    )
+
+    return strOutput
+    
 # %% define user interaction functions
 def strGetUserName():
     '''
@@ -209,6 +229,9 @@ def strAbsenceDetails(
         # read the error message
         strError = objError.text
 
+        # normalize non ascii characters
+        strError = strNormalizeToASCII(strError)
+
         # replace all line breaks with a comma
         strError = strError.replace('\n', ', ')
 
@@ -317,7 +340,9 @@ def SubmitAbsences():
             # if login successful, add the absence entry for each data point
             for tplAbsence in lstCalendarData:
                 # work with home office data for now
-                if tplAbsence[2].lower() == g.STR_ABSENCE_TYPE_HOME_OFFICE:
+                if tplAbsence[
+                    2
+                ].lower() == g.STR_ABSENCE_TYPE_HOME_OFFICE.lower():
                     # open a new absence entry
                     blnContinue = blnOpenNewAbsence(
                         objDriver,
@@ -355,7 +380,7 @@ def SubmitAbsences():
 
                 else:
                     # unsupported type of absence
-                    strMessage = 'Unsupported type of absence: ' + tplAbsence
+                    strMessage = 'Unsupported type of absence: ' + tplAbsence[2]
 
         else:
             # login failed, prepare the message

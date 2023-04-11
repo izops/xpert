@@ -8,6 +8,8 @@ Date: 11 Apr 2023
 Description:  
 - User can choose from the convention - either 'working elsewhere' is considered
 to be a home office absence, or it is considered to be a work from office
+- Error messages from Xperience are normalized to avoid process failure from
+diacritic
 
 Outlook convention:  
 - User can choose which is flagged as working elsewhere - home office or work
