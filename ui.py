@@ -95,7 +95,7 @@ def strGetDate(pstrPlaceholderReplacement):
     return strDate
 
 # %% define the master method to launch the process parts
-def RunProcess(pintChoice, pstrConvention):
+def RunProcess(pintChoice):
     '''
     Based on the input runs Outlook calendar analysis, submission of absences to
     Xperience or both
@@ -106,17 +106,20 @@ def RunProcess(pintChoice, pstrConvention):
     Outputs:
         - None, either one or two processes are run
     '''
-    # get the calendar convention
-    if pstrConvention == g.LST_UI_ANSWERS_CONVENTION[0]:
-        blnOfficeFocused = True
-    else:
-        blnOfficeFocused = False
-
     # analyze the calendar
     if pintChoice in [g.INT_UI_CHOICE_CALENDAR, g.INT_UI_CHOICE_ALL]:
         # request the starting and ending point for the calendar analysis
         strDateStart = strGetDate(g.STR_UI_REQUEST_DATE_START)
         strDateEnd = strGetDate(g.STR_UI_REQUEST_DATE_END)
+
+        # get the calendar convention
+        strConvention = strGetCalendarConvention()
+
+        # create boolean parameter based on the output from convention check
+        if strConvention == g.LST_UI_ANSWERS_CONVENTION[0]:
+            blnOfficeFocused = True
+        else:
+            blnOfficeFocused = False
 
         # launch the calendar analysis
         c.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
