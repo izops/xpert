@@ -317,7 +317,9 @@ def SubmitAbsences():
             # if login successful, add the absence entry for each data point
             for tplAbsence in lstCalendarData:
                 # work with home office data for now
-                if tplAbsence[2].lower() == g.STR_ABSENCE_TYPE_HOME_OFFICE:
+                if tplAbsence[
+                    2
+                ].lower() == g.STR_ABSENCE_TYPE_HOME_OFFICE.lower():
                     # open a new absence entry
                     blnContinue = blnOpenNewAbsence(
                         objDriver,
@@ -355,7 +357,7 @@ def SubmitAbsences():
 
                 else:
                     # unsupported type of absence
-                    strMessage = 'Unsupported type of absence: ' + tplAbsence
+                    strMessage = 'Unsupported type of absence: ' + tplAbsence[2]
 
         else:
             # login failed, prepare the message
