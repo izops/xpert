@@ -1,4 +1,5 @@
 # Release notes
+
 --------------------------------------------------------------------------------
 ## V1.2
 
@@ -13,6 +14,7 @@ Outlook convention:
 from office
 - Out of office (full day or partial) appointments are not considered for
 Xperience submission, partial working elsewhere is not considered either
+
 --------------------------------------------------------------------------------
 ## V1.1
 
@@ -27,6 +29,7 @@ about the success or failure of the absence submission
   
 Outlook convention:  
 The convention is the same as in `V1.0`
+
 --------------------------------------------------------------------------------
 ## V1.0
 
