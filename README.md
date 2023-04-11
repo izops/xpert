@@ -14,16 +14,13 @@ Installation of python with following modules required:
 
 ## Outlook convention
 
-- Every day that *does not* contain all-day meeting is considered to be
-**working from home**
-- Every day that contains all-day meeting flagged as **working elsewhere** in
-Outlook is considered to be **working from office**
-- Every day that contains all-day meeting flagged as **out of office** or
-**busy** is excluded from the submission to Xperience
-- If a day contains **out of office** or **working elsewhere** flagged
-meeting(s) for only part of the day, is excluded from the submission to
-Xperience
+Depending on the version of xper:t there is a possibility to choose from a
+convention of flagging a day as working from home/working from office. Please,
+read the release notes to understand the convention.
 
+Only the days containing all-day meeting flagged as 'working elsewhere', and 
+the days containing no all-day meeting are considered for the submission to
+Xperience system.
 
 ## Description
 
