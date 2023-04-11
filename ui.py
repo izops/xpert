@@ -31,7 +31,7 @@ def intGreeting():
     strProcess = None
 
     # ask for an input until a valid answer is provided
-    while str(strProcess).lower() not in g.LST_UI_ANSWERS:
+    while str(strProcess).lower() not in g.LST_UI_ANSWERS_PROCESS:
         # add a warning if this is not the first time
         if not strProcess is None:
             print('Please, input values from the provided list')
@@ -39,7 +39,7 @@ def intGreeting():
         # display the options
         strProcess = input(g.STR_UI_OFFER)
 
-    if strProcess in g.LST_UI_ANSWERS[:3]:
+    if strProcess in g.LST_UI_ANSWERS_PROCESS[:3]:
         # the user accepted, change the indicator
         intContinue = int(strProcess)
     else:
@@ -47,6 +47,26 @@ def intGreeting():
         print(g.STR_UI_GOODBYE_CANCEL)
 
     return intContinue
+
+def strGetCalendarConvention():
+    '''
+    Requests user input for a valid calendar convention defined in a list
+
+    Inputs:
+        - None
+
+    Outputs:
+        - strConvention - string value representing one of the possible choices
+        of the calendar convention
+    '''
+    # set the default value
+    strConvention = ''
+
+    # ask user for the convention until valid answer is provided
+    while strConvention not in g.LST_UI_ANSWERS_CONVENTION:
+        strConvention = input(g.STR_UI_REQUEST_CONVENTION)
+
+    return strConvention
 
 def strGetDate(pstrPlaceholderReplacement):
     '''
