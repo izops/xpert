@@ -8,7 +8,8 @@ STR_URL_LOGIN = 'https://my.xperience.app/zurich/login.jsp'
 STR_URL_ADD_ABSENCE = 'https://my.xperience.app/zurich/web/timesystem?'
 STR_URL_ADD_ABSENCE += '__mvcevent=absenceList&id=0'
 
-# %% selenium elements - IDs
+# %% selenium elements - submission of absences
+# IDs
 STR_ELEMENT_ID_USERNAME = 'user'
 STR_ELEMENT_ID_PASSWORD = 'pwd'
 STR_ELEMENT_ID_LOGIN = 'loginButton'
@@ -16,7 +17,7 @@ STR_ELEMENT_ID_LOGIN_ERROR = 'errorBox'
 STR_ELEMENT_ID_ABSENCE_NOTE = 'absenceDetailFM_note'
 STR_ELEMENT_ID_ABSENCE_SUBMIT = 'absenceDetailFM_submitRequest'
 
-# %% selenium elements - xpaths
+# xpaths
 # absence type dropdown
 STR_ELEMENT_XPATH_ABSENCE_TYPE = "//input[@class='ng-scope ng-isolate-scope"
 STR_ELEMENT_XPATH_ABSENCE_TYPE += " custom-combobox-input ui-widget ui-widget"
@@ -44,6 +45,9 @@ STR_ELEMENT_XPATH_ABSENCE_DATE_END += " @name='endDate']"
 
 # absence error box
 STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
+
+# %% selenium elements - download of submitted absences
+
 
 # %% website keywords
 # absence keywords
