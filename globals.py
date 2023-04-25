@@ -8,6 +8,10 @@ STR_URL_LOGIN = 'https://my.xperience.app/zurich/login.jsp'
 STR_URL_ADD_ABSENCE = 'https://my.xperience.app/zurich/web/timesystem?'
 STR_URL_ADD_ABSENCE += '__mvcevent=absenceList&id=0'
 
+# list absences URL
+STR_URL_LIST_ABSENCES = 'https://my.xperience.app/zurich/web/timesystem?__'
+STR_URL_LIST_ABSENCES += 'mvcevent=absenceList'
+
 # %% selenium elements - submission of absences
 # IDs
 STR_ELEMENT_ID_USERNAME = 'user'
