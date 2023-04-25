@@ -12,16 +12,15 @@ import globals as g
 
 # %% define functions
 def objCreateRecipient():
-    '''
-    Create Outlook recipient object using the email address of the user logged
-    in Windows
+    """Create Outlook recipient object using the email address of the user
+    logged in Windows.
 
     Inputs:
         - None
 
     Outputs:
         - objRecipient - Outlook recipient object
-    '''
+    """
     # initialize Outlook application and connect to its namespace
     objOutlook = win32com.client.Dispatch('Outlook.Application')
     objNamespace = objOutlook.GetNamespace('MAPI')
@@ -39,8 +38,7 @@ def strGetStatus(
     pstrYYYYMMDD,
     pintTimeInterval
 ):
-    '''
-    Get calendar status in Outlook API form for the specified recipient
+    """Get calendar status in Outlook API form for the specified recipient
     starting by a specific date at midnight in the local timezone. Each
     character of the return string represents a unit of time interval in minutes
     defined in input.
@@ -54,7 +52,7 @@ def strGetStatus(
     Outputs:
         - strCalendarStatus - characters representing time interval calendar
         availability from requested time up to 30 days
-    '''
+    """
     # put together a datetime value for checking the status
     # using arbitrary time to get data from the correct date
     dttStartDate = dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(hours = 12)
@@ -72,15 +70,14 @@ def strGetStatus(
     return strCalendarStatus
 
 def dttConvertDate(pstrYYYYMMDD):
-    '''
-    Converts YYYYMMDD string date to datetime object
+    """Convert YYYYMMDD string date to datetime object.
 
     Inputs:
         - pstrYYYYMMDD - string date in YYYYMMDD format
 
     Outputs:
         - dttConverted - converted date as a datetime object
-    '''
+    """
     # parse the data from string and convert to datetime
     dttConverted = datetime.datetime(
         int(pstrYYYYMMDD[:4]),
@@ -91,24 +88,22 @@ def dttConvertDate(pstrYYYYMMDD):
     return dttConverted
 
 def strConvertDate(pdttDateTime):
-    '''
-    Converts datetime object into date in YYYYMMDD format
+    """Convert datetime object into date in YYYYMMDD format.
 
     Inputs:
         - pdttDateTime - datetime object
 
     Outputs:
         - strConverted - string representation of a date in YYYYMMDD format
-    '''
+    """
     # convert date to YYYYMMDD date
     strConverted = pdttDateTime.strftime('%Y%m%d')
 
     return strConverted
 
 def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
-    '''
-    Converts Outlook absence code to word representation corresponding with the
-    selected output type
+    """Convert Outlook absence code to word representation corresponding
+    with the selected output type.
 
     Inputs:
         - pintAbsenceCode - Outlook API numeric code of meeting status
@@ -118,7 +113,7 @@ def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
 
     Outputs:
         - strAbsence - word representation of the corresponding meeting status
-    '''
+    """
     if pblnOfficeFocused:
         # use office-focused naming
         if pintAbsenceCode == g.INT_MEETING_FREE:
@@ -158,8 +153,7 @@ def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
     return strAbsence
 
 def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
-    '''
-    Retrieves all calendar statuses in a given time period
+    """Retrieve all calendar statuses in a given time period.
 
     Inputs:
         - pstrDateStart - start date of the analyzed period in YYYYMMDD format,
@@ -170,7 +164,7 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
     Outputs:
         - lstStatuses - list of 24 hour calendar meeting statuses from the
         requested period
-    '''
+    """
     # create Outlook recipient
     objRecipient = objCreateRecipient()
 
@@ -202,8 +196,7 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
     return lstStatuses
 
 def intAnalyzeCalendarStatus(pstrStatus):
-    '''
-    Analyzes a stream of calendar statuses on full-day basis. Returns overall
+    """Analyze a stream of calendar statuses on full-day basis. Return overall
     daily status based on all-day meeting types. If no full day meeting is
     present, free status is returned.
 
@@ -214,7 +207,7 @@ def intAnalyzeCalendarStatus(pstrStatus):
     Outputs:
         - intFullDayStatus - status of an entire day, if no full day meeting is
         in the calendar, free status is returned
-    '''
+    """
     # check the all day statuses against the Outlook values
     if pstrStatus == str(g.INT_MEETING_OUT_OF_OFFICE) * 24:
         # full day out of office
@@ -243,8 +236,7 @@ def lstGetFullDayOutputInPeriod(
     pstrPeriodEnd,
     blnRemoveWeekend = True
 ):
-    '''
-    Returns a list of tuples containing daily calendar status for every day in
+    """Return a list of tuples containing daily calendar status for every day in
     the specified period, including the start and the end days. It is possible
     to exclude weekend days from the status analysis.
 
@@ -258,7 +250,7 @@ def lstGetFullDayOutputInPeriod(
         - lstCalendarPeriod - list of tuples containing start date, end date,
         and calendar status. Dates are returned as datetime objects and the
         status is an Outlook API constant
-    '''
+    """
     # get calendar statuses for every day
     lstCalendarStatuses = lstGetCalendarStatuses(pstrPeriodStart, pstrPeriodEnd)
 
@@ -288,8 +280,7 @@ def lstGetFullDayOutputInPeriod(
     return lstCalendarPeriod
 
 def lstAggregateCalendarOutput(plstDailyStatus):
-    '''
-    Aggregates consecutive days of same status into a single record
+    """Aggregate consecutive days of same status into a single record.
 
     Inputs:
         - plstDailyStatus - list of tuples containing start date, end date and
@@ -298,7 +289,7 @@ def lstAggregateCalendarOutput(plstDailyStatus):
 
     Outputs:
         - lstStatuses - list of aggregated dates
-    '''
+    """
     # to avoid modifying the original list, clone the input
     lstStatuses = plstDailyStatus.copy()
 
@@ -336,10 +327,9 @@ def lstAggregateCalendarOutput(plstDailyStatus):
     return lstStatuses
 
 def lstConvertAggregatedOutput(plstAggregatedData, pblnOfficeFocused = True):
-    '''
-    Converts list of aggregated data with time period and corresponding statuses
-    to a human-readable form containing dates in DD/MM/YYYY format and word
-    descriptions of the availability statuses
+    """Convert list of aggregated data with time period and corresponding
+    statuses to a human-readable form containing dates in DD/MM/YYYY format 
+    and word descriptions of the availability statuses.
 
     Inputs:
         - plstAggregatedData - list of tuples containing start date, end date,
@@ -352,7 +342,7 @@ def lstConvertAggregatedOutput(plstAggregatedData, pblnOfficeFocused = True):
         - lstStringOutput - list of tuples containing start, end dates in
         DD/MM/YYYY formats, and calendar all day status either in Outlook or
         Xperience format
-    '''
+    """
     # initialize a list for outputs
     lstStringOutput = []
 
@@ -376,15 +366,14 @@ def lstConvertAggregatedOutput(plstAggregatedData, pblnOfficeFocused = True):
     return lstStringOutput
 
 def OutputCalendarData(plstStringData):
-    '''
-    Stores the provided data in a text file.
+    """Store the provided data in a text file.
 
     Inputs:
         - plstStringData - list of data rows to be saved
 
     Outputs:
         - None, a new text file is created to contain the provided data
-    '''
+    """
     # open a new text file for writing
     objOutput = open(g.STR_FULL_PATH_CALENDAR_DATA, 'w')
 
@@ -396,10 +385,9 @@ def OutputCalendarData(plstStringData):
 
 # %% run the process
 def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
-    '''
-    Runs the process of the calendar analysis in the requested time period.
-    Reads the calendar data from own Outlook calendar, aggregates the output
-    based on the absence types and converts the results to a readable output.
+    """Run the process of the calendar analysis in the requested time period.
+    Read the calendar data from own Outlook calendar, aggregate the output
+    based on the absence types and convert the results to a readable output.
     The output is then saved to a text file.
 
     Inputs:
@@ -413,7 +401,7 @@ def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
     Outputs:
         - None, a text file with the calendar data in the requested format is
         created
-    '''
+    """
     # retrieve all 
     lstCalendar = lstGetFullDayOutputInPeriod(
         pstrDateStart,
