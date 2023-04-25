@@ -47,7 +47,24 @@ STR_ELEMENT_XPATH_ABSENCE_DATE_END += " @name='endDate']"
 STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
 
 # %% selenium elements - download of submitted absences
+# IDs
+STR_ELEMENT_ID_DATE_FROM = 'absenceRequestListTM_fd_dateFrom'
+STR_ELEMENT_ID_DATE_TO = 'absenceRequestListTM_fd_dateTo'
+STR_ELEMENT_ID_CHECKBOX_APPROVED = 'checkfia_status1'
+STR_ELEMENT_ID_CHECKBOX_CLOSED = 'checkfia_status3'
+STR_ELEMENT_ID_BUTTON_FILTER = 'absenceRequestListTM__find'
 
+
+# xpaths
+# filter
+STR_ELEMENT_XPATH_STATUS = '//input[@class = "ui-widget ui-widget-content ui-'
+STR_ELEMENT_XPATH_STATUS += 'corner-left ui-autocomplete-input"]'
+STR_ELEMENT_XPATH_TYPE = '//input[@class = "ng-scope ng-isolate-scope custom-'
+STR_ELEMENT_XPATH_TYPE += 'combobox-input ui-widget ui-widget-content ui-state-'
+STR_ELEMENT_XPATH_TYPE += 'default ui-corner-left ui-autocomplete-input"]'
+
+# table
+STR_ELEMENT_XPATH_TABLE = '//tbody[@class = "data"]'
 
 # %% website keywords
 # absence keywords
