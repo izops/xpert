@@ -6,14 +6,10 @@
 # %% import modules
 # selenium elements
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 
 # other modules
-import getpass
-import time
 import re
 import os
-import unicodedata
 import sys
 
 # import scripts
@@ -21,7 +17,7 @@ sys.path.append('../emea_oth_xpert/')
 import globals as g
 import web.credentials as c
 import web.common_web_fucntions as cwf
-import web.absence_submission as was
+import web.absence_functions as was
 import general.general_functions as gf
 
 # %% define functions for handling the browser

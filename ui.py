@@ -9,7 +9,7 @@ import globals as g
 import calendar_handler as c
 
 sys.path.append('../emea_oth_xpert')
-import web.website_handler as w
+import web.submit_absences as w
 
 # %% define user interaction methods
 def intGreeting():
