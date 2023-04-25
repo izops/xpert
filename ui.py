@@ -4,10 +4,12 @@
 
 # %% import modules
 import re
-
+import sys
 import globals as g
 import calendar_handler as c
-import website_handler as w
+
+sys.path.append('../emea_oth_xpert')
+import web.website_handler as w
 
 # %% define user interaction methods
 def intGreeting():
