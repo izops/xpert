@@ -1,9 +1,42 @@
 # %% import modules
 import unicodedata
+import datetime
 
 import globals as g
 
 # %% define general functions unrelated specifically to any process
+def dttConvertDate(pstrYYYYMMDD):
+    """Convert YYYYMMDD string date to datetime object.
+
+    Inputs:
+        - pstrYYYYMMDD - string date in YYYYMMDD format
+
+    Outputs:
+        - dttConverted - converted date as a datetime object
+    """
+    # parse the data from string and convert to datetime
+    dttConverted = datetime.datetime(
+        int(pstrYYYYMMDD[:4]),
+        int(pstrYYYYMMDD[4:6]),
+        int(pstrYYYYMMDD[6:])
+    )
+
+    return dttConverted
+
+def strConvertDate(pdttDateTime):
+    """Convert datetime object into date in YYYYMMDD format.
+
+    Inputs:
+        - pdttDateTime - datetime object
+
+    Outputs:
+        - strConverted - string representation of a date in YYYYMMDD format
+    """
+    # convert date to YYYYMMDD date
+    strConverted = pdttDateTime.strftime('%Y%m%d')
+
+    return strConverted
+
 def strNormalizeToASCII(pstrInput):
     """Normalize non-ASCII string to the best corresponding ASCII match.
 
