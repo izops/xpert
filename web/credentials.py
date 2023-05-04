@@ -1,5 +1,6 @@
 # %% import modules
-import getpass
+import maskpass
+import os
 import globals as g
 
 # %% define functions to obtain credentials
@@ -14,7 +15,7 @@ def strGetUserName():
         - strUserName - corporate email address based on environment username
     """
     # get user name from the local environment
-    strUserName = getpass.getuser() + g.STR_USER_DOMAIN
+    strUserName = os.getlogin() + g.STR_USER_DOMAIN
 
     return strUserName
 
@@ -32,6 +33,6 @@ def strGetPassword():
     strMessage += ' (it will be hidden and discarded afterwards)\n'
 
     # ask user for their password
-    strPassword = getpass.getpass(strMessage)
+    strPassword = maskpass.askpass(strMessage)
 
     return strPassword
