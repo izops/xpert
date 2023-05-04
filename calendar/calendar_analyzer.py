@@ -1,9 +1,10 @@
-# %%
-# Contains methods and functions to acquire and output data from Outlook 
-# calendar
-
 # %% import modules
-import globals as g
+import sys
+
+# import scripts
+sys.path.append('../emea_oth_xpert/')
+import analyze_calendar as ac
+import read_calendar as rc
 
 # %% define calendar analysis method
 def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
@@ -24,16 +25,16 @@ def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
         created
     """
     # retrieve all 
-    lstCalendar = lstGetFullDayOutputInPeriod(
+    lstCalendar = rc.lstGetFullDayOutputInPeriod(
         pstrDateStart,
         pstrDateEnd
     )
 
     # aggregate the days with the same output
-    lstCalendar = lstAggregateCalendarOutput(lstCalendar)
+    lstCalendar = ac.lstAggregateCalendarOutput(lstCalendar)
 
     # convert the calendar info to Xperience output
-    lstCalendar = lstConvertAggregatedOutput(lstCalendar, pblnOfficeFocused)
+    lstCalendar = ac.lstConvertAggregatedOutput(lstCalendar, pblnOfficeFocused)
 
     # output the calendar data to a file
-    OutputCalendarData(lstCalendar)
+    ac.OutputCalendarData(lstCalendar)
