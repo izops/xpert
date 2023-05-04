@@ -2,8 +2,14 @@
 import win32com.client
 import getpass
 import pywintypes
+import datetime
+import sys
 
+# import scripts
+sys.path.append('../emea_oth_xpert/')
 import globals as g
+import general.general_functions as gf
+import analyze_calendar as ac
 
 # %% define functions and methods required for analysis of existing absences
 def objCreateRecipient():
@@ -50,7 +56,9 @@ def strGetStatus(
     """
     # put together a datetime value for checking the status
     # using arbitrary time to get data from the correct date
-    dttStartDate = dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(hours = 12)
+    dttStartDate = gf.dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(
+        hours = 12
+    )
 
     # convert source time to pywin time
     objPywinTime = pywintypes.Time(dttStartDate)
@@ -81,8 +89,8 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
     objRecipient = objCreateRecipient()
 
     # convert the date to the datetime value
-    dttDateCurrent = dttConvertDate(pstrDateStart)
-    dttDateEnd = dttConvertDate(pstrDateEnd)
+    dttDateCurrent = gf.dttConvertDate(pstrDateStart)
+    dttDateEnd = gf.dttConvertDate(pstrDateEnd)
 
     # initialize a list of calendar statuses
     lstStatuses = []
@@ -92,7 +100,7 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
         # get status of the calendar for the day by hours
         strStatus = strGetStatus(
             objRecipient,
-            strConvertDate(dttDateCurrent),
+            gf.strConvertDate(dttDateCurrent),
             g.INT_CALENDAR_TIME_UNIT_HOURS
         )
 
@@ -131,7 +139,7 @@ def lstGetFullDayOutputInPeriod(
     lstCalendarStatuses = lstGetCalendarStatuses(pstrPeriodStart, pstrPeriodEnd)
 
     # convert the start date to datetime
-    dttCurrentDay = dttConvertDate(pstrPeriodStart)
+    dttCurrentDay = gf.dttConvertDate(pstrPeriodStart)
 
     # initialize a list of full day output in the period
     lstCalendarPeriod = []
@@ -142,7 +150,7 @@ def lstGetFullDayOutputInPeriod(
         if (dttCurrentDay.weekday() < 5 and blnRemoveWeekend) \
         or not blnRemoveWeekend:
             # get the all day status of the day
-            intAllDayStatus = intAnalyzeCalendarStatus(strCurrentStatus)
+            intAllDayStatus = ac.intAnalyzeCalendarStatus(strCurrentStatus)
             
             # store the date from, date to and status
             tplDailyStatus = (dttCurrentDay, dttCurrentDay, intAllDayStatus)
