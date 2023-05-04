@@ -1,4 +1,9 @@
 # %% import modules
+import win32com.client
+import getpass
+import pywintypes
+
+import globals as g
 
 # %% define functions and methods required for analysis of existing absences
 def objCreateRecipient():
