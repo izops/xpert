@@ -3,8 +3,8 @@ import sys
 
 # import scripts
 sys.path.append('../emea_oth_xpert/')
-import analyze_calendar as ac
-import read_calendar as rc
+import calendar_works.analyze_calendar as ac
+import calendar_works.read_calendar as rc
 
 # %% define calendar analysis method
 def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):

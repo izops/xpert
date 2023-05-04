@@ -9,7 +9,7 @@ import sys
 sys.path.append('../emea_oth_xpert/')
 import globals as g
 import general.general_functions as gf
-import analyze_calendar as ac
+import calendar_works.analyze_calendar as ac
 
 # %% define functions and methods required for analysis of existing absences
 def objCreateRecipient():

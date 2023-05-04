@@ -1,11 +1,11 @@
 # %% import modules
 import sys
-import globals as g
-import calendar_handler as c
 
 sys.path.append('../emea_oth_xpert')
+import globals as g
 import web.submit_absences as w
 import ui.absences_inputs as abi
+import calendar_works.calendar_analyzer as ca
 
 # %% define the master method to launch the process parts
 def RunProcess(pintChoice):
@@ -34,7 +34,7 @@ def RunProcess(pintChoice):
             blnOfficeFocused = False
 
         # launch the calendar analysis
-        c.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
+        ca.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
 
         # inform the user about the process end
         print(g.STR_UI_CALENDAR_ANALYSIS_COMPLETE)
