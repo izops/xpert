@@ -122,9 +122,6 @@ def lstSplitDates(pstrDateFrom, pstrDateTo, intMaxDays = 30):
     # convert dates to datetime data
     dttFrom = dttConvertDate(pstrDateFrom)
     dttTo = dttConvertDate(pstrDateTo)
-
-    # count days in the range
-    dttDifference = dttTo - dttFrom + datetime.timedelta(days = 1)
     
     # initialize output list
     lstDates = []
