@@ -1,5 +1,25 @@
 # Release notes
 
+## V2.0
+
+Author: Ivan Zustiak  
+Date: 
+Updates: 
+- Password input masked with asterisks instead of no-show typing
+- User experience improved when password required
+
+Description:  
+- User can choose from the convention - either 'working elsewhere' is considered
+to be a home office absence, or it is considered to be a work from office
+- Error messages from Xperience are normalized to avoid process failure from
+diacritic
+
+Outlook convention:  
+- User can choose which is flagged as working elsewhere - home office or work
+from office
+- Out of office (full day or partial) appointments are not considered for
+Xperience submission, partial working elsewhere is not considered either
+
 --------------------------------------------------------------------------------
 ## V1.2
 
