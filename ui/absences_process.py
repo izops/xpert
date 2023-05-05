@@ -3,6 +3,7 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+import web.credentials as c
 import web.submit_absences as w
 import ui.absences_inputs as abi
 import calendar_works.calendar_analyzer as ca
@@ -19,7 +20,7 @@ def RunProcess(pintChoice):
         - None, either one or two processes are run
     """
     # analyze the calendar
-    if pintChoice in [g.INT_UI_CHOICE_CALENDAR, g.INT_UI_CHOICE_ALL]:
+    if pintChoice != g.INT_UI_CHOICE_XPERIENCE:
         # request the starting and ending point for the calendar analysis
         strDateStart = abi.strGetDate(g.STR_UI_REQUEST_DATE_START)
         strDateEnd = abi.strGetDate(g.STR_UI_REQUEST_DATE_END)
@@ -33,19 +34,24 @@ def RunProcess(pintChoice):
         else:
             blnOfficeFocused = False
 
+    if pintChoice != g.INT_UI_CHOICE_CALENDAR:
+        # get xperience credentials
+        strUserName = c.strGetUserName()
+        strPassword = c.strGetPassword()
+
+    if pintChoice != g.INT_UI_CHOICE_XPERIENCE:
         # launch the calendar analysis
         ca.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
 
         # inform the user about the process end
         print(g.STR_UI_CALENDAR_ANALYSIS_COMPLETE)
 
-        if pintChoice == g.INT_UI_CHOICE_CALENDAR:
-            # the process ends here, say goodbye to the user
-            print(g.STR_UI_GOODBYE)
-        
-    if pintChoice in [g.INT_UI_CHOICE_XPERIENCE, g.INT_UI_CHOICE_ALL]:
+    if pintChoice != g.INT_UI_CHOICE_CALENDAR:
         # run xperience process
-        w.SubmitAbsences()
+        w.SubmitAbsences(strUserName, strPassword)
 
-        # the process ends here, say goodbye to the user
-        print(g.STR_UI_GOODBYE)
+        # discard the password
+        del strPassword
+
+    # the process ends here, say goodbye to the user
+    print(g.STR_UI_GOODBYE)

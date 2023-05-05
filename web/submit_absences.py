@@ -15,7 +15,6 @@ import sys
 # import scripts
 sys.path.append('../emea_oth_xpert/')
 import general.global_constants as g
-import web.credentials as c
 import web.common_web_fucntions as cwf
 import web.absence_functions as was
 import general.general_functions as gf
@@ -57,15 +56,14 @@ def lstReadData(pstrPath):
 
     return lstCalendarData
 
-
-
 # %% define process handling
-def SubmitAbsences():
+def SubmitAbsences(pstrUserName, pstrPassword):
     """Handle entire process of obtaining login info, logging into xperience
     website, reading calendar data and submitting all relevant entries.
 
     Inputs:
-        - None
+        - pstrUserName - string containing username for xperience login
+        - pstrPassword - string containing password for xperience login
 
     Outputs:
         - None, but the entire process is run
@@ -81,18 +79,14 @@ def SubmitAbsences():
         # initialize a message variable
         strMessage = ''
 
-        # get user name and password
-        strUserName = c.strGetUserName()
-        strPassword = c.strGetPassword()
-
         # set up the webdriver
         objDriver = webdriver.Edge()
 
         # log in to the page
-        blnContinue = cwf.blnLogin(objDriver, strUserName, strPassword)
+        blnContinue = cwf.blnLogin(objDriver, pstrUserName, pstrPassword)
 
         # discard the password
-        del strPassword
+        del pstrPassword
 
         if blnContinue:
             # if login successful, add the absence entry for each data point
