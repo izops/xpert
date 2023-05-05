@@ -84,7 +84,7 @@ def lstDownloadData(
             objStatus.click()
 
             # wait for the javascript to kick in
-            time.sleep(1)
+            time.sleep(0.2)
 
             # find open item in the checkbox
             objOpen = objDriver.find_element(
@@ -127,7 +127,7 @@ def lstDownloadData(
             objType.send_keys(pstrAbsenceType)
 
             # wait for the javascript
-            time.sleep(1)
+            time.sleep(0.2)
 
             # confirm selection
             objType.send_keys(Keys.TAB)
