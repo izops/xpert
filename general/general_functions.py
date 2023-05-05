@@ -39,6 +39,53 @@ def strConvertDate(pdttDateTime):
 
     return strConverted
 
+def strChangeDateFormat(pstrDateIn, pstrDelimiter, pblnToDMY = True):
+    """Change form of the date from YYYYMMDD to DDMMYYYY or vice versa using
+    selected delimiter, independently of input date delimiter.
+
+    Inputs:
+        - pstrDateIn - string date to change
+        - pstrDelimiter - string delimiter to be used in output date
+
+    Output:
+        - strDateOut - date in the new format
+    
+    """
+    if pblnToDMY:
+        # remove delimiters from YYYYMMDD 
+        strDateIn = pstrDateIn.replace(' ', '')
+        strDateIn = strDateIn.replace('.', '')
+        strDateIn = strDateIn.replace('/', '')
+        strDateIn = strDateIn.replace('-', '')
+
+        # extract date parts of YYYYMMDD
+        strYear = strDateIn[:4]
+        strMonth = strDateIn[4:6]
+        strDay = strDateIn[6:]
+
+        # add to a list
+        lstDate = [strDay, strMonth, strYear]
+
+    else:
+        # remove delimiters from DDMMYYYY 
+        strDateIn = pstrDateIn.replace(' ', '')
+        strDateIn = strDateIn.replace('.', '')
+        strDateIn = strDateIn.replace('/', '')
+        strDateIn = strDateIn.replace('-', '')
+
+        # extract date parts of DDMMYYYY
+        strDay = strDateIn[:2]
+        strMonth = strDateIn[2:4]
+        strYear = strDateIn[4:]
+
+        # add to a list
+        lstDate = [strYear, strMonth, strDay]
+
+    # change the date to the requested format with specified delimiter
+    strDateOut = pstrDelimiter.join(lstDate)
+
+    return strDateOut
+
 def strNormalizeToASCII(pstrInput):
     """Normalize non-ASCII string to the best corresponding ASCII match.
 
