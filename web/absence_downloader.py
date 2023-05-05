@@ -12,13 +12,25 @@ import general.general_functions as ggf
 import web.common_web_fucntions as wcf
 
 # %% define functions to webscrape data
-def DownloadData(
+def lstDownloadData(
     pstrUserName,
     pstrPassword,
     pstrDateFrom,
     pstrDateTo,
     pstrAbsenceType
 ):
+    """Download absence data from xperience in the given period.
+    
+    Inputs:
+        - pstrUserName - username for xperience login
+        - pstrPassword - password for xperience login
+        - pstrDateFrom - start date of absence filtering, YYYYMMDD string
+        - pstrDateTo - end date of absence filtering, YYYYMMDD string
+        - pstrAbsenceType - absence type to scrape
+
+    Outputs:
+        - lstAbsences - list of all data scraped from absence list
+    """
     # initialize webdriver
     objDriver = webdriver.Edge()
 
