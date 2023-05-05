@@ -103,6 +103,55 @@ def strNormalizeToASCII(pstrInput):
 
     return strOutput
 
+def lstSplitDates(pstrDateFrom, pstrDateTo, intMaxDays = 30):
+    """Split data interval to smaller non-overlapping intervals by requested
+    number of days.
+
+    Inputs:
+        - pstrDateFrom - string containing date in YYYYMMDD format, start date
+        of the time interval
+        - pstrDateTo - string containing date in YYYYMMDD format, end date
+        of the time interval
+        - intMaxDays - optional integer of number of days to split the time
+        interval to, default value set at 30
+
+    Outputs:
+        - lstDates - list of tuples of non-overlapping dates covering the
+        input interval, tuple contains dates from and to, in YYYYMMDD format
+    """
+    # convert dates to datetime data
+    dttFrom = dttConvertDate(pstrDateFrom)
+    dttTo = dttConvertDate(pstrDateTo)
+
+    # count days in the range
+    dttDifference = dttTo - dttFrom + datetime.timedelta(days = 1)
+    
+    # initialize output list
+    lstDates = []
+
+    # initialize looping variable
+    dttCurrentDate = dttFrom
+
+    # split date range into multiple ranges if it exceeds maximum days
+    while dttCurrentDate <= dttTo:
+        # calculate next step of the maximum time interval
+        dttNext = dttCurrentDate + datetime.timedelta(days = intMaxDays)
+
+        # convert dates to a string representation
+        strFrom = strConvertDate(dttCurrentDate)
+        strTo = strConvertDate(min(dttNext, dttTo))
+    
+        # create tuple of date from-to range
+        tplRange = (strFrom, strTo)
+
+        # add the time interval pair to the outputs
+        lstDates.append(tplRange)
+
+        # increment the looping date
+        dttCurrentDate += datetime.timedelta(days = intMaxDays + 1)
+
+    return lstDates
+
 def WriteLog(pstrLogText):
     """Open a text file in the data folder and save contents of a string to it.
 
