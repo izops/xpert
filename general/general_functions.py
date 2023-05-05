@@ -1,8 +1,10 @@
 # %% import modules
 import unicodedata
 import datetime
+import sys
 
-import globals as g
+sys.path.append('../emea_oth_xpert')
+import general.global_constants as g
 
 # %% define general functions unrelated specifically to any process
 def dttConvertDate(pstrYYYYMMDD):

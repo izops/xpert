@@ -1,5 +1,8 @@
 # %% import modules and scripts
-import globals as g
+import sys
+
+sys.path.append('../emea_oth_xpert')
+import general.global_constants as g
 
 # %% define UI functions for all processes
 def intGreeting():

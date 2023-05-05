@@ -14,7 +14,7 @@ import sys
 
 # import scripts
 sys.path.append('../emea_oth_xpert/')
-import globals as g
+import general.global_constants as g
 import web.credentials as c
 import web.common_web_fucntions as cwf
 import web.absence_functions as was

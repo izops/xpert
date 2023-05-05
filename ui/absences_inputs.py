@@ -1,7 +1,9 @@
 # %% import modules
 import re
+import sys
 
-import globals as g
+sys.path.append('../emea_oth_xpert')
+import general.global_constants as g
 
 # %% define functions and methods that serve to obtain inputs from user for
 # absence submission

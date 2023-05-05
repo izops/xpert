@@ -1,7 +1,9 @@
 # %% import modules
 import datetime
+import sys
 
-import globals as g
+sys.path.append('../emea_oth_xpert')
+import general.global_constants as g
 
 # %% define functions and methods to analyze calendar data
 def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):

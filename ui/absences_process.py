@@ -2,7 +2,7 @@
 import sys
 
 sys.path.append('../emea_oth_xpert')
-import globals as g
+import general.global_constants as g
 import web.submit_absences as w
 import ui.absences_inputs as abi
 import calendar_works.calendar_analyzer as ca

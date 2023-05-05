@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import sys
 
 sys.path.append('../emea_oth_xpert')
-import globals as g
+import general.global_constants as g
 import general.general_functions as gf
 
 # %% define functions and methods that handle submission of absences

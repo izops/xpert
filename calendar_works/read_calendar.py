@@ -7,7 +7,7 @@ import sys
 
 # import scripts
 sys.path.append('../emea_oth_xpert/')
-import globals as g
+import general.global_constants as g
 import general.general_functions as gf
 import calendar_works.analyze_calendar as ac
 

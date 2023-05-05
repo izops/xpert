@@ -1,7 +1,10 @@
 # %% import modules
 import maskpass
 import os
-import globals as g
+import sys
+
+sys.path.append('../emea_oth_xpert')
+import general.global_constants as g
 
 # %% define functions to obtain credentials
 def strGetUserName():
