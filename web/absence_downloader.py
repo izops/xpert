@@ -86,18 +86,25 @@ def lstDownloadData(
             # wait for the javascript to kick in
             time.sleep(1)
 
-            # set the relevant status
+            # find approved item in the checkbox
             objApproved = objDriver.find_element(
                 'id',
                 g.STR_ELEMENT_ID_CHECKBOX_APPROVED
             )
-            objApproved.click()
 
+            # check its status and click it if not ticked
+            if objApproved.get_attribute(g.STR_ATTRIBUTE_CHECKED) is None:
+                objApproved.click()
+
+            # find closed item in the checkbox
             objClosed = objDriver.find_element(
                 'id',
                 g.STR_ELEMENT_ID_CHECKBOX_CLOSED
             )
-            objClosed.click()
+
+            # check its status and click it if not ticked
+            if objClosed.get_attribute(g.STR_ATTRIBUTE_CHECKED) is None:
+                objClosed.click()
 
             # close the status dropdown
             objStatus.click()

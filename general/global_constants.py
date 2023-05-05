@@ -70,6 +70,9 @@ STR_ELEMENT_XPATH_TYPE += 'default ui-corner-left ui-autocomplete-input"]'
 # table
 STR_ELEMENT_XPATH_TABLE = '//tbody[@class = "data"]'
 
+# other
+STR_ATTRIBUTE_CHECKED = 'checked'
+
 # %% website keywords
 # absence keywords
 STR_ABSENCE_TYPE_HOME_OFFICE = 'Home office'
