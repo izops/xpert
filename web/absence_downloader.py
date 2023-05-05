@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 import time
-import datetime
 import sys
 
 sys.path.append('c:/repositories/emea_oth_xpert')
@@ -44,73 +43,111 @@ def lstDownloadData(
         # initialize list of absences
         lstAbsences = []
 
-        # set the filter start date
-        objDateStart = objDriver.find_element('id', g.STR_ELEMENT_ID_DATE_FROM)
-        objDateStart.send_keys(pstrDateFrom)
+        # split the date range to smaller ranges
+        lstDateRanges = ggf.lstSplitDates(pstrDateFrom, pstrDateTo)
+        
+        # scrape data for each time subperiod
+        for tplCurrentDate in lstDateRanges:
+            # locate the filter start date
+            objDateStart = objDriver.find_element(
+                'id',
+                g.STR_ELEMENT_ID_DATE_FROM
+            )
 
-        # set the filter end date
-        objDateEnd = objDriver.find_element('id', g.STR_ELEMENT_ID_DATE_TO)
-        objDateEnd.send_keys(pstrDateTo)
+            # clear the field contents
+            objDateStart.clear()
 
-        # open status dropdown
-        objStatus = objDriver.find_element('xpath', g.STR_ELEMENT_XPATH_STATUS)
-        objStatus.click()
+            # convert the date to xperience format and type to field
+            objDateStart.send_keys(
+                ggf.strChangeDateFormat(tplCurrentDate[0], '.')
+            )
 
-        # wait for the javascript to kick in
-        time.sleep(1)
+            # locate the filter end date
+            objDateEnd = objDriver.find_element(
+                'id',
+                g.STR_ELEMENT_ID_DATE_TO
+            )
 
-        # set the relevant status
-        objApproved = objDriver.find_element(
-            'id',
-            g.STR_ELEMENT_ID_CHECKBOX_APPROVED
-        )
-        objApproved.click()
+            # clear the field contents
+            objDateEnd.clear()
 
-        objClosed = objDriver.find_element(
-            'id',
-            g.STR_ELEMENT_ID_CHECKBOX_CLOSED
-        )
-        objClosed.click()
+            # convert the date to xperience format and type to field
+            objDateEnd.send_keys(
+                ggf.strChangeDateFormat(tplCurrentDate[1], '.')
+            )
 
-        # close the status dropdown
-        objStatus.click()
+            # open status dropdown
+            objStatus = objDriver.find_element(
+                'xpath',
+                g.STR_ELEMENT_XPATH_STATUS
+            )
+            objStatus.click()
 
-        # set absence type
-        objType = objDriver.find_element('xpath', g.STR_ELEMENT_XPATH_TYPE)
-        objType.send_keys(pstrAbsenceType)
+            # wait for the javascript to kick in
+            time.sleep(1)
 
-        # wait for the javascript
-        time.sleep(1)
+            # set the relevant status
+            objApproved = objDriver.find_element(
+                'id',
+                g.STR_ELEMENT_ID_CHECKBOX_APPROVED
+            )
+            objApproved.click()
 
-        # confirm selection
-        objType.send_keys(Keys.TAB)
+            objClosed = objDriver.find_element(
+                'id',
+                g.STR_ELEMENT_ID_CHECKBOX_CLOSED
+            )
+            objClosed.click()
 
-        # confirm filtering
-        objButton = objDriver.find_element(
-            'id',
-            g.STR_ELEMENT_ID_BUTTON_FILTER
-        )
-        objButton.click()
+            # close the status dropdown
+            objStatus.click()
 
-        # locate the table
-        objTable = objDriver.find_element('xpath', g.STR_ELEMENT_XPATH_TABLE)
+            # set absence type
+            objType = objDriver.find_element(
+                'xpath',
+                g.STR_ELEMENT_XPATH_TYPE
+            )
+            objType.send_keys(pstrAbsenceType)
 
-        # locate the table rows
-        objRows = objTable.find_elements('tag name', 'tr')
+            # wait for the javascript
+            time.sleep(1)
 
-        # loop through the table and save the values to a list
-        for objRow in objRows:
-            # initialize list of absence details
-            lstDetails = []
+            # confirm selection
+            objType.send_keys(Keys.TAB)
 
-            # locate all row cells
-            objCells = objRow.find_elements('tag name', 'td')
+            # confirm filtering
+            objButton = objDriver.find_element(
+                'id',
+                g.STR_ELEMENT_ID_BUTTON_FILTER
+            )
+            objButton.click()
 
-            # store value from every cell of the row to a list
-            for objCell in objCells:
-                lstDetails.append(objCell.text)
+            try:
+                # attempt to locate the table
+                objTable = objDriver.find_element(
+                    'xpath',
+                    g.STR_ELEMENT_XPATH_TABLE
+                )
 
-            # save the details to the list of all absences
-            lstAbsences.append(lstDetails)
+                # locate the table rows
+                objRows = objTable.find_elements('tag name', 'tr')
+
+                # loop through the table and save the values to a list
+                for objRow in objRows:
+                    # initialize list of absence details
+                    lstDetails = []
+
+                    # locate all row cells
+                    objCells = objRow.find_elements('tag name', 'td')
+
+                    # store value from every cell of the row to a list
+                    for objCell in objCells:
+                        lstDetails.append(objCell.text)
+
+                    # save the details to the list of all absences
+                    lstAbsences.append(lstDetails)
+            except:
+                # table not found, no absence available for this period, skip
+                pass
 
     return lstAbsences
