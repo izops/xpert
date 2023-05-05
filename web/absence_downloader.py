@@ -86,6 +86,16 @@ def lstDownloadData(
             # wait for the javascript to kick in
             time.sleep(1)
 
+            # find open item in the checkbox
+            objOpen = objDriver.find_element(
+                'id',
+                g.STR_ELEMENT_ID_CHECKBOX_OPEN
+            )
+
+            # check its status and click it if not ticked
+            if objOpen.get_attribute(g.STR_ATTRIBUTE_CHECKED) is None:
+                objOpen.click()
+
             # find approved item in the checkbox
             objApproved = objDriver.find_element(
                 'id',

@@ -54,6 +54,7 @@ STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
 # IDs
 STR_ELEMENT_ID_DATE_FROM = 'absenceRequestListTM_fd_dateFrom'
 STR_ELEMENT_ID_DATE_TO = 'absenceRequestListTM_fd_dateTo'
+STR_ELEMENT_ID_CHECKBOX_OPEN = 'checkfia_status0'
 STR_ELEMENT_ID_CHECKBOX_APPROVED = 'checkfia_status1'
 STR_ELEMENT_ID_CHECKBOX_CLOSED = 'checkfia_status3'
 STR_ELEMENT_ID_BUTTON_FILTER = 'absenceRequestListTM__find'
