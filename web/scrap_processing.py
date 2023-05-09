@@ -33,9 +33,12 @@ def dtfProcessDownloadedData(plstScrapedData):
         g.STR_REGEX_ABSENCE_DURATION
     )
 
-    # convert columns to date
+    # convert date columns to date type
     dtfAbsences[['from', 'to', 'modified']] = dtfAbsences[
         ['from', 'to', 'modified']
     ].apply(pd.to_datetime, dayfirst = True)
+
+    # convert number column to numeric
+    dtfAbsences.duration = pd.to_numeric(dtfAbsences.duration)
 
     return dtfAbsences
