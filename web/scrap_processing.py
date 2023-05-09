@@ -29,7 +29,7 @@ def dtfProcessDownloadedData(plstScrapedData):
     )
 
     # extract day info from the duration column
-    dtfAbsences.duration = dtfAbsences.duration.str.extract(
+    dtfAbsences['Duration'] = dtfAbsences['Duration'].str.extract(
         g.STR_REGEX_ABSENCE_DURATION
     )
 
@@ -40,7 +40,7 @@ def dtfProcessDownloadedData(plstScrapedData):
     )
 
     # convert number column to numeric
-    dtfAbsences.duration = pd.to_numeric(dtfAbsences.duration)
+    dtfAbsences['Duration'] = pd.to_numeric(dtfAbsences['Duration'])
 
     # drop non necessary columns
     dtfAbsences.drop(columns = ['Name', 'Modified'], inplace = True)
