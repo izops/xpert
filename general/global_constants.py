@@ -171,18 +171,23 @@ STR_UI_GOODBYE_CANCEL = 'All right then, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = 'The calendar analysis is complete.\n'
 STR_UI_GOODBYE = 'Thanks for stopping by and have a nice day! (°͜°)ﾉ'
 
-# %% other constants
-# user name
-STR_USER_DOMAIN = '@zurich.com'
-
+# %% paths and file names
 # calendar data path
-STR_PATH_CALENDAR_DATA = './data/'
+STR_PATH_DATA = './data/'
 STR_FILE_CALENDAR_DATA = 'calendar_data.txt'
-STR_FULL_PATH_CALENDAR_DATA = STR_PATH_CALENDAR_DATA + STR_FILE_CALENDAR_DATA
+STR_FULL_PATH_CALENDAR_DATA = STR_PATH_DATA + STR_FILE_CALENDAR_DATA
 
 # log file name
 STR_FILE_LOG = 'process.log'
-STR_FULL_PATH_LOG = STR_PATH_CALENDAR_DATA + STR_FILE_LOG
+STR_FULL_PATH_LOG = STR_PATH_DATA + STR_FILE_LOG
+
+# scraped absences file output
+STR_FILE_SCRAPED_DATA = 'absences_from_xperience.txt'
+STR_FULL_PATH_SCRAPED_DATA = STR_PATH_DATA + STR_FILE_SCRAPED_DATA
+
+# %% other constants
+# user name
+STR_USER_DOMAIN = '@zurich.com'
 
 # calendar time period - hours
 INT_CALENDAR_TIME_UNIT_HOURS = 60
