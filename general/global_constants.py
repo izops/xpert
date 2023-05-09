@@ -93,6 +93,9 @@ STR_REGEX_DATA_INPUT +=' office|Vacation|Personal day|Sick leave)'
 # user input date
 STR_REGEX_DATE = '^20[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1-2][0-9]|3[01])$'
 
+# web scraped duration
+STR_REGEX_ABSENCE_DURATION = '(\d+\.\d+)'
+
 # %% Outlook constants
 # API meeting status constants
 INT_MEETING_FREE = 0
@@ -182,3 +185,14 @@ STR_FULL_PATH_LOG = STR_PATH_CALENDAR_DATA + STR_FILE_LOG
 
 # calendar time period - hours
 INT_CALENDAR_TIME_UNIT_HOURS = 60
+
+# scraping data column names
+LST_COLUMN_NAMES_SCRAPED = [
+  'name',
+  'from',
+  'to',
+  'duration',
+  'status',
+  'modified',
+  'absence_type'
+]
