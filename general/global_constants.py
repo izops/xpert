@@ -188,11 +188,11 @@ INT_CALENDAR_TIME_UNIT_HOURS = 60
 
 # scraping data column names
 LST_COLUMN_NAMES_SCRAPED = [
-  'name',
-  'from',
-  'to',
-  'duration',
-  'status',
-  'modified',
-  'absence_type'
+  'Name',
+  'From',
+  'To',
+  'Duration',
+  'Status',
+  'Modified',
+  'Absence_type'
 ]

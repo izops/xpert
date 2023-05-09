@@ -34,11 +34,15 @@ def dtfProcessDownloadedData(plstScrapedData):
     )
 
     # convert date columns to date type
-    dtfAbsences[['from', 'to', 'modified']] = dtfAbsences[
-        ['from', 'to', 'modified']
-    ].apply(pd.to_datetime, dayfirst = True)
+    dtfAbsences[['from', 'to']] = dtfAbsences[['from', 'to']].apply(
+        pd.to_datetime,
+        dayfirst = True
+    )
 
     # convert number column to numeric
     dtfAbsences.duration = pd.to_numeric(dtfAbsences.duration)
+
+    # drop non necessary columns
+    dtfAbsences.drop(columns = ['name', 'modified'], inplace = True)
 
     return dtfAbsences
