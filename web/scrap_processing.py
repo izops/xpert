@@ -4,6 +4,7 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+import web.absence_downloader as wad
 
 # %% define data processing functions
 def dtfProcessDownloadedData(plstScrapedData):
@@ -46,3 +47,25 @@ def dtfProcessDownloadedData(plstScrapedData):
     dtfAbsences.drop(columns = ['Name', 'Modified'], inplace = True)
 
     return dtfAbsences
+
+def ObtainXperienceAbsences(
+    pstrUserName,
+    pstrPassword,
+    pstrDateFrom,
+    pstrDateTo,
+    pstrAbsenceType
+):
+    # scrape data from web based on user request
+    lstScrapedAbsences = wad.lstDownloadData(
+        pstrUserName,
+        pstrPassword,
+        pstrDateFrom,
+        pstrDateTo,
+        pstrAbsenceType
+    )
+
+    # process the absences
+    dtfProcessedAbsences = dtfProcessDownloadedData(lstScrapedAbsences)
+
+    # save the processed data to an external file
+    dtfProcessedAbsences.to_csv(g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t')
