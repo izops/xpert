@@ -65,8 +65,8 @@ STR_ELEMENT_ID_BUTTON_FILTER = 'absenceRequestListTM__find'
 STR_ELEMENT_XPATH_STATUS = '//input[@class = "ui-widget ui-widget-content ui-'
 STR_ELEMENT_XPATH_STATUS += 'corner-left ui-autocomplete-input"]'
 STR_ELEMENT_XPATH_TYPE = '//input[@class = "ng-scope ng-isolate-scope custom-'
-STR_ELEMENT_XPATH_TYPE += 'combobox-input ui-widget ui-widget-content ui-state-'
-STR_ELEMENT_XPATH_TYPE += 'default ui-corner-left ui-autocomplete-input"]'
+STR_ELEMENT_XPATH_TYPE += 'combobox-input ui-widget ui-widget-content ui-state'
+STR_ELEMENT_XPATH_TYPE += '-default ui-corner-left ui-autocomplete-input"]'
 
 # table
 STR_ELEMENT_XPATH_TABLE = '//tbody[@class = "data"]'
@@ -155,13 +155,14 @@ INT_UI_CHOICE_ALL = 3
 STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
 STR_UI_REQUEST_CONVENTION += 'elsewhere\' all day appointment:\n'
 STR_UI_REQUEST_CONVENTION += '\t1. Working elsewhere means I work from home\n'
-STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from office\n'
+STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from '
+STR_UI_REQUEST_CONVENTION += 'office\n'
 
 LST_UI_ANSWERS_CONVENTION = ['1', '2']
 
 # request date inputs
-STR_UI_REQUEST_DATE = 'Please, provide <PLACEHOLDER> date in YYYYMMDD format:\n'
-STR_UI_REQUEST_PLACEHOLDER = '<PLACEHOLDER>'
+STR_UI_REQUEST_DATE = 'Please, provide <SELECT> date in YYYYMMDD format:\n'
+STR_UI_REQUEST_PLACEHOLDER = '<SELECT>'
 STR_UI_REQUEST_DATE_START = 'start'
 STR_UI_REQUEST_DATE_END = 'end'
 
