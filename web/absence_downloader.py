@@ -5,7 +5,7 @@ from selenium import webdriver
 import time
 import sys
 
-sys.path.append('c:/repositories/emea_oth_xpert')
+sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import general.general_functions as ggf
 import web.common_web_fucntions as wcf
