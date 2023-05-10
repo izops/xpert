@@ -150,11 +150,12 @@ STR_UI_OFFER += '\t5. Save downloaded absences to Outlook calendar\n'
 LST_UI_ANSWERS_PROCESS = ['1', '2', '3', '4', '5', 'c', 'cancel', 'c(ancel)']
 
 # process choices
-INT_UI_CHOICE_CALENDAR = 1
-INT_UI_CHOICE_XPERIENCE = 2
-INT_UI_CHOICE_ALL = 3
-INT_UI_CHOICE_SCRAPE = 4
-INT_UI_CHOICE_IMPORT = 5
+INT_UI_CHOICE_OUTLOOK_EXPORT = 1
+INT_UI_CHOICE_XPERIENCE_SUBMISSION = 2
+INT_UI_CHOICE_FULL_SUBMISSION = 3
+INT_UI_CHOICE_XPERIENCE_SCRAPE = 4
+INT_UI_CHOICE_OUTLOOK_IMPORT = 5
+INT_UI_CHOICE_FULL_DOWNLOAD = 6
 
 # request home office convention
 STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
