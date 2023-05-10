@@ -143,11 +143,16 @@ STR_UI_OFFER = 'How can I help you? [1/2/3/4/5/c(ancel)]\n'
 STR_UI_OFFER += '\t1. Analyze my calendar\n'
 STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
 STR_UI_OFFER += '\t3. Analyze my calendar and then submit my absences to '
-STR_UI_OFFER += 'Xperience\n'
+STR_UI_OFFER += 'Xperience (1 + 2)\n'
 STR_UI_OFFER += '\t4. Donwload submitted absences from Xperience\n'
 STR_UI_OFFER += '\t5. Save downloaded absences to Outlook calendar\n'
+STR_UI_OFFER += '\t6. Download submitted absences and save them in Outlook '
+STR_UI_OFFER += '(4 + 5)\n'
 
-LST_UI_ANSWERS_PROCESS = ['1', '2', '3', '4', '5', 'c', 'cancel', 'c(ancel)']
+LST_UI_ANSWERS_PROCESS = [
+    '1', '2', '3', '4', '5', '6',
+    'c', 'cancel', 'c(ancel)'
+]
 
 # process choices
 INT_UI_CHOICE_OUTLOOK_EXPORT = 1
