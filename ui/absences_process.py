@@ -20,7 +20,7 @@ def RunProcess(pintChoice):
         - None, either one or two processes are run
     """
     # analyze the calendar
-    if pintChoice != g.INT_UI_CHOICE_XPERIENCE:
+    if pintChoice != g.INT_UI_CHOICE_XPERIENCE_SUBMISSION:
         # request the starting and ending point for the calendar analysis
         strDateStart = abi.strGetDate(g.STR_UI_REQUEST_DATE_START)
         strDateEnd = abi.strGetDate(g.STR_UI_REQUEST_DATE_END)
@@ -34,19 +34,19 @@ def RunProcess(pintChoice):
         else:
             blnOfficeFocused = False
 
-    if pintChoice != g.INT_UI_CHOICE_CALENDAR:
+    if pintChoice != g.INT_UI_CHOICE_OUTLOOK_EXPORT:
         # get xperience credentials
         strUserName = c.strGetUserName()
         strPassword = c.strGetPassword()
 
-    if pintChoice != g.INT_UI_CHOICE_XPERIENCE:
+    if pintChoice != g.INT_UI_CHOICE_XPERIENCE_SUBMISSION:
         # launch the calendar analysis
         ca.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
 
         # inform the user about the process end
         print(g.STR_UI_CALENDAR_ANALYSIS_COMPLETE)
 
-    if pintChoice != g.INT_UI_CHOICE_CALENDAR:
+    if pintChoice != g.INT_UI_CHOICE_OUTLOOK_EXPORT:
         # run xperience process
         w.SubmitAbsences(strUserName, strPassword)
 
