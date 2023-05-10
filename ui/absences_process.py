@@ -3,10 +3,10 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
-import web.credentials as c
-import web.submit_absences as w
-import ui.absences_inputs as abi
-import calendar_works.calendar_analyzer as ca
+import web.credentials as wcr
+import web.submit_absences as wsa
+import ui.absences_inputs as uai
+import calendar_works.calendar_analyzer as cca
 
 # %% define the master method to launch the process parts
 def RunProcess(pintChoice):
@@ -38,12 +38,12 @@ def RunProcess(pintChoice):
     # coordinate the process steps based on user choice
     if pintChoice in lstAbsenceSubmission or pintChoice in lstScraping:
         # request the starting and ending point for the calendar analysis
-        strDateStart = abi.strGetDate(g.STR_UI_REQUEST_DATE_START)
-        strDateEnd = abi.strGetDate(g.STR_UI_REQUEST_DATE_END)
+        strDateStart = uai.strGetDate(g.STR_UI_REQUEST_DATE_START)
+        strDateEnd = uai.strGetDate(g.STR_UI_REQUEST_DATE_END)
 
     if pintChoice in lstAbsenceSubmission:
         # get the calendar convention
-        strConvention = abi.strGetCalendarConvention()
+        strConvention = uai.strGetCalendarConvention()
 
         # create boolean parameter based on the output from convention check
         if strConvention == g.LST_UI_ANSWERS_CONVENTION[0]:
@@ -57,12 +57,12 @@ def RunProcess(pintChoice):
 
     if pintChoice not in lstNoCredentials:
         # get xperience credentials
-        strUserName = c.strGetUserName()
-        strPassword = c.strGetPassword()
+        strUserName = wcr.strGetUserName()
+        strPassword = wcr.strGetPassword()
 
     if pintChoice in lstAbsenceSubmission:
         # launch the calendar analysis
-        ca.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
+        cca.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
 
         # inform the user about the process end
         print(g.STR_UI_CALENDAR_ANALYSIS_COMPLETE)
@@ -72,7 +72,7 @@ def RunProcess(pintChoice):
         g.INT_UI_CHOICE_FULL_SUBMISSION
     ]:
         # run absence submission process
-        w.SubmitAbsences(strUserName, strPassword)
+        wsa.SubmitAbsences(strUserName, strPassword)
 
         # discard the password
         del strPassword
