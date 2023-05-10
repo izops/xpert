@@ -34,7 +34,7 @@ def intGreeting():
         # display the options
         strProcess = input(g.STR_UI_OFFER)
 
-    if strProcess in g.LST_UI_ANSWERS_PROCESS[:3]:
+    if strProcess in g.LST_UI_ANSWERS_PROCESS[:g.INT_UI_CHOICES_MAX]:
         # the user accepted, change the indicator
         intContinue = int(strProcess)
     else:

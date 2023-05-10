@@ -162,6 +162,9 @@ INT_UI_CHOICE_XPERIENCE_SCRAPE = 4
 INT_UI_CHOICE_OUTLOOK_IMPORT = 5
 INT_UI_CHOICE_FULL_DOWNLOAD = 6
 
+# maximum relevant choices
+INT_UI_CHOICES_MAX = INT_UI_CHOICE_FULL_DOWNLOAD
+
 # request home office convention
 STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
 STR_UI_REQUEST_CONVENTION += 'elsewhere\' all day appointment:\n'
