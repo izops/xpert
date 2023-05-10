@@ -8,6 +8,16 @@ import web.absence_downloader as wad
 
 # %% define data processing functions
 def dtfProcessDownloadedData(plstScrapedData):
+    """Process the input list as a pandas data frame, convert data types, 
+    rename columns and drop redundant fields.
+    
+    Inputs:
+        - plstScrapedData - list of lists, each inner list representing single
+        web-scraped data row
+
+    Outputs:
+        - dtfAbsences - pandas data frame containing 
+    """
     # convert the inputs to data frame
     dtfAbsences = pd.DataFrame(plstScrapedData)
 
@@ -55,6 +65,19 @@ def ObtainXperienceAbsences(
     pstrDateTo,
     pstrAbsenceType
 ):
+    """Coordinate process of scraping web data from xperience, cleaning the
+    data and outputting them to an external file.
+
+    Inputs:
+        - pstrUserName - username for xperience login
+        - pstrPassword - password for xperience login
+        - pstrDateFrom - start date of absence filtering, YYYYMMDD string
+        - pstrDateTo - end date of absence filtering, YYYYMMDD string
+        - pstrAbsenceType - absence type to scrape
+
+    Outputs:
+        - None returned, external txt file with scraped data created
+    """
     # scrape data from web based on user request
     lstScrapedAbsences = wad.lstDownloadData(
         pstrUserName,
