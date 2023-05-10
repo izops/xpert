@@ -133,23 +133,28 @@ STR_UI_BOT_NAME = '''
 '''
 
 # intro message
-STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar '
-STR_UI_INTRO += 'or submit your absences to Xperience (currently I do only '
-STR_UI_INTRO += 'home office absences).\n'
+STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar, '
+STR_UI_INTRO += 'submit your absences to Xperience (currently I do only '
+STR_UI_INTRO += 'home office absences), or download your submitted absences '
+STR_UI_INTRO += 'and save them to your Outlook calendar.\n'
 
 # process options
-STR_UI_OFFER = 'How can I help you? [1/2/3/c(ancel)]\n'
+STR_UI_OFFER = 'How can I help you? [1/2/3/4/5/c(ancel)]\n'
 STR_UI_OFFER += '\t1. Analyze my calendar\n'
 STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
 STR_UI_OFFER += '\t3. Analyze my calendar and then submit my absences to '
 STR_UI_OFFER += 'Xperience\n'
+STR_UI_OFFER += '\t4. Donwload submitted absences from Xperience\n'
+STR_UI_OFFER += '\t5. Save downloaded absences to Outlook calendar\n'
 
-LST_UI_ANSWERS_PROCESS = ['1', '2', '3', 'c', 'cancel', 'c(ancel)']
+LST_UI_ANSWERS_PROCESS = ['1', '2', '3', '4', '5', 'c', 'cancel', 'c(ancel)']
 
 # process choices
 INT_UI_CHOICE_CALENDAR = 1
 INT_UI_CHOICE_XPERIENCE = 2
 INT_UI_CHOICE_ALL = 3
+INT_UI_CHOICE_SCRAPE = 4
+INT_UI_CHOICE_IMPORT = 5
 
 # request home office convention
 STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
