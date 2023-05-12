@@ -4,10 +4,16 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+import general.general_functions as ggf
 import web.scrape_absences as wsa
 
 # %% define data processing functions
-def dtfProcessDownloadedData(plstScrapedData):
+def dtfProcessDownloadedData(
+        plstScrapedData,
+        pstrDateFrom,
+        pstrDateTo,
+        pstrAbsenceType
+    ):
     """Process the input list as a pandas data frame, convert data types, 
     rename columns and drop redundant fields.
     
@@ -18,43 +24,55 @@ def dtfProcessDownloadedData(plstScrapedData):
     Outputs:
         - dtfAbsences - pandas data frame containing 
     """
-    # convert the inputs to data frame
-    dtfAbsences = pd.DataFrame(plstScrapedData)
+    # process the data based on the input
+    if len(plstScrapedData) == 0:
+        # no data provided, prepare a message to return
+        strOut = 'No ' + pstrAbsenceType + ' absences in the time period from '
+        strOut += ggf.strChangeDateFormat(pstrDateFrom, '/')
+        strOut += ' to '
+        strOut += ggf.strChangeDateFormat(pstrDateTo, '/')
 
-    # set all empty values and space values to missing
-    dtfAbsences.replace('', pd.NA, inplace = True)
-    dtfAbsences.replace(' ', pd.NA, inplace = True)
+        # create dataframe with the return message
+        dtfAbsences = pd.DataFrame({'Absences' : [strOut]})
 
-    # drop the empty columns
-    dtfAbsences.dropna(axis = 1, how = 'all', inplace = True)
+    else:
+        # data were scraped, convert the inputs to data frame
+        dtfAbsences = pd.DataFrame(plstScrapedData)
 
-    # rename table columns
-    dtfAbsences.columns = g.LST_COLUMN_NAMES_SCRAPED
+        # set all empty values and space values to missing
+        dtfAbsences.replace('', pd.NA, inplace = True)
+        dtfAbsences.replace(' ', pd.NA, inplace = True)
 
-    # replace date separators with slash, decimal comma with a dot
-    dtfAbsences = dtfAbsences.apply(
-        lambda x: x.replace(
-            {'\.': '/', ',': '.'},
-            regex=True
+        # drop the empty columns
+        dtfAbsences.dropna(axis = 1, how = 'all', inplace = True)
+
+        # rename table columns
+        dtfAbsences.columns = g.LST_COLUMN_NAMES_SCRAPED
+
+        # replace date separators with slash, decimal comma with a dot
+        dtfAbsences = dtfAbsences.apply(
+            lambda x: x.replace(
+                {'\.': '/', ',': '.'},
+                regex=True
+            )
         )
-    )
 
-    # extract day info from the duration column
-    dtfAbsences['Duration'] = dtfAbsences['Duration'].str.extract(
-        g.STR_REGEX_ABSENCE_DURATION
-    )
+        # extract day info from the duration column
+        dtfAbsences['Duration'] = dtfAbsences['Duration'].str.extract(
+            g.STR_REGEX_ABSENCE_DURATION
+        )
 
-    # convert date columns to date type
-    dtfAbsences[['From', 'To']] = dtfAbsences[['From', 'To']].apply(
-        pd.to_datetime,
-        dayfirst = True
-    )
+        # convert date columns to date type
+        dtfAbsences[['From', 'To']] = dtfAbsences[['From', 'To']].apply(
+            pd.to_datetime,
+            dayfirst = True
+        )
 
-    # convert number column to numeric
-    dtfAbsences['Duration'] = pd.to_numeric(dtfAbsences['Duration'])
+        # convert number column to numeric
+        dtfAbsences['Duration'] = pd.to_numeric(dtfAbsences['Duration'])
 
-    # drop non necessary columns
-    dtfAbsences.drop(columns = ['Name', 'Modified'], inplace = True)
+        # drop non necessary columns
+        dtfAbsences.drop(columns = ['Name', 'Modified'], inplace = True)
 
     return dtfAbsences
 
