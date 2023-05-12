@@ -17,12 +17,15 @@ def strGetAbsenceType():
     # set initial value
     strResponse = None
 
+    # prepare lowercase list of values to compare against
+    lstAbsences = [x.lower() for x in g.LST_SCRAPE_ABSENCES]
+
     # obtain from user valid answer, make difference between first
     # and the rest of the inputs
     while strResponse is None \
     or (
         strResponse != 'c' \
-        and not strResponse in g.LST_SCRAPE_ABSENCES
+        and not strResponse in lstAbsences
     ):
         # loop until either canceled, or valid absence is provided
         if strResponse is None:
@@ -32,7 +35,7 @@ def strGetAbsenceType():
             strMessage += str(g.LST_SCRAPE_ABSENCES) + ':\n'
         
         elif strResponse != 'c' \
-        or not strResponse in g.LST_SCRAPE_ABSENCES:
+        or not strResponse in lstAbsences:
             # not the first input but not valid either
             strMessage = 'Apologies, I cannot scrape "' + strResponse 
             strMessage += '" absence for you. '
