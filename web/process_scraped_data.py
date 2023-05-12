@@ -106,7 +106,15 @@ def ObtainXperienceAbsences(
     )
 
     # process the absences
-    dtfProcessedAbsences = dtfProcessDownloadedData(lstScrapedAbsences)
+    dtfProcessedAbsences = dtfProcessDownloadedData(
+        lstScrapedAbsences,
+        pstrDateFrom,
+        pstrDateTo,
+        pstrAbsenceType
+    )
 
     # save the processed data to an external file
-    dtfProcessedAbsences.to_csv(g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t')
+    dtfProcessedAbsences.to_csv(
+        g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t',
+        index = False
+    )
