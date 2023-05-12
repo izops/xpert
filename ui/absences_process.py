@@ -5,7 +5,10 @@ sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import web.credentials as wcr
 import web.submit_absences as wsa
+import web.scrape_absences as wsc
+import web.process_scraped_data as wps
 import ui.absences_inputs as uai
+import ui.scraping_inputs as usi
 import calendar_works.calendar_analyzer as cca
 
 # %% define the master method to launch the process parts
@@ -52,10 +55,10 @@ def RunProcess(pintChoice):
             blnOfficeFocused = False
 
     if pintChoice in lstScraping:
-        # get type of absence to scrape - TO BE DONE
-        pass
+        # get type of absence to scrape
+        strScrapeAbsence = usi.strGetAbsenceType
 
-    if pintChoice not in lstNoCredentials:
+    if pintChoice not in lstNoCredentials and strScrapeAbsence != 'c':
         # get xperience credentials
         strUserName = wcr.strGetUserName()
         strPassword = wcr.strGetPassword()
@@ -80,14 +83,23 @@ def RunProcess(pintChoice):
     if pintChoice in [
         g.INT_UI_CHOICE_XPERIENCE_SCRAPE,
         g.INT_UI_CHOICE_FULL_DOWNLOAD
-    ]:
-        # scrape xperience data - TO BE DONE
-        pass
+    ] and strScrapeAbsence != 'c':
+        # scrape xperience data, process and save them to an external file
+        wps.ObtainXperienceAbsences(
+            strUserName,
+            strPassword,
+            strDateStart,
+            strDateEnd,
+            strScrapeAbsence
+        )
+
+        # discard the password
+        del strPassword
 
     if pintChoice in [
         g.INT_UI_CHOICE_OUTLOOK_IMPORT,
         g.INT_UI_CHOICE_FULL_DOWNLOAD
-    ]:
+    ] and strScrapeAbsence != 'c':
         # save xperience data to outlook - TO BE DONE
         pass
 
