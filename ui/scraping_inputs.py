@@ -6,6 +6,14 @@ import general.global_constants as g
 
 # %% define functions for obtaining inputs for data scraping
 def strGetAbsenceType():
+    """Obtain valid absence type for scraping from user.
+    
+    Inputs:
+        - None
+
+    Outputs:
+        - strResponse - string containing user response to absence prompt
+    """
     # set initial value
     strResponse = None
 
