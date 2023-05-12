@@ -55,7 +55,7 @@ def RunProcess(pintChoice):
 
     if pintChoice in lstScraping:
         # get type of absence to scrape
-        strScrapeAbsence = usi.strGetAbsenceType
+        strScrapeAbsence = usi.strGetAbsenceType()
 
     if pintChoice not in lstNoCredentials and strScrapeAbsence != 'c':
         # get xperience credentials
@@ -79,10 +79,7 @@ def RunProcess(pintChoice):
         # discard the password
         del strPassword
 
-    if pintChoice in [
-        g.INT_UI_CHOICE_XPERIENCE_SCRAPE,
-        g.INT_UI_CHOICE_FULL_DOWNLOAD
-    ] and strScrapeAbsence != 'c':
+    if pintChoice in lstScraping and strScrapeAbsence != 'c':
         # scrape xperience data, process and save them to an external file
         wps.ObtainXperienceAbsences(
             strUserName,
