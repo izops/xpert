@@ -80,8 +80,17 @@ STR_ABSENCE_TYPE_HOME_OFFICE = 'Home office'
 STR_ABSENCE_TYPE_DOCTOR = 'Doctor'
 STR_ABSENCE_TYPE_PERSONAL_DAY = 'Personal day'
 STR_ABSENCE_TYPE_VACATION = 'Vacation'
-STR_ABSENCE_TYPE_SICK_LEAVE = 'Sick leave'
+STR_ABSENCE_TYPE_SICK_LEAVE = 'Sick leave (PN)'
 STR_ABSENCE_TYPE_NONE = 'Working from office'
+
+# scraping absences
+LST_SCRAPE_ABSENCES = [
+    STR_ABSENCE_TYPE_HOME_OFFICE.lower(),
+    STR_ABSENCE_TYPE_VACATION.lower(),
+    STR_ABSENCE_TYPE_SICK_LEAVE.lower(),
+    STR_ABSENCE_TYPE_PERSONAL_DAY.lower(),
+    STR_ABSENCE_TYPE_DOCTOR.lower()
+]
 
 # %% regular expressions
 # data input - date start, date end, absence type
@@ -179,6 +188,12 @@ STR_UI_REQUEST_DATE = 'Please, provide <SELECT> date in YYYYMMDD format:\n'
 STR_UI_REQUEST_PLACEHOLDER = '<SELECT>'
 STR_UI_REQUEST_DATE_START = 'start'
 STR_UI_REQUEST_DATE_END = 'end'
+
+# request absence type for scraping
+STR_UI_REQUEST_ABSENCE_TYPE = 'Please, tell me what kind of absence '
+STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
+STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience:\n'
+
 
 # goodbyes
 STR_UI_GOODBYE_CANCEL = 'All right then, goodbye!'
