@@ -5,7 +5,6 @@ sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import web.credentials as wcr
 import web.submit_absences as wsa
-import web.scrape_absences as wsc
 import web.process_scraped_data as wps
 import ui.absences_inputs as uai
 import ui.scraping_inputs as usi
