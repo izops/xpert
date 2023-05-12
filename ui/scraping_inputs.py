@@ -29,7 +29,7 @@ def strGetAbsenceType():
             # user is prompted for input for the first time
             strMessage = 'Please, select an absence to scrape from the '
             strMessage += 'following list: \n'
-            strMessage += str(g.LST_SCRAPE_ABSENCES)
+            strMessage += str(g.LST_SCRAPE_ABSENCES) + ':\n'
         
         elif strResponse != 'c' \
         or not strResponse in g.LST_SCRAPE_ABSENCES:
