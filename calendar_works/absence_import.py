@@ -7,6 +7,7 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+import general.general_functions as ggf
 
 # %% functions and methods to import absences from text input to calendar
 def blnVerifyData(pdtfToVerify):
@@ -38,6 +39,53 @@ def blnVerifyData(pdtfToVerify):
         blnValidData = False
 
     return blnValidData
+
+def lstSplitOffHalfDays(pdtfAbsenceData):
+    # convert the absences to a list
+    lstAbsences = pdtfAbsenceData.values.tolist()
+
+    # split off half-day absences and append them to the end of the existing
+    # chunk
+    for intAbsence in range(len(lstAbsences)):
+        # split the half day absence from a continuous full day absence
+        if int(lstAbsences[intAbsence][2]) != lstAbsences[intAbsence][2] \
+        and lstAbsences[intAbsence][2] > 1:
+            # create a copy of the list
+            lstHalfDay = lstAbsences[intAbsence].copy()
+
+            # change the duration of the absence chunks
+            lstAbsences[intAbsence][2] = float(int(lstAbsences[intAbsence][2]))
+            lstHalfDay[2] = 0.5
+
+            # change the start date of the second absence
+            lstHalfDay[0] = lstHalfDay[1]
+
+            # change the end date of the first absence
+            dttEnd = ggf.dttConvertDate(
+                lstAbsences[intAbsence][1],
+                '-'
+            ) - datetime.timedelta(days = 1)
+
+            # assign the value of the first absence without the half day
+            lstAbsences[intAbsence][1] = dttEnd.strftime('%Y-%m-%d')
+
+            # insert the half day chunk to the list of absences
+            lstAbsences.insert(intAbsence + 1, lstHalfDay)
+
+    return lstAbsences
+
+
+# def SaveAbsences(pdtfAbsenceData):
+#     # convert the absences to a list
+#     lstAbsences = pdtfAbsenceData.values.tolist()
+
+#     for intAbsence in len(lstAbsences):
+#         # attempt to append half day absence to the full day
+#         if lstAbsences[intAbsence][2] == 0.5:
+#             # check if the half day starts a chunk of absences
+#             if intAbsence < (len(lstAbsences) - 1):
+#                 if lstAbsences[intAbsence + 1][0] == datetime.timedelta()
+
 
 def SaveAbsence(
     pobjApplication,
