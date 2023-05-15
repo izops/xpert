@@ -230,3 +230,12 @@ LST_COLUMN_NAMES_SCRAPED = [
   'Modified',
   'Absence_type'
 ]
+
+# columns for scraped import
+LST_COLUMN_NAMES_IMPORT = [
+  'From',
+  'To',
+  'Duration',
+  'Status',
+  'Absence_type'
+]
