@@ -1,5 +1,7 @@
 # %% import modules
 import pandas as pd
+import win32com.client as win32
+import datetime
 import os
 import sys
 
@@ -36,6 +38,45 @@ def blnVerifyData(pdtfToVerify):
         blnValidData = False
 
     return blnValidData
+
+def SaveAbsence(
+    pobjApplication,
+    pdttFrom,
+    pdblDurationDays,
+    pstrType,
+    pintStatus,
+    pintHalfDay = 1
+):
+    # create new appointment
+    objAbsence = pobjApplication.CreateItem(1)
+
+    if int(pdblDurationDays) != pdblDurationDays:
+        # half day absence, set it up correctly
+        if pintHalfDay == 1:
+            # starts in the morning
+            strTime = '0:00'
+        else:
+            # starts in the afternoon
+            strTime = '12:00'
+
+    else:
+        # full day absence, set a default start
+        strTime = '0:00'
+
+    # set start date and time
+    objAbsence.Start = pdttFrom.strftime('%Y-%m-%d') + ' ' + strTime
+
+    # set end time using duration in minutes
+    objAbsence.Duration = 60 * 24 * pdblDurationDays
+
+    # add subject
+    objAbsence.Subject = pstrType + g.STR_ABSENCE_CALENDAR_NAME
+
+    # set absence status
+    objAbsence.BusyStatus = pintStatus
+
+    # save the absence
+    objAbsence.Save()
 
 def ImportAbsences():
     """Coordinate import of source data and submission to Outlook calendar.

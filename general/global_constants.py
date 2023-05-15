@@ -85,7 +85,6 @@ STR_ABSENCE_TYPE_NONE = 'Working from office'
 
 # scraping absences
 LST_SCRAPE_ABSENCES = [
-    STR_ABSENCE_TYPE_HOME_OFFICE,
     STR_ABSENCE_TYPE_VACATION,
     STR_ABSENCE_TYPE_SICK_LEAVE,
     STR_ABSENCE_TYPE_PERSONAL_DAY
@@ -239,3 +238,6 @@ LST_COLUMN_NAMES_IMPORT = [
   'Status',
   'Absence_type'
 ]
+
+# default name of downloaded absence
+STR_ABSENCE_CALENDAR_NAME = ': Xperience Download'
