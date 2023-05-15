@@ -7,15 +7,19 @@ sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 
 # %% define general functions unrelated specifically to any process
-def dttConvertDate(pstrYYYYMMDD):
+def dttConvertDate(pstrYYYYMMDD, pstrDelimiter = ''):
     """Convert YYYYMMDD string date to datetime object.
 
     Inputs:
         - pstrYYYYMMDD - string date in YYYYMMDD format
+        - pstrDelimiter - string delimiter present in the date
 
     Outputs:
         - dttConverted - converted date as a datetime object
     """
+    # remove delimiter from the date
+    pstrYYYYMMDD = pstrYYYYMMDD.replace(pstrDelimiter, '')
+
     # parse the data from string and convert to datetime
     dttConverted = datetime.datetime(
         int(pstrYYYYMMDD[:4]),
