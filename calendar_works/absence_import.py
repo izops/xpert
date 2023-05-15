@@ -8,6 +8,15 @@ import general.global_constants as g
 
 # %% functions and methods to import absences from text input to calendar
 def blnVerifyData(pdtfToVerify):
+    """Verify the data for import.
+
+    Inputs:
+        - pdtfToVerify - pandas dataframe that will be verified for validity
+
+    Outpust:
+        - blnValidData - boolean indicator if the file is valid for import to
+        Outlook
+    """
     # set a default value to return
     blnValidData = True
     
@@ -29,6 +38,15 @@ def blnVerifyData(pdtfToVerify):
     return blnValidData
 
 def ImportAbsences():
+    """Coordinate import of source data and submission to Outlook calendar.
+
+    Inputs:
+        - None
+
+    Outputs:
+        - None, absences from the source file are saved as appointments in the
+        default Outlook calendar
+    """
     if os.path.isfile(g.STR_FULL_PATH_SCRAPED_DATA):
         # read the data to import
         dtfSource = pd.read_csv(g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t')
