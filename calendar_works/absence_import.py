@@ -47,6 +47,18 @@ def SaveAbsence(
     pintStatus,
     pintHalfDay = 1
 ):
+    """Save absence to Outlook calendar.
+
+    Inputs:
+        - pobjApplication - instance of Outlook application
+        - pdttFrom - datetime format of absence start date
+        - pdblDurationDays - length of absence duration in days, double
+        - pstrType - string, literal name of the absence type, eg 'Vacation'
+        - pintStatus - numeric representation of appointment status in Outlook
+        convention
+        - pintHalfDay - optional, indicates in which half of the day should
+        the absence start, 1 = first half of the day until 12:00
+    """
     # create new appointment
     objAbsence = pobjApplication.CreateItem(1)
 
