@@ -61,9 +61,9 @@ def lstSplitOffHalfDays(pdtfAbsenceData):
             lstHalfDay[0] = lstHalfDay[1]
 
             # change the end date of the first absence
-            dttEnd = ggf.dttConvertDate(
+            dttEnd = datetime.datetime.strptime(
                 lstAbsences[intAbsence][1],
-                '-'
+                '%d/%m/%Y'
             ) - datetime.timedelta(days = 1)
 
             # assign the value of the first absence without the half day
@@ -94,13 +94,13 @@ def intDetermineHalfDay(plstAbsence1, plstAbsence2):
         if plstAbsence1[2] == 0.5:
             # convert the dates required for checks
             # current end, next start
-            dttHalf = ggf.dttConvertDate(
+            dttHalf = datetime.datetime.strptime(
                 plstAbsence1[1],
-                '-'
+                '%d/%m/%Y'
             )
-            dttNext = ggf.dttConvertDate(
+            dttNext = datetime.datetime.strptime(
                 plstAbsence2[0],
-                '-'
+                '%d/%m/%Y'
             )
 
             if dttHalf + datetime.timedelta(days = 1) == dttNext \
@@ -125,8 +125,14 @@ def SaveAbsences(plstAbsenceData):
 
     for intAbsence in range(len(plstAbsenceData)):
         # convert dates to datetime
-        dttStart = ggf.dttConvertDate(plstAbsenceData[intAbsence][0], '-')
-        dttEnd = ggf.dttConvertDate(plstAbsenceData[intAbsence][1], '-')
+        dttStart = datetime.datetime.strptime(
+            plstAbsenceData[intAbsence][0],
+            '%d/%m/%Y'
+        )
+        dttEnd = datetime.datetime.strptime(
+            plstAbsenceData[intAbsence][1],
+            '%d/%m/%Y'
+        )
 
         # set next absence to compare with the current
         if intAbsence == (len(plstAbsenceData) - 1):
