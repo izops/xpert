@@ -56,6 +56,9 @@ def RunProcess(pintChoice):
     if pintChoice in lstScraping:
         # get type of absence to scrape
         strScrapeAbsence = usi.strGetAbsenceType()
+    else:
+        # set scrape value to default if not selected
+        strScrapeAbsence = ''
 
     if pintChoice not in lstNoCredentials and strScrapeAbsence != 'c':
         # get xperience credentials
