@@ -74,17 +74,89 @@ def lstSplitOffHalfDays(pdtfAbsenceData):
 
     return lstAbsences
 
+def intDetermineHalfDay(plstAbsence1, plstAbsence2):
+    """Determine correct position of half day absence.
+    
+    Inputs:
+        - plstAbsence1 - list containing all data for an absence
+        - plstAbsence2 - list containing all data for an immediate next absence
 
-# def SaveAbsences(pdtfAbsenceData):
-#     # convert the absences to a list
-#     lstAbsences = pdtfAbsenceData.values.tolist()
+    Outputs:
+        - intHalfDay - integer flag denoting if the absence starts in first or
+        second half of the day
+    """
+    # set the default return value to first half of day
+    intHalfDay = 1
 
-#     for intAbsence in len(lstAbsences):
-#         # attempt to append half day absence to the full day
-#         if lstAbsences[intAbsence][2] == 0.5:
-#             # check if the half day starts a chunk of absences
-#             if intAbsence < (len(lstAbsences) - 1):
-#                 if lstAbsences[intAbsence + 1][0] == datetime.timedelta()
+    # compute half day if second absence exists
+    if not plstAbsence2 is None:
+        # check if the half day starts a chunk of absences
+        if plstAbsence1[2] == 0.5:
+            # convert the dates required for checks
+            # current end, next start
+            dttHalf = ggf.dttConvertDate(
+                plstAbsence1[1],
+                '-'
+            )
+            dttNext = ggf.dttConvertDate(
+                plstAbsence2[0],
+                '-'
+            )
+
+            if dttHalf + datetime.timedelta(days = 1) == dttNext \
+            and plstAbsence2[2] >= 1:
+                # half day is followed by a full day absence, set it to
+                # second half of the day
+                intHalfDay = 2
+
+    return intHalfDay
+
+
+
+def SaveAbsences(plstAbsenceData):
+    """Save all absences to Outlook calendar."""
+    # initialize Outlook application
+    objOutlook = win32.Dispatch('Outlook.Application')
+
+    for intAbsence in range(len(plstAbsenceData)):
+        # convert dates to datetime
+        dttStart = ggf.dttConvertDate(plstAbsenceData[intAbsence][0])
+        dttEnd = ggf.dttConvertDate(plstAbsenceData[intAbsence][1])
+
+        # set default value of half day indicator
+        intHalfDay = 1
+
+        # attempt to determine half day absence start based on other absences
+        if plstAbsenceData[intAbsence][2] == 0.5:
+            # check if the half day starts a chunk of absences
+            if intAbsence < (len(plstAbsenceData) - 1):
+                # convert the dates required for checks
+                # current end, next start
+                dttHalf = dttEnd
+                dttNext = ggf.dttConvertDate(
+                    plstAbsenceData[intAbsence + 1][0],
+                    '-'
+                )
+
+                if dttHalf + datetime.timedelta(days = 1) == dttNext \
+                and plstAbsenceData[intAbsence + 1][2] >= 1:
+                    # half day is followed by a full day absence, set it to
+                    # second half of the day
+                    intHalfDay = 2
+
+        # calculate absence duration, convert from seconds to days
+        dttDuration = dttEnd - dttStart + datetime.timedelta(days = 1)
+        intDuration = dttDuration.total_seconds() / 60 / 60 / 24
+
+        # save the absence to Outlook
+        SaveAbsence(
+            objOutlook,
+            dttStart,
+            intDuration,
+            plstAbsenceData[intAbsence][4],
+            g.INT_MEETING_OUT_OF_OFFICE,
+            intHalfDay
+        )
 
 
 def SaveAbsence(
