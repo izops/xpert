@@ -162,7 +162,7 @@ def SaveAbsences(plstAbsenceData):
 def SaveAbsence(
     pobjApplication,
     pdttFrom,
-    pdblDurationDays,
+    pfltDurationDays,
     pstrType,
     pintStatus,
     pintHalfDay = 1
@@ -172,7 +172,7 @@ def SaveAbsence(
     Inputs:
         - pobjApplication - instance of Outlook application
         - pdttFrom - datetime format of absence start date
-        - pdblDurationDays - length of absence duration in days, double
+        - pfltDurationDays - length of absence duration in days, float
         - pstrType - string, literal name of the absence type, eg 'Vacation'
         - pintStatus - numeric representation of appointment status in Outlook
         convention
@@ -182,11 +182,11 @@ def SaveAbsence(
     # create new appointment
     objAbsence = pobjApplication.CreateItem(1)
 
-    if int(pdblDurationDays) != pdblDurationDays:
+    if int(pfltDurationDays) != pfltDurationDays:
         # half day absence, set it up correctly
         if pintHalfDay == 1:
             # starts in the morning
-            strTime = '0:00'
+            strTime = '7:00'
         else:
             # starts in the afternoon
             strTime = '12:00'
@@ -199,7 +199,13 @@ def SaveAbsence(
     objAbsence.Start = pdttFrom.strftime('%Y-%m-%d') + ' ' + strTime
 
     # set end time using duration in minutes
-    objAbsence.Duration = 60 * 24 * pdblDurationDays
+    # for calendar view purpose, change first half day absence duration
+    if pintHalfDay == 1 and pfltDurationDays < 1:
+        # make half-day absence in the first half last for 5 hours
+        objAbsence.Duration = 60 * 5
+    else:
+        # for all other absences, the view is OK with the following calculation
+        objAbsence.Duration = 60 * 24 * pfltDurationDays
 
     # add subject
     objAbsence.Subject = pstrType + g.STR_ABSENCE_CALENDAR_NAME
