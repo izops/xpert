@@ -1,5 +1,6 @@
 # %% import modules
 import pandas as pd
+import datetime
 import sys
 
 sys.path.append('../emea_oth_xpert')
@@ -62,11 +63,15 @@ def dtfProcessDownloadedData(
             g.STR_REGEX_ABSENCE_DURATION
         )
 
-        # convert date columns to date type
+        # convert date columns to date type for easier formatting
         dtfAbsences[['From', 'To']] = dtfAbsences[['From', 'To']].apply(
             pd.to_datetime,
             dayfirst = True
         )
+
+        # store the values as strings with the format used in other features
+        dtfAbsences['From'] = dtfAbsences['From'].dt.strftime('%d/%m/%Y')
+        dtfAbsences['To'] = dtfAbsences['To'].dt.strftime('%d/%m/%Y')
 
         # convert number column to numeric
         dtfAbsences['Duration'] = pd.to_numeric(dtfAbsences['Duration'])
