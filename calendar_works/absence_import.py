@@ -123,26 +123,17 @@ def SaveAbsences(plstAbsenceData):
         dttStart = ggf.dttConvertDate(plstAbsenceData[intAbsence][0])
         dttEnd = ggf.dttConvertDate(plstAbsenceData[intAbsence][1])
 
-        # set default value of half day indicator
-        intHalfDay = 1
+        # set next absence to compare with the current
+        if intAbsence == (len(plstAbsenceData) - 1):
+            lstAbsence2 = None
+        else:
+            lstAbsence2 = plstAbsenceData[intAbsence + 1]
 
-        # attempt to determine half day absence start based on other absences
-        if plstAbsenceData[intAbsence][2] == 0.5:
-            # check if the half day starts a chunk of absences
-            if intAbsence < (len(plstAbsenceData) - 1):
-                # convert the dates required for checks
-                # current end, next start
-                dttHalf = dttEnd
-                dttNext = ggf.dttConvertDate(
-                    plstAbsenceData[intAbsence + 1][0],
-                    '-'
-                )
-
-                if dttHalf + datetime.timedelta(days = 1) == dttNext \
-                and plstAbsenceData[intAbsence + 1][2] >= 1:
-                    # half day is followed by a full day absence, set it to
-                    # second half of the day
-                    intHalfDay = 2
+        # determine correct half day
+        intHalfDay = intDetermineHalfDay(
+            plstAbsenceData[intAbsence],
+            lstAbsence2
+        )
 
         # calculate absence duration, convert from seconds to days
         dttDuration = dttEnd - dttStart + datetime.timedelta(days = 1)
