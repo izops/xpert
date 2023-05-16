@@ -9,6 +9,7 @@ import web.process_scraped_data as wps
 import ui.absences_inputs as uai
 import ui.scraping_inputs as usi
 import calendar_works.calendar_analyzer as cca
+import calendar_works.absence_import as cai
 
 # %% define the master method to launch the process parts
 def RunProcess(pintChoice):
@@ -101,8 +102,8 @@ def RunProcess(pintChoice):
         g.INT_UI_CHOICE_OUTLOOK_IMPORT,
         g.INT_UI_CHOICE_FULL_DOWNLOAD
     ] and strScrapeAbsence != 'c':
-        # save xperience data to outlook - TO BE DONE
-        pass
+        # save xperience data to outlook
+        cai.ImportAbsences()
 
     # the process ends here, say goodbye to the user
     print(g.STR_UI_GOODBYE)
