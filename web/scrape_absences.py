@@ -42,7 +42,7 @@ def lstDownloadData(
 
         # initialize list of absences
         lstAbsences = []
-
+        
         # split the date range to smaller ranges
         lstDateRanges = ggf.lstSplitDates(pstrDateFrom, pstrDateTo)
         
@@ -164,7 +164,7 @@ def lstDownloadData(
                     # save the details to the list of all absences
                     lstAbsences.append(lstDetails)
             except:
-                # table not found, no absence available for this period, skip
-                pass
+                # table not found, no absence available for this period
+                lstAbsences = []
 
     return lstAbsences
