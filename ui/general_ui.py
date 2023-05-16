@@ -1,8 +1,15 @@
 # %% import modules and scripts
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define UI functions for all processes
 def intGreeting():
@@ -27,6 +34,9 @@ def intGreeting():
 
     # ask for an input until a valid answer is provided
     while str(strProcess).lower() not in g.LST_UI_ANSWERS_PROCESS:
+        # log current input
+        logging.debug('intGreeting - strProcess: ' + str(strProcess))
+
         # add a warning if this is not the first time
         if not strProcess is None:
             print('Please, input values from the provided list')
@@ -40,5 +50,8 @@ def intGreeting():
     else:
         # user cancelled the process, greet and exit
         print(g.STR_UI_GOODBYE_CANCEL)
+
+    # log return value
+    logging.info('intGreeting - intContinue: ' + str(intContinue))
 
     return intContinue
