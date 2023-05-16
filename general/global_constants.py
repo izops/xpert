@@ -1,4 +1,8 @@
 # %% contains public constants for xperience automation
+import logging
+
+# set logging level
+OBJ_LOGGING_LEVEL = logging.DEBUG
 
 # %% URLs
 # login URL
