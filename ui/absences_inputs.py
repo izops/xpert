@@ -1,5 +1,6 @@
 # %% import modules
 import re
+import datetime
 import sys
 
 sys.path.append('../emea_oth_xpert')
@@ -48,5 +49,26 @@ def strGetDate(pstrPlaceholderReplacement):
     # ask user for a date until a valid date is provided
     while not re.match(g.STR_REGEX_DATE, strDate):
         strDate = input(strMessage)
+
+    # save the match to an object
+    objMatch = re.match(g.STR_REGEX_DATE, strDate)
+
+    # extract parts of the date
+    strYear, strMonth, strDay = objMatch.groups()
+    
+    # get today's date
+    dttToday = datetime.date.today()
+
+    # based on the found date parts, construct the input date
+    if strYear is None:
+        # missing year, use current
+        strYear = str(dttToday.year)
+
+    if strMonth is None:
+        # missing month, use current
+        strMonth = str(dttToday.month)
+
+    # compile the final date to return
+    strDate = strYear + strMonth + strDay
 
     return strDate

@@ -98,7 +98,7 @@ STR_REGEX_DATA_INPUT += '[0-1])\/(?:[1-9]|0[1-9]|1[0-2])\/20[0-9]{2})\t(Home'
 STR_REGEX_DATA_INPUT +=' office|Vacation|Personal day|Sick leave)'
 
 # user input date
-STR_REGEX_DATE = '^20[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1-2][0-9]|3[01])$'
+STR_REGEX_DATE = '^(20[0-9]{2})?(0[1-9]|1[0-2])?(0[1-9]|[1-2][0-9]|3[01])$'
 
 # web scraped duration
 STR_REGEX_ABSENCE_DURATION = '(\d+\.\d+)'
@@ -183,6 +183,11 @@ LST_UI_ANSWERS_CONVENTION = ['1', '2']
 
 # request date inputs
 STR_UI_REQUEST_DATE = 'Please, provide <SELECT> date in YYYYMMDD format:\n'
+STR_UI_REQUEST_DATE += 'If you want a date from current year, you can use '
+STR_UI_REQUEST_DATE += 'MMDD only.\n'
+STR_UI_REQUEST_DATE += 'If you want a date from current month, you can use '
+STR_UI_REQUEST_DATE += 'DD only.\n'
+
 STR_UI_REQUEST_PLACEHOLDER = '<SELECT>'
 STR_UI_REQUEST_DATE_START = 'start'
 STR_UI_REQUEST_DATE_END = 'end'
