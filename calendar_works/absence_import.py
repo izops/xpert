@@ -111,10 +111,15 @@ def intDetermineHalfDay(plstAbsence1, plstAbsence2):
 
     return intHalfDay
 
-
-
 def SaveAbsences(plstAbsenceData):
-    """Save all absences to Outlook calendar."""
+    """Save all absences from input to Outlook calendar.
+    
+    Inputs:
+        - plstAbsenceData - list of absences converted from pandas dataframe
+
+    Outputs:
+        - None, all absences from the list are saved to Outlook calendar
+    """
     # initialize Outlook application
     objOutlook = win32.Dispatch('Outlook.Application')
 
@@ -148,7 +153,6 @@ def SaveAbsences(plstAbsenceData):
             g.INT_MEETING_OUT_OF_OFFICE,
             intHalfDay
         )
-
 
 def SaveAbsence(
     pobjApplication,
