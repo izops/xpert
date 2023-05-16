@@ -173,8 +173,8 @@ INT_UI_CHOICE_FULL_DOWNLOAD = 6
 INT_UI_CHOICES_MAX = INT_UI_CHOICE_FULL_DOWNLOAD
 
 # request home office convention
-STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
-STR_UI_REQUEST_CONVENTION += 'elsewhere\' all day appointment:\n'
+STR_UI_REQUEST_CONVENTION = '\nPlease, tell me in what way do you use '
+STR_UI_REQUEST_CONVENTION += '\'working elsewhere\' all day appointment:\n'
 STR_UI_REQUEST_CONVENTION += '\t1. Working elsewhere means I work from home\n'
 STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from '
 STR_UI_REQUEST_CONVENTION += 'office\n'
@@ -182,7 +182,7 @@ STR_UI_REQUEST_CONVENTION += 'office\n'
 LST_UI_ANSWERS_CONVENTION = ['1', '2']
 
 # request date inputs
-STR_UI_REQUEST_DATE = 'Please, provide <SELECT> date in YYYYMMDD format:\n'
+STR_UI_REQUEST_DATE = '\nPlease, provide <SELECT> date in YYYYMMDD format:\n'
 STR_UI_REQUEST_DATE += 'If you want a date from current year, you can use '
 STR_UI_REQUEST_DATE += 'MMDD only.\n'
 STR_UI_REQUEST_DATE += 'If you want a date from current month, you can use '
@@ -193,15 +193,15 @@ STR_UI_REQUEST_DATE_START = 'start'
 STR_UI_REQUEST_DATE_END = 'end'
 
 # request absence type for scraping
-STR_UI_REQUEST_ABSENCE_TYPE = 'Please, tell me what kind of absence '
+STR_UI_REQUEST_ABSENCE_TYPE = '\nPlease, tell me what kind of absence '
 STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
 STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience:\n'
 
 
 # goodbyes
-STR_UI_GOODBYE_CANCEL = 'All right then, goodbye!'
-STR_UI_CALENDAR_ANALYSIS_COMPLETE = 'The calendar analysis is complete.\n'
-STR_UI_GOODBYE = 'Thanks for stopping by and have a nice day! (°͜°)ﾉ'
+STR_UI_GOODBYE_CANCEL = '\nAll right then, goodbye!'
+STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
+STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)ﾉ'
 
 # %% paths and file names
 # calendar data path
