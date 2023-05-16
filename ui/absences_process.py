@@ -60,7 +60,9 @@ def RunProcess(pintChoice):
         # set scrape value to default if not selected
         strScrapeAbsence = ''
 
-    if pintChoice not in lstNoCredentials and strScrapeAbsence != 'c':
+    if pintChoice not in lstNoCredentials \
+    and strScrapeAbsence != 'c' \
+    and pintChoice >= 0:
         # get xperience credentials
         strUserName = wcr.strGetUserName()
         strPassword = wcr.strGetPassword()
