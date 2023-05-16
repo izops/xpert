@@ -125,8 +125,8 @@ def SaveAbsences(plstAbsenceData):
 
     for intAbsence in range(len(plstAbsenceData)):
         # convert dates to datetime
-        dttStart = ggf.dttConvertDate(plstAbsenceData[intAbsence][0])
-        dttEnd = ggf.dttConvertDate(plstAbsenceData[intAbsence][1])
+        dttStart = ggf.dttConvertDate(plstAbsenceData[intAbsence][0], '-')
+        dttEnd = ggf.dttConvertDate(plstAbsenceData[intAbsence][1], '-')
 
         # set next absence to compare with the current
         if intAbsence == (len(plstAbsenceData) - 1):
@@ -141,14 +141,19 @@ def SaveAbsences(plstAbsenceData):
         )
 
         # calculate absence duration, convert from seconds to days
-        dttDuration = dttEnd - dttStart + datetime.timedelta(days = 1)
-        intDuration = dttDuration.total_seconds() / 60 / 60 / 24
+        if plstAbsenceData[intAbsence][2] == 0.5:
+            # for half days, use explicit half day duration
+            fltDuration = 0.5
+        else:
+            # for multiday absences calculate the absence duration from dates
+            dttDuration = dttEnd - dttStart + datetime.timedelta(days = 1)
+            fltDuration = dttDuration.total_seconds() / 60 / 60 / 24
 
         # save the absence to Outlook
         SaveAbsence(
             objOutlook,
             dttStart,
-            intDuration,
+            fltDuration,
             plstAbsenceData[intAbsence][4],
             g.INT_MEETING_OUT_OF_OFFICE,
             intHalfDay
@@ -221,8 +226,11 @@ def ImportAbsences():
 
         # check if the data is relevant for importing
         if blnVerifyData(dtfSource):
-            # data is relevant, import it
-            pass
+            # data is relevant, import it for processing
+            lstProcessed = lstSplitOffHalfDays(dtfSource)
+
+            # import the processed data to Outlook calendar
+            SaveAbsences(lstProcessed)
         else:
             # data not relevant, inform the user
             strMessage = 'Nothing relevant to import in the source data'
