@@ -3,16 +3,15 @@
 ## V2.0
 
 Author: Ivan Zustiak  
-Date: 
-Updates: 
-- Password input masked with asterisks instead of no-show typing
-- User experience improved when password required
-
-Description:  
-- User can choose from the convention - either 'working elsewhere' is considered
-to be a home office absence, or it is considered to be a work from office
-- Error messages from Xperience are normalized to avoid process failure from
-diacritic
+Date: 17 May 2023  
+New features:
+    - Downloading absences from Xperience
+    - Saving absences from external file to Outlook calendar (works with 
+    absence download from Xperience)
+    - Advanced error handling of processes
+    - User-friendly selection of dates - day input only for current month,
+    month and day input only for current year
+    - Minor bug fixes
 
 Outlook convention:  
 - User can choose which is flagged as working elsewhere - home office or work
