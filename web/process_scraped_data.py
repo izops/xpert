@@ -76,8 +76,10 @@ def dtfProcessDownloadedData(
         )
 
         # store the values as strings with the format used in other features
-        dtfAbsences['From'] = dtfAbsences['From'].dt.strftime('%d/%m/%Y')
-        dtfAbsences['To'] = dtfAbsences['To'].dt.strftime('%d/%m/%Y')
+        dtfAbsences['From'] = dtfAbsences['From'].dt.strftime(
+            g.STR_DATE_FORMAT
+        )
+        dtfAbsences['To'] = dtfAbsences['To'].dt.strftime(g.STR_DATE_FORMAT)
 
         # convert number column to numeric
         dtfAbsences['Duration'] = pd.to_numeric(dtfAbsences['Duration'])

@@ -182,11 +182,11 @@ def lstConvertAggregatedOutput(plstAggregatedData, pblnOfficeFocused = True):
     # process dates and statuses to human readable form
     for tplEntry in plstAggregatedData:
         # convert the start date and add a tab
-        strConvertedEntry = tplEntry[0].strftime('%d/%m/%Y')
+        strConvertedEntry = tplEntry[0].strftime(g.STR_DATE_FORMAT)
         strConvertedEntry += '\t'
 
         # convert the end date and add a tab
-        strConvertedEntry += tplEntry[1].strftime('%d/%m/%Y')
+        strConvertedEntry += tplEntry[1].strftime(g.STR_DATE_FORMAT)
         strConvertedEntry += '\t'
 
         # convert status and add a line break

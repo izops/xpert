@@ -250,3 +250,6 @@ LST_COLUMN_NAMES_IMPORT = [
 
 # default name of downloaded absence
 STR_ABSENCE_CALENDAR_NAME = ': Xperience Download'
+
+# global date format
+STR_DATE_FORMAT = '%d/%m/%Y'
