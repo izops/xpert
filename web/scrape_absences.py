@@ -18,7 +18,7 @@ logging.basicConfig(
 )
 
 # %% define functions to webscrape data
-def lstDownloadData(
+def tplDownloadData(
     pstrUserName,
     pstrPassword,
     pstrDateFrom,
@@ -176,5 +176,11 @@ def lstDownloadData(
             except:
                 # table not found, no absence available for this period
                 lstAbsences = []
+    else:
+        # login failed, inform the user
+        print(g.STR_UI_LOGIN_FAILED)
 
-    return lstAbsences
+        # return empty list of absences
+        lstAbsences = []
+
+    return blnLogin, lstAbsences

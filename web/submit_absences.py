@@ -105,7 +105,7 @@ def SubmitAbsences(pstrUserName, pstrPassword):
                 logging.debug('SubmitAbsences - tplAbsence: ' + str(
                     tplAbsence
                 ))
-                
+
                 # work with home office data for now
                 if tplAbsence[
                     2
@@ -152,9 +152,7 @@ def SubmitAbsences(pstrUserName, pstrPassword):
 
         else:
             # login failed, prepare the message
-            strMessage = 'Login failed. Either you provided incorrect'
-            strMessage += ' credentials or your password expired.'
-
+            strMessage = g.STR_UI_LOGIN_FAILED
     else:
         # there are no calendar entries to submit
         strMessage = 'There were 0 entries read from the data file, '

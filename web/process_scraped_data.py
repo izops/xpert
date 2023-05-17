@@ -95,7 +95,7 @@ def dtfProcessDownloadedData(
 
     return dtfAbsences
 
-def ObtainXperienceAbsences(
+def blnObtainXperienceAbsences(
     pstrUserName,
     pstrPassword,
     pstrDateFrom,
@@ -113,18 +113,19 @@ def ObtainXperienceAbsences(
         - pstrAbsenceType - absence type to scrape
 
     Outputs:
-        - None returned, external txt file with scraped data created
+        - blnContinue - indicator if the scraping process worked well,
+        additionally, external txt file with scraped data created
     """
     # log inputs
-    logging.info('ObtainXperienceAbsences - pstrUserName: ' + pstrUserName)
-    logging.info('ObtainXperienceAbsences - pstrDateFrom: ' + pstrDateFrom)
-    logging.info('ObtainXperienceAbsences - pstrDateTo: ' + pstrDateTo)
-    logging.info('ObtainXperienceAbsences - pstrAbsenceType: ' + str(
+    logging.info('blnObtainXperienceAbsences - pstrUserName: ' + pstrUserName)
+    logging.info('blnObtainXperienceAbsences - pstrDateFrom: ' + pstrDateFrom)
+    logging.info('blnObtainXperienceAbsences - pstrDateTo: ' + pstrDateTo)
+    logging.info('blnObtainXperienceAbsences - pstrAbsenceType: ' + str(
         pstrAbsenceType
     ))
 
     # scrape data from web based on user request
-    lstScrapedAbsences = wsa.lstDownloadData(
+    blnContinue, lstScrapedAbsences = wsa.tplDownloadData(
         pstrUserName,
         pstrPassword,
         pstrDateFrom,
@@ -132,16 +133,27 @@ def ObtainXperienceAbsences(
         pstrAbsenceType
     )
 
-    # process the absences
-    dtfProcessedAbsences = dtfProcessDownloadedData(
-        lstScrapedAbsences,
-        pstrDateFrom,
-        pstrDateTo,
-        pstrAbsenceType
-    )
+    # log the scraping results
+    logging.debug('blnObtainXperienceAbsences - blnContinue: ' + str(
+        blnContinue
+    ))
+    logging.debug('blnObtainXperienceAbsences - lstScrapedAbsences: ' + str(
+        lstScrapedAbsences
+    ))
 
-    # save the processed data to an external file
-    dtfProcessedAbsences.to_csv(
-        g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t',
-        index = False
-    )
+    if blnContinue:
+        # process the absences if scraped succesfully
+        dtfProcessedAbsences = dtfProcessDownloadedData(
+            lstScrapedAbsences,
+            pstrDateFrom,
+            pstrDateTo,
+            pstrAbsenceType
+        )
+
+        # save the processed data to an external file
+        dtfProcessedAbsences.to_csv(
+            g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t',
+            index = False
+        )
+
+    return blnContinue
