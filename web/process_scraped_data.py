@@ -31,6 +31,12 @@ def dtfProcessDownloadedData(
     Outputs:
         - dtfAbsences - pandas data frame containing 
     """
+    # log inputs
+    logging.info('dtfProcessDownloadedData - pstrDateFrom: ' + pstrDateFrom)
+    logging.info('dtfProcessDownloadedData - pstrDateTo: ' + pstrDateTo)
+    strLog = 'dtfProcessDownloadedData - pstrAbsenceType: ' + pstrAbsenceType
+    logging.info(strLog)
+
     # process the data based on the input
     if len(plstScrapedData) == 0:
         # no data provided, prepare a message to return
