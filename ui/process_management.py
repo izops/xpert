@@ -123,10 +123,11 @@ def RunProcess(pintChoice):
 
         try:
             # run absence submission process
-            wsa.SubmitAbsences(strUserName, strPassword)
+            blnContinue = wsa.blnSubmitAbsences(strUserName, strPassword)
 
-            # inform the user about the process end
-            print(g.STR_UI_SUBMISSION_TO_XPERIENCE)
+            # inform the user about the process end if ended successfully
+            if blnContinue:
+                print(g.STR_UI_SUBMISSION_TO_XPERIENCE)
 
         except:
             # process failed, inform the user

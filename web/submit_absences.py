@@ -67,7 +67,7 @@ def lstReadData(pstrPath):
     return lstCalendarData
 
 # %% define process handling
-def SubmitAbsences(pstrUserName, pstrPassword):
+def blnSubmitAbsences(pstrUserName, pstrPassword):
     """Handle entire process of obtaining login info, logging into xperience
     website, reading calendar data and submitting all relevant entries.
 
@@ -76,8 +76,11 @@ def SubmitAbsences(pstrUserName, pstrPassword):
         - pstrPassword - string containing password for xperience login
 
     Outputs:
-        - None, but the entire process is run
+        - blnContinue - boolean indicator if the login worked well
     """
+    # set a default return value
+    blnContinue = False
+
     # read the calendar data from the source file
     try:
         lstCalendarData = lstReadData(g.STR_FULL_PATH_CALENDAR_DATA)
@@ -164,3 +167,5 @@ def SubmitAbsences(pstrUserName, pstrPassword):
 
     # print the results of the process
     print(strMessage)
+
+    return blnContinue
