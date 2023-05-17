@@ -8,7 +8,6 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
-import general.general_functions as ggf
 
 # %% set up logging
 logging.basicConfig(
