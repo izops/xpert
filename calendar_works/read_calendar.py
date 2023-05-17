@@ -3,6 +3,7 @@ import win32com.client
 import getpass
 import pywintypes
 import datetime
+import logging
 import sys
 
 # import scripts
@@ -10,6 +11,12 @@ sys.path.append('../emea_oth_xpert/')
 import general.global_constants as g
 import general.general_functions as gf
 import calendar_works.analyze_calendar as ac
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions and methods required for analysis of existing absences
 def objCreateRecipient():
@@ -54,11 +61,18 @@ def strGetStatus(
         - strCalendarStatus - characters representing time interval calendar
         availability from requested time up to 30 days
     """
+    # log inputs
+    logging.info('strGetStatus - pstrYYYYMMDD: ' + pstrYYYYMMDD)
+    logging.info('strGetStatus - pintTimeInterval: ' + str(pintTimeInterval))
+
     # put together a datetime value for checking the status
     # using arbitrary time to get data from the correct date
     dttStartDate = gf.dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(
         hours = 12
     )
+
+    # log the start date
+    logging.info('strGetStatus - dttStartDate: ' + str(dttStartDate))
 
     # convert source time to pywin time
     objPywinTime = pywintypes.Time(dttStartDate)
@@ -69,6 +83,9 @@ def strGetStatus(
         pintTimeInterval,
         True
     )
+
+    # log the obtained status
+    logging.info('strGetStatus - strCalendarStatus: ' + strCalendarStatus)
 
     return strCalendarStatus
 
@@ -85,12 +102,24 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
         - lstStatuses - list of 24 hour calendar meeting statuses from the
         requested period
     """
+    # log inputs
+    logging.info('lstGetCalendarStatuses - pstrDateStart: ' + pstrDateStart)
+    logging.info('lstGetCalendarStatuses - pstrDateEnd: ' + pstrDateEnd)
+
     # create Outlook recipient
     objRecipient = objCreateRecipient()
 
     # convert the date to the datetime value
     dttDateCurrent = gf.dttConvertDate(pstrDateStart)
     dttDateEnd = gf.dttConvertDate(pstrDateEnd)
+
+    # log the converted dates
+    logging.info('lstGetCalendarStatuses - dttDateCurrent: ' + str(
+        dttDateCurrent
+    ))
+    logging.info('lstGetCalendarStatuses - dttDateEnd: ' + str(
+        dttDateEnd
+    ))
 
     # initialize a list of calendar statuses
     lstStatuses = []
@@ -135,11 +164,24 @@ def lstGetFullDayOutputInPeriod(
         and calendar status. Dates are returned as datetime objects and the
         status is an Outlook API constant
     """
+    # log inputs
+    strLog = 'lstGetFullDayOutputInPeriod - pstrPeriodStart: '
+    strLog += pstrPeriodStart
+    logging.info(strLog)
+
     # get calendar statuses for every day
-    lstCalendarStatuses = lstGetCalendarStatuses(pstrPeriodStart, pstrPeriodEnd)
+    lstCalendarStatuses = lstGetCalendarStatuses(
+        pstrPeriodStart,
+        pstrPeriodEnd
+    )
 
     # convert the start date to datetime
     dttCurrentDay = gf.dttConvertDate(pstrPeriodStart)
+
+    # log the converted day
+    strLog = 'lstGetFullDayOutputInPeriod - dttCurrentDay: '
+    strLog += str(dttCurrentDay)
+    logging.debug(strLog)
 
     # initialize a list of full day output in the period
     lstCalendarPeriod = []
@@ -154,6 +196,11 @@ def lstGetFullDayOutputInPeriod(
             
             # store the date from, date to and status
             tplDailyStatus = (dttCurrentDay, dttCurrentDay, intAllDayStatus)
+
+            # log the result
+            strLog = 'lstGetFullDayOutputInPeriod - tplDailyStatus: '
+            strLog += str(tplDailyStatus)
+            logging.debug(strLog)
 
             # store it in the list
             lstCalendarPeriod.append(tplDailyStatus)
