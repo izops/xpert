@@ -45,8 +45,8 @@ def strGetPassword():
         - strPassword - string containing user input
     """
     # put together prompt message
-    strMessage = 'Please, provide your password.'
-    strMessage += ' (it will be hidden and discarded afterwards)\n'
+    strMessage = 'Please, provide your password to Xperience '
+    strMessage += '(it will be hidden and discarded afterwards):\n'
 
     # ask user for their password
     strPassword = maskpass.askpass(strMessage)
