@@ -19,8 +19,8 @@ def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
 
     Inputs:
         - pintAbsenceCode - Outlook API numeric code of meeting status
-        - pblnOfficeFocused - optional boolean indicator if the values should be
-        converted with 'working elsewhere' used as home office (True) or as
+        - pblnOfficeFocused - optional boolean indicator if the values should
+        be converted with 'working elsewhere' used as home office (True) or as
         working from home (False)
 
     Outputs:
@@ -79,8 +79,8 @@ def intAnalyzeCalendarStatus(pstrStatus):
     present, free status is returned.
 
     Inputs:
-        - pstrStatus - single daily status coming from the function that returns
-        24 hours of meeting availability from calendar
+        - pstrStatus - single daily status coming from the function that
+        returns 24 hours of meeting availability from calendar
 
     Outputs:
         - intFullDayStatus - status of an entire day, if no full day meeting is
@@ -167,7 +167,7 @@ def lstConvertAggregatedOutput(plstAggregatedData, pblnOfficeFocused = True):
     Inputs:
         - plstAggregatedData - list of tuples containing start date, end date,
         and status. Dates are datetime objects, status is an Outlook constant
-        - pblnOfficeFocused - optional boolean indicator to specify the calendar
+        - pblnOfficeFocused - optional boolean indicator to specify calendar
         convention for working elsewhere as either home office (True) or work
         from office (False)
 

@@ -4,8 +4,8 @@ import sys
 
 # import scripts
 sys.path.append('../emea_oth_xpert/')
-import calendar_works.analyze_calendar as ac
-import calendar_works.read_calendar as rc
+import calendar_works.analyze_calendar as cac
+import calendar_works.read_calendar as crc
 import general.global_constants as g
 
 # %% set up logging
@@ -22,11 +22,12 @@ def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
     The output is then saved to a text file.
 
     Inputs:
-        - pstrDateStart - start date of the calendar analysis in YYYYMMDD format
+        - pstrDateStart - start date of the calendar analysis in YYYYMMDD
+        format
         - pstrDateEnd - end date of the calendar analysis in YYYYMMDD format
-        - pblnOfficeFocused - optional boolean indicator to specify the calendar
-        convention for working elsewhere as either home office (True) or work
-        from office (False)
+        - pblnOfficeFocused - optional boolean indicator to specify
+        the calendar convention for working elsewhere as either home office
+        (True) or work from office (False)
 
     Outputs:
         - None, a text file with the calendar data in the requested format is
@@ -37,16 +38,19 @@ def AnalyzeCalendar(pstrDateStart, pstrDateEnd, pblnOfficeFocused = True):
     logging.info('AnalyzeCalendar - pstrDateEnd: ' + pstrDateEnd)
 
     # retrieve all 
-    lstCalendar = rc.lstGetFullDayOutputInPeriod(
+    lstCalendar = crc.lstGetFullDayOutputInPeriod(
         pstrDateStart,
         pstrDateEnd
     )
 
     # aggregate the days with the same output
-    lstCalendar = ac.lstAggregateCalendarOutput(lstCalendar)
+    lstCalendar = cac.lstAggregateCalendarOutput(lstCalendar)
 
     # convert the calendar info to Xperience output
-    lstCalendar = ac.lstConvertAggregatedOutput(lstCalendar, pblnOfficeFocused)
+    lstCalendar = cac.lstConvertAggregatedOutput(
+        lstCalendar,
+        pblnOfficeFocused
+    )
 
     # output the calendar data to a file
-    ac.OutputCalendarData(lstCalendar)
+    cac.OutputCalendarData(lstCalendar)

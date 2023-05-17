@@ -6,7 +6,7 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
-import general.general_functions as gf
+import general.general_functions as ggf
 
 # %% set up logging
 logging.basicConfig(
@@ -64,8 +64,8 @@ def strAbsenceDetails(
     pstrDateFrom,
     pstrDateTo = ''
 ):
-    """Use selenium to fill details about specific absence. Check if the absence
-    was submitted. If an error is identified, return it in a string.
+    """Use selenium to fill details about specific absence. Check if the
+    absence was submitted. If an error is identified, return it in a string.
 
     Inputs:
         - pobjDriver - selenium webdriver used for navigating websites
@@ -142,7 +142,7 @@ def strAbsenceDetails(
         strError = objError.text
 
         # normalize non ascii characters
-        strError = gf.strNormalizeToASCII(strError)
+        strError = ggf.strNormalizeToASCII(strError)
 
         # replace all line breaks with a comma
         strError = strError.replace('\n', ', ')

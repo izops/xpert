@@ -1,7 +1,7 @@
 # %%
-# Contains functions and methods that read data inputs for Xperience submission,
-# and that operate the Xperience website and submit the absence details. 
-# Currently submits only full-day home office absences.
+# Contains functions and methods that read data inputs for Xperience 
+# submission, and that operate the Xperience website and submit the absence
+# details. Currently submits only full-day home office absences.
 
 # %% import modules
 # selenium elements
@@ -18,7 +18,7 @@ sys.path.append('../emea_oth_xpert/')
 import general.global_constants as g
 import web.common_web_functions as cwf
 import web.absence_functions as was
-import general.general_functions as gf
+import general.general_functions as ggf
 
 # %% set up logging
 logging.basicConfig(
@@ -163,7 +163,7 @@ def blnSubmitAbsences(pstrUserName, pstrPassword):
 
     # save the log as an external file if any absence was submitted
     if strMessage.find('\n') >= 0:
-        gf.WriteLog(strMessage)
+        ggf.WriteLog(strMessage)
 
     # print the results of the process
     print(strMessage)

@@ -9,8 +9,8 @@ import sys
 # import scripts
 sys.path.append('../emea_oth_xpert/')
 import general.global_constants as g
-import general.general_functions as gf
-import calendar_works.analyze_calendar as ac
+import general.general_functions as ggf
+import calendar_works.analyze_calendar as cac
 
 # %% set up logging
 logging.basicConfig(
@@ -48,14 +48,15 @@ def strGetStatus(
 ):
     """Get calendar status in Outlook API form for the specified recipient
     starting by a specific date at midnight in the local timezone. Each
-    character of the return string represents a unit of time interval in minutes
-    defined in input.
+    character of the return string represents a unit of time interval in
+    minutes defined in input.
 
     Inputs:
         - pobjRecipient - Outlook recipient object to read calendar data from
         - pstrYYYYMMDD - start date from which the statuses will be returned
-        - pintTimeInterval - time interval in minutes by which the calendar will
-        be checked. Eg to check calendar status by hour, use time interval = 60
+        - pintTimeInterval - time interval in minutes by which the calendar 
+        will be checked. Eg to check calendar status by hour, use time
+        interval = 60
 
     Outputs:
         - strCalendarStatus - characters representing time interval calendar
@@ -67,7 +68,7 @@ def strGetStatus(
 
     # put together a datetime value for checking the status
     # using arbitrary time to get data from the correct date
-    dttStartDate = gf.dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(
+    dttStartDate = ggf.dttConvertDate(pstrYYYYMMDD) + datetime.timedelta(
         hours = 12
     )
 
@@ -110,8 +111,8 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
     objRecipient = objCreateRecipient()
 
     # convert the date to the datetime value
-    dttDateCurrent = gf.dttConvertDate(pstrDateStart)
-    dttDateEnd = gf.dttConvertDate(pstrDateEnd)
+    dttDateCurrent = ggf.dttConvertDate(pstrDateStart)
+    dttDateEnd = ggf.dttConvertDate(pstrDateEnd)
 
     # log the converted dates
     logging.info('lstGetCalendarStatuses - dttDateCurrent: ' + str(
@@ -129,7 +130,7 @@ def lstGetCalendarStatuses(pstrDateStart, pstrDateEnd):
         # get status of the calendar for the day by hours
         strStatus = strGetStatus(
             objRecipient,
-            gf.strConvertDate(dttDateCurrent),
+            ggf.strConvertDate(dttDateCurrent),
             g.INT_CALENDAR_TIME_UNIT_HOURS
         )
 
@@ -149,8 +150,8 @@ def lstGetFullDayOutputInPeriod(
     pstrPeriodEnd,
     blnRemoveWeekend = True
 ):
-    """Return a list of tuples containing daily calendar status for every day in
-    the specified period, including the start and the end days. It is possible
+    """Return a list of tuples containing daily calendar status for every day
+    in specified period, including the start and the end days. It is possible
     to exclude weekend days from the status analysis.
 
     Inputs:
@@ -176,7 +177,7 @@ def lstGetFullDayOutputInPeriod(
     )
 
     # convert the start date to datetime
-    dttCurrentDay = gf.dttConvertDate(pstrPeriodStart)
+    dttCurrentDay = ggf.dttConvertDate(pstrPeriodStart)
 
     # log the converted day
     strLog = 'lstGetFullDayOutputInPeriod - dttCurrentDay: '
@@ -192,7 +193,7 @@ def lstGetFullDayOutputInPeriod(
         if (dttCurrentDay.weekday() < 5 and blnRemoveWeekend) \
         or not blnRemoveWeekend:
             # get the all day status of the day
-            intAllDayStatus = ac.intAnalyzeCalendarStatus(strCurrentStatus)
+            intAllDayStatus = cac.intAnalyzeCalendarStatus(strCurrentStatus)
             
             # store the date from, date to and status
             tplDailyStatus = (dttCurrentDay, dttCurrentDay, intAllDayStatus)
