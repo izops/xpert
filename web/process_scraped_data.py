@@ -1,12 +1,18 @@
 # %% import modules
 import pandas as pd
-import datetime
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import general.general_functions as ggf
 import web.scrape_absences as wsa
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define data processing functions
 def dtfProcessDownloadedData(
@@ -101,6 +107,14 @@ def ObtainXperienceAbsences(
     Outputs:
         - None returned, external txt file with scraped data created
     """
+    # log inputs
+    logging.info('ObtainXperienceAbsences - pstrUserName: ' + pstrUserName)
+    logging.info('ObtainXperienceAbsences - pstrDateFrom: ' + pstrDateFrom)
+    logging.info('ObtainXperienceAbsences - pstrDateTo: ' + pstrDateTo)
+    logging.info('ObtainXperienceAbsences - pstrAbsenceType: ' + str(
+        pstrAbsenceType
+    ))
+
     # scrape data from web based on user request
     lstScrapedAbsences = wsa.lstDownloadData(
         pstrUserName,
