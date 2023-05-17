@@ -67,8 +67,9 @@ def strGetDate(pstrPlaceholderReplacement):
     if strMonth is None:
         # missing month, use current and fix it to MM
         strMonth = str(dttToday.month + 100)
+        strMonth = strMonth[1:]
 
     # compile the final date to return
-    strDate = strYear + strMonth[1:] + strDay
+    strDate = strYear + strMonth + strDay
 
     return strDate
