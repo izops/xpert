@@ -2,7 +2,7 @@
 import logging
 
 # set logging level
-OBJ_LOGGING_LEVEL = logging.DEBUG
+OBJ_LOGGING_LEVEL = logging.ERROR
 
 # %% URLs
 # login URL
@@ -187,10 +187,10 @@ LST_UI_ANSWERS_CONVENTION = ['1', '2']
 
 # request date inputs
 STR_UI_REQUEST_DATE = '\nPlease, provide <SELECT> date in YYYYMMDD format:\n'
-STR_UI_REQUEST_DATE += 'If you want a date from current year, you can use '
-STR_UI_REQUEST_DATE += 'MMDD only.\n'
-STR_UI_REQUEST_DATE += 'If you want a date from current month, you can use '
-STR_UI_REQUEST_DATE += 'DD only.\n'
+STR_UI_REQUEST_DATE += '\tIf you want a date from current year, you can use '
+STR_UI_REQUEST_DATE += 'MMDD only\n'
+STR_UI_REQUEST_DATE += '\tIf you want a date from current month, you can use '
+STR_UI_REQUEST_DATE += 'DD only\n'
 
 STR_UI_REQUEST_PLACEHOLDER = '<SELECT>'
 STR_UI_REQUEST_DATE_START = 'start'
@@ -201,10 +201,13 @@ STR_UI_REQUEST_ABSENCE_TYPE = '\nPlease, tell me what kind of absence '
 STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
 STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience:\n'
 
-
 # goodbyes
 STR_UI_GOODBYE_CANCEL = '\nAll right then, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
+STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
+STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
+STR_UI_ABSENCE_SCRAPING = '\nAbsences downloaded successfully.'
+STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
 STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)ﾉ'
 
 # %% paths and file names

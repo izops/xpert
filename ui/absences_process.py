@@ -107,6 +107,9 @@ def RunProcess(pintChoice):
         # run absence submission process
         wsa.SubmitAbsences(strUserName, strPassword)
 
+        # inform the user about the process end
+        print(g.STR_UI_SUBMISSION_TO_XPERIENCE)
+
         # discard the password
         del strPassword
 
@@ -120,6 +123,9 @@ def RunProcess(pintChoice):
             strScrapeAbsence
         )
 
+        # inform the user about the process end
+        print(g.STR_UI_ABSENCE_SCRAPING)
+
         # discard the password
         del strPassword
 
@@ -129,6 +135,9 @@ def RunProcess(pintChoice):
     ] and strScrapeAbsence != 'c':
         # save xperience data to outlook
         cai.ImportAbsences()
+
+        # inform the user about the process end
+        print(g.STR_UI_ABSENCE_OUTLOOK)
 
     # the process ends here, say goodbye to the user
     print(g.STR_UI_GOODBYE)
