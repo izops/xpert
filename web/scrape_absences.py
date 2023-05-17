@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
+import logging
 import time
 import sys
 
@@ -9,6 +10,12 @@ sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import general.general_functions as ggf
 import web.common_web_functions as wcf
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions to webscrape data
 def lstDownloadData(
@@ -35,6 +42,9 @@ def lstDownloadData(
 
     # login to the xperience
     blnLogin = wcf.blnLogin(objDriver, pstrUserName, pstrPassword)
+
+    # log the login result
+    logging.debug('lstDownloadData - blnLogin: ' + str(blnLogin))
 
     if blnLogin:
         # load page with the absence list
