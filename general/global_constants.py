@@ -201,6 +201,17 @@ STR_UI_REQUEST_ABSENCE_TYPE = '\nPlease, tell me what kind of absence '
 STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
 STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience:\n'
 
+# process start info
+STR_UI_PROCESS_STARTED = ' has started...\n'
+STR_UI_PROCESS_CALENDAR_ANALYSIS = 'Calendar analysis'
+STR_UI_PROCESS_XPERIENCE_SUBMISSION = 'Submission to Xperience'
+STR_UI_PROCESS_ABSENCE_DOWNLOAD = 'Downloading of absences from Xperience'
+STR_UI_PROCESS_ABSENCE_SAVING = 'Saving of absences to Outlook calendar'
+
+# process fail info
+STR_UI_PROCESS_FAILED = ' has failed unexpectedly. Please, contact the '
+STR_UI_PROCESS_FAILED += 'maintainer of repository for help.\n'
+
 # goodbyes
 STR_UI_GOODBYE_CANCEL = '\nAll right then, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'

@@ -94,6 +94,9 @@ def RunProcess(pintChoice):
         strPassword = wcr.strGetPassword()
 
     if pintChoice in lstAbsenceSubmission:
+        # inform user about the process start
+        print(g.STR_UI_PROCESS_CALENDAR_ANALYSIS + g.STR_UI_PROCESS_STARTED)
+        
         # launch the calendar analysis
         cca.AnalyzeCalendar(strDateStart, strDateEnd, blnOfficeFocused)
 
@@ -104,6 +107,9 @@ def RunProcess(pintChoice):
         g.INT_UI_CHOICE_XPERIENCE_SUBMISSION,
         g.INT_UI_CHOICE_FULL_SUBMISSION
     ]:
+        # inform user about the process start
+        print(g.STR_UI_PROCESS_XPERIENCE_SUBMISSION + g.STR_UI_PROCESS_STARTED)
+
         # run absence submission process
         wsa.SubmitAbsences(strUserName, strPassword)
 
@@ -114,6 +120,9 @@ def RunProcess(pintChoice):
         del strPassword
 
     if pintChoice in lstScraping and strScrapeAbsence != 'c':
+        # inform user about the process start
+        print(g.STR_UI_PROCESS_ABSENCE_DOWNLOAD + g.STR_UI_PROCESS_STARTED)
+
         # scrape xperience data, process and save them to an external file
         wps.ObtainXperienceAbsences(
             strUserName,
@@ -133,6 +142,9 @@ def RunProcess(pintChoice):
         g.INT_UI_CHOICE_OUTLOOK_IMPORT,
         g.INT_UI_CHOICE_FULL_DOWNLOAD
     ] and strScrapeAbsence != 'c':
+        # inform user about the process start
+        print(g.STR_UI_PROCESS_ABSENCE_SAVING + g.STR_UI_PROCESS_STARTED)
+
         # save xperience data to outlook
         cai.ImportAbsences()
 
