@@ -1,10 +1,17 @@
 # %% import modules
 import re
 import datetime
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions and methods that serve to obtain inputs from user for
 # absence submission
@@ -50,6 +57,9 @@ def strGetDate(pstrPlaceholderReplacement):
     while not re.match(g.STR_REGEX_DATE, strDate):
         strDate = input(strMessage)
 
+    # log obtained value
+    logging.debug('strGetDate - strDate: ' + strDate)
+
     # save the match to an object
     objMatch = re.match(g.STR_REGEX_DATE, strDate)
 
@@ -68,6 +78,11 @@ def strGetDate(pstrPlaceholderReplacement):
         # missing month, use current and fix it to MM
         strMonth = str(dttToday.month + 100)
         strMonth = strMonth[1:]
+
+    # log final parts of the date
+    logging.debug('strGetDate - strYear: ' + strYear)
+    logging.debug('strGetDate - strMonth: ' + strMonth)
+    logging.debug('strGetDate - strDay: ' + strDay)
 
     # compile the final date to return
     strDate = strYear + strMonth + strDay
