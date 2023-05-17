@@ -47,6 +47,17 @@ def blnVerifyData(pdtfToVerify):
     return blnValidData
 
 def lstSplitOffHalfDays(pdtfAbsenceData):
+    """
+    Split off half-day absences from joint absences lasting more than 1 day.
+
+    Inputs:
+        - pdtfAbsenceData - pandas dataframe containing absence data in the
+        format of the scraped data
+
+    Outputs:
+        - lstAbsences - list of absences that have 1 or more days of duration
+        and individual half days appended to the end of the longer absence
+    """
     # log inputs
     logging.info('lstSplitOffHalfDays - pdtfAbsenceData: ' + str(
         pdtfAbsenceData
