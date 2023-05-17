@@ -10,6 +10,7 @@ from selenium import webdriver
 # other modules
 import re
 import os
+import logging
 import sys
 
 # import scripts
@@ -18,6 +19,12 @@ import general.global_constants as g
 import web.common_web_functions as cwf
 import web.absence_functions as was
 import general.general_functions as gf
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions for handling the browser
 def lstReadData(pstrPath):
@@ -41,6 +48,9 @@ def lstReadData(pstrPath):
 
     # read in the file
     for strRow in objCalendarData:
+        # log the read row
+        logging.debug('lstReadData - strRow: ' + strRow)
+
         # try to match the row with regex
         objMatch = re.match(g.STR_REGEX_DATA_INPUT, strRow, re.IGNORECASE)
 
@@ -91,6 +101,11 @@ def SubmitAbsences(pstrUserName, pstrPassword):
         if blnContinue:
             # if login successful, add the absence entry for each data point
             for tplAbsence in lstCalendarData:
+                # log absence
+                logging.debug('SubmitAbsences - tplAbsence: ' + str(
+                    tplAbsence
+                ))
+                
                 # work with home office data for now
                 if tplAbsence[
                     2
@@ -132,7 +147,8 @@ def SubmitAbsences(pstrUserName, pstrPassword):
 
                 else:
                     # unsupported type of absence
-                    strMessage = 'Unsupported type of absence: ' + tplAbsence[2]
+                    strMessage = 'Unsupported type of absence: ' 
+                    strMessage += tplAbsence[2]
 
         else:
             # login failed, prepare the message
