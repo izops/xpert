@@ -1,4 +1,5 @@
 # %% import modules
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
@@ -11,6 +12,12 @@ import ui.scraping_inputs as usi
 import calendar_works.calendar_analyzer as cca
 import calendar_works.absence_import as cai
 
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
+
 # %% define the master method to launch the process parts
 def RunProcess(pintChoice):
     """Based on the input, run Outlook calendar analysis, submission of
@@ -21,7 +28,10 @@ def RunProcess(pintChoice):
 
     Outputs:
         - None, either one or two processes are run
-    """
+    """    
+    # log input
+    logging.info('RunProcess - pintChoice: ' + str(pintChoice))
+
     # group choices based on flowchart
     lstAbsenceSubmission = [
         g.INT_UI_CHOICE_OUTLOOK_EXPORT,
@@ -44,9 +54,16 @@ def RunProcess(pintChoice):
         strDateStart = uai.strGetDate(g.STR_UI_REQUEST_DATE_START)
         strDateEnd = uai.strGetDate(g.STR_UI_REQUEST_DATE_END)
 
+        # log obtained data
+        logging.debug('RunProcess - strDateStart: ' + strDateStart)
+        logging.debug('RunProcess - strDateEnd: ' + strDateEnd)
+
     if pintChoice in lstAbsenceSubmission:
         # get the calendar convention
         strConvention = uai.strGetCalendarConvention()
+
+        # log obtained data
+        logging.debug('RunProcess - strConvention: ' + strConvention)
 
         # create boolean parameter based on the output from convention check
         if strConvention == g.LST_UI_ANSWERS_CONVENTION[0]:
@@ -54,12 +71,20 @@ def RunProcess(pintChoice):
         else:
             blnOfficeFocused = False
 
+        # log convention flag
+        logging.debug('RunProcess - blnOfficeFocused: ' + str(
+            blnOfficeFocused
+        ))
+
     if pintChoice in lstScraping:
         # get type of absence to scrape
         strScrapeAbsence = usi.strGetAbsenceType()
     else:
         # set scrape value to default if not selected
         strScrapeAbsence = ''
+
+    # log absence type to scrape
+    logging.debug('RunProcess - strScrapeAbsence: ' + strScrapeAbsence)
 
     if pintChoice not in lstNoCredentials \
     and strScrapeAbsence != 'c' \
