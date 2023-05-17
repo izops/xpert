@@ -3,11 +3,18 @@ import pandas as pd
 import win32com.client as win32
 import datetime
 import os
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import general.general_functions as ggf
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% functions and methods to import absences from text input to calendar
 def blnVerifyData(pdtfToVerify):
@@ -41,6 +48,11 @@ def blnVerifyData(pdtfToVerify):
     return blnValidData
 
 def lstSplitOffHalfDays(pdtfAbsenceData):
+    # log inputs
+    logging.info('lstSplitOffHalfDays - pdtfAbsenceData: ' + str(
+        pdtfAbsenceData
+    ))
+
     # convert the absences to a list
     lstAbsences = pdtfAbsenceData.values.tolist()
 
@@ -50,6 +62,11 @@ def lstSplitOffHalfDays(pdtfAbsenceData):
         # split the half day absence from a continuous full day absence
         if int(lstAbsences[intAbsence][2]) != lstAbsences[intAbsence][2] \
         and lstAbsences[intAbsence][2] > 1:
+            # log the starting point list
+            strLog = 'lstSplitOffHalfDays - lstAbsences[intAbsence]: '
+            strLog += str(lstAbsences[intAbsence])
+            logging.debug(strLog)
+
             # create a copy of the list
             lstHalfDay = lstAbsences[intAbsence].copy()
 
@@ -67,10 +84,18 @@ def lstSplitOffHalfDays(pdtfAbsenceData):
             ) - datetime.timedelta(days = 1)
 
             # assign the value of the first absence without the half day
-            lstAbsences[intAbsence][1] = dttEnd.strftime('%Y-%m-%d')
+            lstAbsences[intAbsence][1] = dttEnd.strftime('%d/%m/%Y')
 
             # insert the half day chunk to the list of absences
             lstAbsences.insert(intAbsence + 1, lstHalfDay)
+
+            # log the edited absence and the halfday
+            strLog = 'lstSplitOffHalfDays - lstAbsences[intAbsence]: '
+            strLog += str(lstAbsences[intAbsence])
+            logging.debug(strLog)
+            logging.debug('lstSplitOffHalfDays - lstHalfDay: ' + str(
+                lstHalfDay
+            ))
 
     return lstAbsences
 
@@ -120,6 +145,9 @@ def SaveAbsences(plstAbsenceData):
     Outputs:
         - None, all absences from the list are saved to Outlook calendar
     """
+    # log inputs
+    logging.info('SaveAbsences - plstAbsenceData:\n' + str(plstAbsenceData))
+
     # initialize Outlook application
     objOutlook = win32.Dispatch('Outlook.Application')
 
@@ -236,10 +264,18 @@ def ImportAbsences():
         # read the data to import
         dtfSource = pd.read_csv(g.STR_FULL_PATH_SCRAPED_DATA, sep = '\t')
 
+        # log data
+        logging.debug('ImportAbsences - dtfSource:\n' + str(dtfSource))
+
         # check if the data is relevant for importing
         if blnVerifyData(dtfSource):
             # data is relevant, import it for processing
             lstProcessed = lstSplitOffHalfDays(dtfSource)
+
+            # log processed data
+            logging.debug('ImportAbsences - lstProcessed:\n' + str(
+                lstProcessed
+            ))
 
             # import the processed data to Outlook calendar
             SaveAbsences(lstProcessed)
