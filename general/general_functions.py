@@ -1,10 +1,17 @@
 # %% import modules
 import unicodedata
 import datetime
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define general functions unrelated specifically to any process
 def dttConvertDate(pstrYYYYMMDD, pstrDelimiter = ''):
@@ -123,6 +130,11 @@ def lstSplitDates(pstrDateFrom, pstrDateTo, intMaxDays = 30):
         - lstDates - list of tuples of non-overlapping dates covering the
         input interval, tuple contains dates from and to, in YYYYMMDD format
     """
+    # log inputs
+    logging.info('lstSplitDates - pstrDateFrom: ' + pstrDateFrom)
+    logging.info('lstSplitDates - pstrDateTo: ' + pstrDateTo)
+    logging.info('lstSplitDates - intMaxDays: ' + str(intMaxDays))
+
     # convert dates to datetime data
     dttFrom = dttConvertDate(pstrDateFrom)
     dttTo = dttConvertDate(pstrDateTo)
