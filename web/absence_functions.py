@@ -1,11 +1,18 @@
 # %% import modules
 import time
 from selenium.webdriver.common.keys import Keys
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
 import general.general_functions as gf
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions and methods that handle submission of absences
 def blnOpenNewAbsence(pobjDriver, pstrAbsenceType):
@@ -72,6 +79,9 @@ def strAbsenceDetails(
     """
     # convert the date to Slovak standard (dot separator)
     strDateFrom = pstrDateFrom.replace('/', '.')
+
+    # log the date
+    logging.debug('strAbsenceDetails - strDateFrom: ' + strDateFrom)
 
     # set up the interaction based on the absence type
     if pstrAbsenceType == g.STR_ABSENCE_TYPE_HOME_OFFICE:
