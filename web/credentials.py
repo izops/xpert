@@ -1,10 +1,17 @@
 # %% import modules
 import maskpass
 import os
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions to obtain credentials
 def strGetUserName():
@@ -19,6 +26,12 @@ def strGetUserName():
     """
     # get user name from the local environment
     strUserName = os.getlogin() + g.STR_USER_DOMAIN
+
+    # make it lowercase
+    strUserName = strUserName.lower()
+
+    # log the obtained username
+    logging.debug('strGetUserName - strUserName: ' + strUserName)
 
     return strUserName
 
