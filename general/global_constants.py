@@ -212,12 +212,16 @@ STR_UI_PROCESS_ABSENCE_SAVING = 'Saving of absences to Outlook calendar'
 STR_UI_PROCESS_FAILED = ' has failed unexpectedly. Please, contact the '
 STR_UI_PROCESS_FAILED += 'maintainer of repository for help.\n'
 
+# login fail info
+STR_UI_LOGIN_FAILED = 'Login failed. Either you provided incorrect'
+STR_UI_LOGIN_FAILED += ' credentials or your password expired.'
+
 # goodbyes
 STR_UI_GOODBYE_CANCEL = '\nAll right then, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
 STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
 STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
-STR_UI_ABSENCE_SCRAPING = '\nAbsences downloaded successfully.'
+STR_UI_ABSENCE_SCRAPING = '\nAbsences download successfully.'
 STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
 STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)ﾉ'
 
