@@ -6,12 +6,12 @@
 import sys
 
 sys.path.append('../emea_oth_xpert')
-import ui.general_ui as gi
-import ui.absences_process as ap
+import ui.general_ui as ugu
+import ui.process_management as upm
 
 # %% run code
 # ask user which process to run
-intSelection = gi.intGreeting()
+intSelection = ugu.intGreeting()
 
 # run the selected process
-ap.RunProcess(intSelection)
+upm.RunProcess(intSelection)
