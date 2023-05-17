@@ -223,7 +223,7 @@ STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
 STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
 STR_UI_ABSENCE_SCRAPING = '\nAbsences download successfully.'
 STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
-STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)ﾉ'
+STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)/*'
 
 # %% paths and file names
 # calendar data path
