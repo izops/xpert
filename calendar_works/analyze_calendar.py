@@ -1,9 +1,16 @@
 # %% import modules
 import datetime
+import logging
 import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
+
+# %% set up logging
+logging.basicConfig(
+    level = g.OBJ_LOGGING_LEVEL,
+    format=' %(asctime)s -  %(levelname)s -  %(message)s'
+)
 
 # %% define functions and methods to analyze calendar data
 def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
@@ -19,6 +26,14 @@ def strConvertAbsence(pintAbsenceCode, pblnOfficeFocused = True):
     Outputs:
         - strAbsence - word representation of the corresponding meeting status
     """
+    # log inputs
+    logging.info('strConvertAbsence - pintAbsenceCode: ' + str(
+        pintAbsenceCode
+    ))
+    logging.info('strConvertAbsence - pblnOfficeFocused: ' + str(
+        pblnOfficeFocused
+    ))
+
     if pblnOfficeFocused:
         # use office-focused naming
         if pintAbsenceCode == g.INT_MEETING_FREE:
@@ -71,6 +86,9 @@ def intAnalyzeCalendarStatus(pstrStatus):
         - intFullDayStatus - status of an entire day, if no full day meeting is
         in the calendar, free status is returned
     """
+    # log inputs
+    logging.info('intAnalyzeCalendarStatus - pstrStatus: ' + pstrStatus)
+    
     # check the all day statuses against the Outlook values
     if pstrStatus == str(g.INT_MEETING_OUT_OF_OFFICE) * 24:
         # full day out of office
@@ -82,8 +100,8 @@ def intAnalyzeCalendarStatus(pstrStatus):
         # full day busy
         intFullDayStatus = g.INT_MEETING_BUSY
     else:
-        # not a full day meeting, verify if it contains partial out of office or
-        # working from elsewhere
+        # not a full day meeting, verify if it contains partial out of office
+        # or working from elsewhere
         if str(g.INT_MEETING_OUT_OF_OFFICE) in pstrStatus \
         or str(g.INT_MEETING_WORKING_ELSEWHERE) in pstrStatus:
             # there is partial absence in the day, set it to mixed

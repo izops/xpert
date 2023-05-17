@@ -138,6 +138,10 @@ def intDetermineHalfDay(plstAbsence1, plstAbsence2):
                 '%d/%m/%Y'
             )
 
+            # log the dates
+            logging.debug('intDetermineHalfDay - dttHalf: ' + str(dttHalf))
+            logging.debug('intDetermineHalfDay - dttNext: ' + str(dttNext))
+
             if dttHalf + datetime.timedelta(days = 1) == dttNext \
             and plstAbsence2[2] >= 1:
                 # half day is followed by a full day absence, set it to
@@ -172,17 +176,31 @@ def SaveAbsences(plstAbsenceData):
             '%d/%m/%Y'
         )
 
+        # log the dates
+        logging.debug('SaveAbsences - dttStart: ' + str(dttStart))
+        logging.debug('SaveAbsences - dttEnd: ' + str(dttEnd))
+
         # set next absence to compare with the current
         if intAbsence == (len(plstAbsenceData) - 1):
             lstAbsence2 = None
         else:
             lstAbsence2 = plstAbsenceData[intAbsence + 1]
 
+        # log the absences to compare
+        logging.debug('SaveAbsences - plstAbsenceData[intAbsence]: ' + str(
+            plstAbsenceData[intAbsence]
+        ))
+        logging.debug('SaveAbsences - lstAbsence2: ' + str(lstAbsence2))
+
+
         # determine correct half day
         intHalfDay = intDetermineHalfDay(
             plstAbsenceData[intAbsence],
             lstAbsence2
         )
+
+        # log the determined half day
+        logging.debug('SaveAbsences - intHalfDay: ' + str(intHalfDay))
 
         # calculate absence duration, convert from seconds to days
         if plstAbsenceData[intAbsence][2] == 0.5:
@@ -192,6 +210,9 @@ def SaveAbsences(plstAbsenceData):
             # for multiday absences calculate the absence duration from dates
             dttDuration = dttEnd - dttStart + datetime.timedelta(days = 1)
             fltDuration = dttDuration.total_seconds() / 60 / 60 / 24
+
+        # log the final duration
+        logging.debug('SaveAbsences - fltDuration: ' + str(fltDuration))
 
         # save the absence to Outlook
         SaveAbsence(
@@ -238,6 +259,9 @@ def SaveAbsence(
     else:
         # full day absence, set a default start
         strTime = '0:00'
+
+    # log start time
+    logging.debug('SaveAbsence - strTime: ' + strTime)
 
     # set start date and time
     objAbsence.Start = pdttFrom.strftime('%Y-%m-%d') + ' ' + strTime
