@@ -9,9 +9,11 @@ Outlook.
 ## Requirements
 
 Installation of python with following modules required:
-- win32com.client `pip install pywin32`
+- maskpass `pip install maskpass`
+- pandas `pip install pandas`
 - pywintypes `pip install pypiwin32`
 - selenium `pip install selenium`
+- win32com.client `pip install pywin32`
 
 
 ## Outlook convention
