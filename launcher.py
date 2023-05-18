@@ -3,11 +3,15 @@
 # submission of absences to Xperience system using selenium
 
 # %% import modules
-import ui as u
+import sys
+
+sys.path.append('../emea_oth_xpert')
+import ui.general_ui as ugu
+import ui.process_management as upm
 
 # %% run code
 # ask user which process to run
-intSelection = u.intGreeting()
+intSelection = ugu.intGreeting()
 
 # run the selected process
-u.RunProcess(intSelection)
+upm.RunProcess(intSelection)
