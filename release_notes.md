@@ -1,5 +1,24 @@
 # Release notes
 
+## V2.0
+
+Author: Ivan Zustiak  
+Date: 17 May 2023  
+New features:  
+- Downloading absences from Xperience
+- Saving absences from external file to Outlook calendar (works with 
+absence download from Xperience)
+- Advanced error handling of processes
+- User-friendly selection of dates - day input only for current month,
+month and day input only for current year
+- Minor bug fixes
+
+Outlook convention:  
+- User can choose which is flagged as working elsewhere - home office or work
+from office
+- Out of office (full day or partial) appointments are not considered for
+Xperience submission, partial working elsewhere is not considered either
+
 --------------------------------------------------------------------------------
 ## V1.2
 

@@ -1,4 +1,8 @@
 # %% contains public constants for xperience automation
+import logging
+
+# set logging level
+OBJ_LOGGING_LEVEL = logging.ERROR
 
 # %% URLs
 # login URL
@@ -54,6 +58,7 @@ STR_ELEMENT_XPATH_ABSENCE_ERROR = "//div[@class = 'error']"
 # IDs
 STR_ELEMENT_ID_DATE_FROM = 'absenceRequestListTM_fd_dateFrom'
 STR_ELEMENT_ID_DATE_TO = 'absenceRequestListTM_fd_dateTo'
+STR_ELEMENT_ID_CHECKBOX_OPEN = 'checkfia_status0'
 STR_ELEMENT_ID_CHECKBOX_APPROVED = 'checkfia_status1'
 STR_ELEMENT_ID_CHECKBOX_CLOSED = 'checkfia_status3'
 STR_ELEMENT_ID_BUTTON_FILTER = 'absenceRequestListTM__find'
@@ -64,11 +69,14 @@ STR_ELEMENT_ID_BUTTON_FILTER = 'absenceRequestListTM__find'
 STR_ELEMENT_XPATH_STATUS = '//input[@class = "ui-widget ui-widget-content ui-'
 STR_ELEMENT_XPATH_STATUS += 'corner-left ui-autocomplete-input"]'
 STR_ELEMENT_XPATH_TYPE = '//input[@class = "ng-scope ng-isolate-scope custom-'
-STR_ELEMENT_XPATH_TYPE += 'combobox-input ui-widget ui-widget-content ui-state-'
-STR_ELEMENT_XPATH_TYPE += 'default ui-corner-left ui-autocomplete-input"]'
+STR_ELEMENT_XPATH_TYPE += 'combobox-input ui-widget ui-widget-content ui-state'
+STR_ELEMENT_XPATH_TYPE += '-default ui-corner-left ui-autocomplete-input"]'
 
 # table
 STR_ELEMENT_XPATH_TABLE = '//tbody[@class = "data"]'
+
+# other
+STR_ATTRIBUTE_CHECKED = 'checked'
 
 # %% website keywords
 # absence keywords
@@ -76,8 +84,15 @@ STR_ABSENCE_TYPE_HOME_OFFICE = 'Home office'
 STR_ABSENCE_TYPE_DOCTOR = 'Doctor'
 STR_ABSENCE_TYPE_PERSONAL_DAY = 'Personal day'
 STR_ABSENCE_TYPE_VACATION = 'Vacation'
-STR_ABSENCE_TYPE_SICK_LEAVE = 'Sick leave'
+STR_ABSENCE_TYPE_SICK_LEAVE = 'Sick leave (PN)'
 STR_ABSENCE_TYPE_NONE = 'Working from office'
+
+# scraping absences
+LST_SCRAPE_ABSENCES = [
+    STR_ABSENCE_TYPE_VACATION,
+    STR_ABSENCE_TYPE_SICK_LEAVE,
+    STR_ABSENCE_TYPE_PERSONAL_DAY
+]
 
 # %% regular expressions
 # data input - date start, date end, absence type
@@ -87,7 +102,10 @@ STR_REGEX_DATA_INPUT += '[0-1])\/(?:[1-9]|0[1-9]|1[0-2])\/20[0-9]{2})\t(Home'
 STR_REGEX_DATA_INPUT +=' office|Vacation|Personal day|Sick leave)'
 
 # user input date
-STR_REGEX_DATE = '^20[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1-2][0-9]|3[01])$'
+STR_REGEX_DATE = '^(20[0-9]{2})?(0[1-9]|1[0-2])?(0[1-9]|[1-2][0-9]|3[01])$'
+
+# web scraped duration
+STR_REGEX_ABSENCE_DURATION = '(\d+\.\d+)'
 
 # %% Outlook constants
 # API meeting status constants
@@ -126,55 +144,130 @@ STR_UI_BOT_NAME = '''
 '''
 
 # intro message
-STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar '
-STR_UI_INTRO += 'or submit your absences to Xperience (currently I do only '
-STR_UI_INTRO += 'home office absences).\n'
+STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar, '
+STR_UI_INTRO += 'submit your absences to Xperience (currently I do only '
+STR_UI_INTRO += 'home office absences), or download your submitted absences '
+STR_UI_INTRO += 'and save them to your Outlook calendar.\n'
 
 # process options
-STR_UI_OFFER = 'How can I help you? [1/2/3/c(ancel)]\n'
+STR_UI_OFFER = 'How can I help you? [1/2/3/4/5/c(ancel)]\n'
 STR_UI_OFFER += '\t1. Analyze my calendar\n'
 STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
 STR_UI_OFFER += '\t3. Analyze my calendar and then submit my absences to '
-STR_UI_OFFER += 'Xperience\n'
+STR_UI_OFFER += 'Xperience (1 + 2)\n'
+STR_UI_OFFER += '\t4. Donwload submitted absences from Xperience\n'
+STR_UI_OFFER += '\t5. Save downloaded absences to Outlook calendar\n'
+STR_UI_OFFER += '\t6. Download submitted absences and save them in Outlook '
+STR_UI_OFFER += '(4 + 5)\n'
 
-LST_UI_ANSWERS_PROCESS = ['1', '2', '3', 'c', 'cancel', 'c(ancel)']
+LST_UI_ANSWERS_PROCESS = [
+    '1', '2', '3', '4', '5', '6',
+    'c', 'cancel', 'c(ancel)'
+]
 
 # process choices
-INT_UI_CHOICE_CALENDAR = 1
-INT_UI_CHOICE_XPERIENCE = 2
-INT_UI_CHOICE_ALL = 3
+INT_UI_CHOICE_OUTLOOK_EXPORT = 1
+INT_UI_CHOICE_XPERIENCE_SUBMISSION = 2
+INT_UI_CHOICE_FULL_SUBMISSION = 3
+INT_UI_CHOICE_XPERIENCE_SCRAPE = 4
+INT_UI_CHOICE_OUTLOOK_IMPORT = 5
+INT_UI_CHOICE_FULL_DOWNLOAD = 6
+
+# maximum relevant choices
+INT_UI_CHOICES_MAX = INT_UI_CHOICE_FULL_DOWNLOAD
 
 # request home office convention
-STR_UI_REQUEST_CONVENTION = 'Please, tell me in what way do you use \'working '
-STR_UI_REQUEST_CONVENTION += 'elsewhere\' all day appointment:\n'
+STR_UI_REQUEST_CONVENTION = '\nPlease, tell me in what way do you use '
+STR_UI_REQUEST_CONVENTION += '\'working elsewhere\' all day appointment:\n'
 STR_UI_REQUEST_CONVENTION += '\t1. Working elsewhere means I work from home\n'
-STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from office\n'
+STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from '
+STR_UI_REQUEST_CONVENTION += 'office\n'
 
 LST_UI_ANSWERS_CONVENTION = ['1', '2']
 
 # request date inputs
-STR_UI_REQUEST_DATE = 'Please, provide <PLACEHOLDER> date in YYYYMMDD format:\n'
-STR_UI_REQUEST_PLACEHOLDER = '<PLACEHOLDER>'
+STR_UI_REQUEST_DATE = '\nPlease, provide <SELECT> date in YYYYMMDD format:\n'
+STR_UI_REQUEST_DATE += '\tIf you want a date from current year, you can use '
+STR_UI_REQUEST_DATE += 'MMDD only\n'
+STR_UI_REQUEST_DATE += '\tIf you want a date from current month, you can use '
+STR_UI_REQUEST_DATE += 'DD only\n'
+
+STR_UI_REQUEST_PLACEHOLDER = '<SELECT>'
 STR_UI_REQUEST_DATE_START = 'start'
 STR_UI_REQUEST_DATE_END = 'end'
 
+# request absence type for scraping
+STR_UI_REQUEST_ABSENCE_TYPE = '\nPlease, tell me what kind of absence '
+STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
+STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience:\n'
+
+# process start info
+STR_UI_PROCESS_STARTED = ' has started...\n'
+STR_UI_PROCESS_CALENDAR_ANALYSIS = 'Calendar analysis'
+STR_UI_PROCESS_XPERIENCE_SUBMISSION = 'Submission to Xperience'
+STR_UI_PROCESS_ABSENCE_DOWNLOAD = 'Downloading of absences from Xperience'
+STR_UI_PROCESS_ABSENCE_SAVING = 'Saving of absences to Outlook calendar'
+
+# process fail info
+STR_UI_PROCESS_FAILED = ' has failed unexpectedly. Please, contact the '
+STR_UI_PROCESS_FAILED += 'maintainer of repository for help.\n'
+
+# login fail info
+STR_UI_LOGIN_FAILED = 'Login failed. Either you provided incorrect'
+STR_UI_LOGIN_FAILED += ' credentials or your password expired.'
+
 # goodbyes
-STR_UI_GOODBYE_CANCEL = 'All right then, goodbye!'
-STR_UI_CALENDAR_ANALYSIS_COMPLETE = 'The calendar analysis is complete.\n'
-STR_UI_GOODBYE = 'Thanks for stopping by and have a nice day! (°͜°)ﾉ'
+STR_UI_GOODBYE_CANCEL = '\nAll right then, goodbye!'
+STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
+STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
+STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
+STR_UI_ABSENCE_SCRAPING = '\nAbsences download successfully.'
+STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
+STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)/*'
+
+# %% paths and file names
+# calendar data path
+STR_PATH_DATA = './data/'
+STR_FILE_CALENDAR_DATA = 'calendar_data.txt'
+STR_FULL_PATH_CALENDAR_DATA = STR_PATH_DATA + STR_FILE_CALENDAR_DATA
+
+# log file name
+STR_FILE_LOG = 'process.log'
+STR_FULL_PATH_LOG = STR_PATH_DATA + STR_FILE_LOG
+
+# scraped absences file output
+STR_FILE_SCRAPED_DATA = 'absences_from_xperience.txt'
+STR_FULL_PATH_SCRAPED_DATA = STR_PATH_DATA + STR_FILE_SCRAPED_DATA
 
 # %% other constants
 # user name
 STR_USER_DOMAIN = '@zurich.com'
 
-# calendar data path
-STR_PATH_CALENDAR_DATA = './data/'
-STR_FILE_CALENDAR_DATA = 'calendar_data.txt'
-STR_FULL_PATH_CALENDAR_DATA = STR_PATH_CALENDAR_DATA + STR_FILE_CALENDAR_DATA
-
-# log file name
-STR_FILE_LOG = 'process.log'
-STR_FULL_PATH_LOG = STR_PATH_CALENDAR_DATA + STR_FILE_LOG
-
 # calendar time period - hours
 INT_CALENDAR_TIME_UNIT_HOURS = 60
+
+# scraping data column names
+LST_COLUMN_NAMES_SCRAPED = [
+  'Name',
+  'From',
+  'To',
+  'Duration',
+  'Status',
+  'Modified',
+  'Absence_type'
+]
+
+# columns for scraped import
+LST_COLUMN_NAMES_IMPORT = [
+  'From',
+  'To',
+  'Duration',
+  'Status',
+  'Absence_type'
+]
+
+# default name of downloaded absence
+STR_ABSENCE_CALENDAR_NAME = ': Xperience Download'
+
+# global date format
+STR_DATE_FORMAT = '%d/%m/%Y'
