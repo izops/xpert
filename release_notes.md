@@ -4,14 +4,14 @@
 
 Author: Ivan Zustiak  
 Date: 17 May 2023  
-New features:
-    - Downloading absences from Xperience
-    - Saving absences from external file to Outlook calendar (works with 
-    absence download from Xperience)
-    - Advanced error handling of processes
-    - User-friendly selection of dates - day input only for current month,
-    month and day input only for current year
-    - Minor bug fixes
+New features:  
+- Downloading absences from Xperience
+- Saving absences from external file to Outlook calendar (works with 
+absence download from Xperience)
+- Advanced error handling of processes
+- User-friendly selection of dates - day input only for current month,
+month and day input only for current year
+- Minor bug fixes
 
 Outlook convention:  
 - User can choose which is flagged as working elsewhere - home office or work
