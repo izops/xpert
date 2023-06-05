@@ -196,11 +196,6 @@ STR_UI_REQUEST_PLACEHOLDER = '<SELECT>'
 STR_UI_REQUEST_DATE_START = 'start'
 STR_UI_REQUEST_DATE_END = 'end'
 
-# request absence type for scraping
-STR_UI_REQUEST_ABSENCE_TYPE = '\nPlease, tell me what kind of absence '
-STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
-STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience%s:\n'
-
 # process start info
 STR_UI_PROCESS_STARTED = ' has started...\n'
 STR_UI_PROCESS_CALENDAR_ANALYSIS = 'Calendar analysis'
