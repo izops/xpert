@@ -12,12 +12,12 @@ logging.basicConfig(
 )
 
 # %% define UI functions for all processes
-def intGreeting():
+def intGreeting(ptplFullName):
     '''
     Outputs the introduction and asks for the type of work that should be done
 
     Inputs:
-        - None
+        - ptplFullName - tuple containing full name of the active user
 
     Outputs:
         - intContinue - indication of the process that should be run
@@ -25,9 +25,21 @@ def intGreeting():
     # set initial return value
     intContinue = -1
 
+    # process the user name for intro
+    if len(ptplFullName[0]) > 0:
+        strName = ' ' + ptplFullName[0]
+    else:
+        strName = ''
+
     # display the name and greet
     print(g.STR_UI_BOT_NAME)
-    print(g.STR_UI_INTRO)
+    print(g.STR_UI_INTRO % strName)
+
+    # process the user name for the rest
+    if len(ptplFullName[0]) > 0:
+        strName = ', ' + ptplFullName[0]
+    else:
+        strName = ''
 
     # set a default value before looping
     strProcess = None
@@ -42,14 +54,14 @@ def intGreeting():
             print('Please, input values from the provided list')
 
         # display the options
-        strProcess = input(g.STR_UI_OFFER)
+        strProcess = input(g.STR_UI_OFFER % strName)
 
     if strProcess in g.LST_UI_ANSWERS_PROCESS[:g.INT_UI_CHOICES_MAX]:
         # the user accepted, change the indicator
         intContinue = int(strProcess)
     else:
         # user cancelled the process, greet and exit
-        print(g.STR_UI_GOODBYE_CANCEL)
+        print(g.STR_UI_GOODBYE_CANCEL % strName)
 
     # log return value
     logging.info('intGreeting - intContinue: ' + str(intContinue))
