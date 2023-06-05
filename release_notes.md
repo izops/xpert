@@ -1,5 +1,20 @@
 # Release notes
 
+## V2.1
+
+Author: Ivan Zustiak  
+Date: 5 June 2023  
+New features:  
+- Personalized messages
+- Minor bug fixes
+
+Outlook convention:  
+- User can choose which is flagged as working elsewhere - home office or work
+from office
+- Out of office (full day or partial) appointments are not considered for
+Xperience submission, partial working elsewhere is not considered either
+
+--------------------------------------------------------------------------------
 ## V2.0
 
 Author: Ivan Zustiak  

@@ -35,17 +35,22 @@ def strGetUserName():
 
     return strUserName
 
-def strGetPassword():
+def strGetPassword(pstrName):
     """Prompt user to obtain password, hide it as a masked input and return it.
 
     Inputs:
-        - None
+        - pstrName - string containing the name of the current user
 
     Outputs:
         - strPassword - string containing user input
     """
     # put together prompt message
-    strMessage = 'Please, provide your password to Xperience '
+    if len(pstrName) > 0:
+        strMessage = pstrName + ', please, '
+    else:
+        strMessage = 'Please, '
+    
+    strMessage += 'provide your password to Xperience '
     strMessage += '(it will be hidden and discarded afterwards):\n'
 
     # ask user for their password

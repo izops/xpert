@@ -8,10 +8,14 @@ import sys
 sys.path.append('../emea_oth_xpert')
 import ui.general_ui as ugu
 import ui.process_management as upm
+import calendar_works.secondary_data as csd
 
 # %% run code
+# obtain user name for personalization
+tplName = csd.tplGetFullUserName()
+
 # ask user which process to run
-intSelection = ugu.intGreeting()
+intSelection = ugu.intGreeting(tplName)
 
 # run the selected process
-upm.RunProcess(intSelection)
+upm.RunProcess(intSelection, tplName)

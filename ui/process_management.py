@@ -19,18 +19,24 @@ logging.basicConfig(
 )
 
 # %% define the master method to launch the process parts
-def RunProcess(pintChoice):
+def RunProcess(pintChoice, ptplFullName):
     """Based on the input, run Outlook calendar analysis, submission of
     absences to Xperience or both.
 
     Inputs:
         - pintChoice - numeric indication of the process to be run
-
+        - ptplFullName - tuple containing full name of the active user
     Outputs:
         - None, either one or two processes are run
     """    
     # log input
     logging.info('RunProcess - pintChoice: ' + str(pintChoice))
+
+    # process user name
+    if len(ptplFullName[0]) > 0:
+        strName = ', ' + ptplFullName[0]
+    else:
+        strName = ''
 
     # group choices based on flowchart
     lstAbsenceSubmission = [
@@ -60,7 +66,7 @@ def RunProcess(pintChoice):
 
     if pintChoice in lstAbsenceSubmission:
         # get the calendar convention
-        strConvention = uai.strGetCalendarConvention()
+        strConvention = uai.strGetCalendarConvention(ptplFullName[0])
 
         # log obtained data
         logging.debug('RunProcess - strConvention: ' + strConvention)
@@ -78,7 +84,7 @@ def RunProcess(pintChoice):
 
     if pintChoice in lstScraping:
         # get type of absence to scrape
-        strScrapeAbsence = usi.strGetAbsenceType()
+        strScrapeAbsence = usi.strGetAbsenceType(ptplFullName[0])
     else:
         # set scrape value to default if not selected
         strScrapeAbsence = ''
@@ -91,7 +97,7 @@ def RunProcess(pintChoice):
     and pintChoice >= 0:
         # get xperience credentials
         strUserName = wcr.strGetUserName()
-        strPassword = wcr.strGetPassword()
+        strPassword = wcr.strGetPassword(ptplFullName[0])
 
     # initialize safety parameter
     blnSafety = True
@@ -188,4 +194,4 @@ def RunProcess(pintChoice):
             print(g.STR_UI_PROCESS_ABSENCE_SAVING + g.STR_UI_PROCESS_FAILED)
 
     # the process ends here, say goodbye to the user
-    print(g.STR_UI_GOODBYE)
+    print(g.STR_UI_GOODBYE % strName)
