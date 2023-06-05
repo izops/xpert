@@ -144,13 +144,13 @@ STR_UI_BOT_NAME = '''
 '''
 
 # intro message
-STR_UI_INTRO = 'Hi, my name is xper:t and I can analyze your calendar, '
+STR_UI_INTRO = 'Hi%s, my name is xper:t and I can analyze your calendar, '
 STR_UI_INTRO += 'submit your absences to Xperience (currently I do only '
 STR_UI_INTRO += 'home office absences), or download your submitted absences '
 STR_UI_INTRO += 'and save them to your Outlook calendar.\n'
 
 # process options
-STR_UI_OFFER = 'How can I help you? [1/2/3/4/5/c(ancel)]\n'
+STR_UI_OFFER = 'So, how can I help you%s? [1/2/3/4/5/c(ancel)]\n'
 STR_UI_OFFER += '\t1. Analyze my calendar\n'
 STR_UI_OFFER += '\t2. Submit my absences to Xperience\n'
 STR_UI_OFFER += '\t3. Analyze my calendar and then submit my absences to '
@@ -177,7 +177,7 @@ INT_UI_CHOICE_FULL_DOWNLOAD = 6
 INT_UI_CHOICES_MAX = INT_UI_CHOICE_FULL_DOWNLOAD
 
 # request home office convention
-STR_UI_REQUEST_CONVENTION = '\nPlease, tell me in what way do you use '
+STR_UI_REQUEST_CONVENTION = '\nPlease%s, tell me in what way do you use '
 STR_UI_REQUEST_CONVENTION += '\'working elsewhere\' all day appointment:\n'
 STR_UI_REQUEST_CONVENTION += '\t1. Working elsewhere means I work from home\n'
 STR_UI_REQUEST_CONVENTION += '\t2. Working elsewhere means I work from '
@@ -199,7 +199,7 @@ STR_UI_REQUEST_DATE_END = 'end'
 # request absence type for scraping
 STR_UI_REQUEST_ABSENCE_TYPE = '\nPlease, tell me what kind of absence '
 STR_UI_REQUEST_ABSENCE_TYPE += 'information do you want to obtain from '
-STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience:\n'
+STR_UI_REQUEST_ABSENCE_TYPE += 'Xperience%s:\n'
 
 # process start info
 STR_UI_PROCESS_STARTED = ' has started...\n'
@@ -217,13 +217,13 @@ STR_UI_LOGIN_FAILED = 'Login failed. Either you provided incorrect'
 STR_UI_LOGIN_FAILED += ' credentials or your password expired.'
 
 # goodbyes
-STR_UI_GOODBYE_CANCEL = '\nAll right then, goodbye!'
+STR_UI_GOODBYE_CANCEL = '\nAll right then%s, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
 STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
 STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
 STR_UI_ABSENCE_SCRAPING = '\nAbsences download successfully.'
 STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
-STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day! (°͜°)/*'
+STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day%s! (°͜°)/"'
 
 # %% paths and file names
 # calendar data path
