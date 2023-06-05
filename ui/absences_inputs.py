@@ -15,11 +15,11 @@ logging.basicConfig(
 
 # %% define functions and methods that serve to obtain inputs from user for
 # absence submission
-def strGetCalendarConvention():
+def strGetCalendarConvention(pstrName):
     """Request user input for a valid calendar convention defined in a list.
 
     Inputs:
-        - None
+        - pstrName - string containing name to use in addressing the user
 
     Outputs:
         - strConvention - string value representing one of the possible choices
@@ -28,9 +28,15 @@ def strGetCalendarConvention():
     # set the default value
     strConvention = ''
 
+    # process the name
+    if len(pstrName) > 0:
+        strName = ', ' + pstrName
+    else:
+        strName = ''
+
     # ask user for the convention until valid answer is provided
     while strConvention not in g.LST_UI_ANSWERS_CONVENTION:
-        strConvention = input(g.STR_UI_REQUEST_CONVENTION)
+        strConvention = input(g.STR_UI_REQUEST_CONVENTION % strName)
 
     return strConvention
 

@@ -12,11 +12,11 @@ logging.basicConfig(
 )
 
 # %% define functions for obtaining inputs for data scraping
-def strGetAbsenceType():
+def strGetAbsenceType(pstrName):
     """Obtain valid absence type for scraping from user.
     
     Inputs:
-        - None
+        - pstrName - string containing the name of the current user
 
     Outputs:
         - strResponse - string containing user response to absence prompt
@@ -29,6 +29,12 @@ def strGetAbsenceType():
 
     # prepare list of indexes for alternative choice
     lstIndexes = [str(x + 1) for x in range(len(lstAbsences))]
+
+    # process the name
+    if len(pstrName) > 0:
+        strName = ', ' + pstrName
+    else:
+        strName = ''
 
     # obtain from user valid answer, make difference between first
     # and the rest of the inputs
@@ -44,8 +50,8 @@ def strGetAbsenceType():
         # loop until either canceled, or valid absence is provided
         if strResponse is None:
             # user is prompted for input for the first time
-            strMessage = 'Please, select an absence to scrape from the '
-            strMessage += 'following list: \n'
+            strMessage = 'Please' + strName + ', select an absence to scrape '
+            strMessage += 'from the following list: \n'
             strMessage += str(g.LST_SCRAPE_ABSENCES) + '\n'
             strMessage += 'or type in its respective index (for example '
             strMessage += g.LST_SCRAPE_ABSENCES[0] + ' = ' + lstIndexes[0]
@@ -55,8 +61,8 @@ def strGetAbsenceType():
         or not strResponse in lstAbsences \
         or not strResponse in lstIndexes:
             # not the first input but not valid either
-            strMessage = 'Apologies, I cannot scrape "' + strResponse 
-            strMessage += '" absence for you. '
+            strMessage = 'Apologies' + strName + ', I cannot scrape "' 
+            strMessage += strResponse + '" type of absence for you. '
             strMessage += 'Choose a different one or type "c" to cancel.\n'
             
         # prompt user for input, make it lowercase
