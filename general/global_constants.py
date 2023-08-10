@@ -18,12 +18,9 @@ STR_URL_LIST_ABSENCES += 'mvcevent=absenceList'
 
 # %% selenium elements - submission of absences
 # IDs
-STR_ELEMENT_ID_USERNAME = 'user'
-STR_ELEMENT_ID_PASSWORD = 'pwd'
-STR_ELEMENT_ID_LOGIN = 'loginButton'
-STR_ELEMENT_ID_LOGIN_ERROR = 'errorBox'
 STR_ELEMENT_ID_ABSENCE_NOTE = 'absenceDetailFM_note'
 STR_ELEMENT_ID_ABSENCE_SUBMIT = 'absenceDetailFM_submitRequest'
+STR_ELEMENT_ID_HOME = 'menu_item_home'
 
 # xpaths
 # absence type dropdown
@@ -77,6 +74,9 @@ STR_ELEMENT_XPATH_TABLE = '//tbody[@class = "data"]'
 
 # other
 STR_ATTRIBUTE_CHECKED = 'checked'
+
+# waits
+FLT_MAX_LOGIN_TIMEOUT = 30.0
 
 # %% website keywords
 # absence keywords
