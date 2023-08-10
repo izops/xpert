@@ -2,7 +2,7 @@
 import logging
 
 # set logging level
-OBJ_LOGGING_LEVEL = logging.ERROR
+OBJ_LOGGING_LEVEL = logging.DEBUG
 
 # %% URLs
 # login URL
@@ -216,7 +216,7 @@ STR_UI_GOODBYE_CANCEL = '\nAll right then%s, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
 STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
 STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
-STR_UI_ABSENCE_SCRAPING = '\nAbsences download successfully.'
+STR_UI_ABSENCE_SCRAPING = '\nAbsences were download successfully.'
 STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
 STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day%s! (°͜°)/"'
 
