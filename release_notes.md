@@ -1,5 +1,21 @@
 # Release notes
 
+## V3.0
+
+Author: Ivan Zustiak  
+Date: 11 August 2023  
+New features:  
+- Implementation of OKTA single sign on
+- Minor bug fixes
+
+Outlook convention:  
+- User can choose which is flagged as working elsewhere - home office or work
+from office
+- Out of office (full day or partial) appointments are not considered for
+Xperience submission, partial working elsewhere is not considered either
+
+--------------------------------------------------------------------------------
+
 ## V2.1
 
 Author: Ivan Zustiak  

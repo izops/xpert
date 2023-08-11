@@ -9,7 +9,7 @@ Outlook.
 ## Requirements
 
 Installation of python with following modules required:
-- maskpass `pip install maskpass`
+- maskpass `pip install maskpass` (only until version 2.1)
 - pandas `pip install pandas`
 - pywintypes `pip install pypiwin32`
 - selenium `pip install selenium`

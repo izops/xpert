@@ -18,12 +18,9 @@ STR_URL_LIST_ABSENCES += 'mvcevent=absenceList'
 
 # %% selenium elements - submission of absences
 # IDs
-STR_ELEMENT_ID_USERNAME = 'user'
-STR_ELEMENT_ID_PASSWORD = 'pwd'
-STR_ELEMENT_ID_LOGIN = 'loginButton'
-STR_ELEMENT_ID_LOGIN_ERROR = 'errorBox'
 STR_ELEMENT_ID_ABSENCE_NOTE = 'absenceDetailFM_note'
 STR_ELEMENT_ID_ABSENCE_SUBMIT = 'absenceDetailFM_submitRequest'
+STR_ELEMENT_ID_HOME = 'menu_item_home'
 
 # xpaths
 # absence type dropdown
@@ -77,6 +74,9 @@ STR_ELEMENT_XPATH_TABLE = '//tbody[@class = "data"]'
 
 # other
 STR_ATTRIBUTE_CHECKED = 'checked'
+
+# waits
+FLT_MAX_LOGIN_TIMEOUT = 30.0
 
 # %% website keywords
 # absence keywords
@@ -205,19 +205,20 @@ STR_UI_PROCESS_ABSENCE_SAVING = 'Saving of absences to Outlook calendar'
 
 # process fail info
 STR_UI_PROCESS_FAILED = ' has failed unexpectedly. Please, contact the '
-STR_UI_PROCESS_FAILED += 'maintainer of repository for help.\n'
+STR_UI_PROCESS_FAILED += 'maintainer of the repository for help.\n'
 
 # login fail info
-STR_UI_LOGIN_FAILED = 'Login failed. Either you provided incorrect'
-STR_UI_LOGIN_FAILED += ' credentials or your password expired.'
+STR_UI_LOGIN_FAILED = 'Login failed. Okta login timed out without sign on.'
 
 # goodbyes
 STR_UI_GOODBYE_CANCEL = '\nAll right then%s, goodbye!'
 STR_UI_CALENDAR_ANALYSIS_COMPLETE = '\n\nThe calendar analysis is complete.\n'
-STR_UI_SUBMISSION_TO_XPERIENCE = '\nSubmission of absences finished '
-STR_UI_SUBMISSION_TO_XPERIENCE += 'sucessfully.'
-STR_UI_ABSENCE_SCRAPING = '\nAbsences download successfully.'
-STR_UI_ABSENCE_OUTLOOK = '\nAbsences saved in Outlook successfully.'
+STR_UI_SUBMISSION_SUCCESS = '\nSubmission of absences finished '
+STR_UI_SUBMISSION_SUCCESS += 'sucessfully.'
+STR_UI_SUBMISSION_FAIL = '\nSubmission of absences failed. Check log for '
+STR_UI_SUBMISSION_FAIL += 'more information.'
+STR_UI_ABSENCE_SCRAPING = '\nAbsences were downloaded successfully.'
+STR_UI_ABSENCE_OUTLOOK = '\nAbsences were saved in Outlook successfully.'
 STR_UI_GOODBYE = '\nThanks for stopping by and have a nice day%s! (°͜°)/"'
 
 # %% paths and file names
