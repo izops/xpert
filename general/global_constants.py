@@ -2,7 +2,7 @@
 import logging
 
 # set logging level
-OBJ_LOGGING_LEVEL = logging.DEBUG
+OBJ_LOGGING_LEVEL = logging.ERROR
 
 # %% URLs
 # login URL
