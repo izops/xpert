@@ -88,11 +88,27 @@ def blnSubmitAbsences():
 
     # continue if there is any calendar entry
     if len(lstCalendarData) > 0:
+        # initialize options
+        objOptions = webdriver.EdgeOptions()
+
+        # disable edge infobars
+        objOptions.add_argument("--disable-infobars")
+
+        # set preferences to remove personalization popup
+        objPrefs = {
+            'user_experience_metrics': {
+                'personalization_data_consent_enabled': True
+            }
+        }
+
+        # add the preferences to the browser options
+        objOptions.add_experimental_option('prefs', objPrefs)
+
+        # start a webdriver with selected preferences and options
+        objDriver = webdriver.Edge(options=objOptions)
+
         # initialize a message variable
         strMessage = ''
-
-        # set up the webdriver
-        objDriver = webdriver.Edge()
 
         # log in to the page
         blnContinue = cwf.blnLogin(objDriver)

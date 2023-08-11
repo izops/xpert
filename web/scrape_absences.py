@@ -33,8 +33,24 @@ def tplDownloadData(
     Outputs:
         - lstAbsences - list of all data scraped from absence list
     """
-    # initialize webdriver
-    objDriver = webdriver.Edge()
+    # initialize options
+    objOptions = webdriver.EdgeOptions()
+
+    # disable edge infobars
+    objOptions.add_argument("--disable-infobars")
+
+    # set preferences to remove personalization popup
+    objPrefs = {
+        'user_experience_metrics': {
+            'personalization_data_consent_enabled': True
+        }
+    }
+
+    # add the preferences to the browser options
+    objOptions.add_experimental_option('prefs', objPrefs)
+
+    # start a webdriver with selected preferences and options
+    objDriver = webdriver.Edge(options=objOptions)
 
     # login to the xperience
     blnLogin = wcf.blnLogin(objDriver)
