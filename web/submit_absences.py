@@ -67,13 +67,12 @@ def lstReadData(pstrPath):
     return lstCalendarData
 
 # %% define process handling
-def blnSubmitAbsences(pstrUserName, pstrPassword):
-    """Handle entire process of obtaining login info, logging into xperience
+def blnSubmitAbsences():
+    """Handle entire process of logging into xperience
     website, reading calendar data and submitting all relevant entries.
 
     Inputs:
-        - pstrUserName - string containing username for xperience login
-        - pstrPassword - string containing password for xperience login
+        - None
 
     Outputs:
         - blnContinue - boolean indicator if the login worked well
@@ -89,17 +88,30 @@ def blnSubmitAbsences(pstrUserName, pstrPassword):
 
     # continue if there is any calendar entry
     if len(lstCalendarData) > 0:
+        # initialize options
+        objOptions = webdriver.EdgeOptions()
+
+        # disable edge infobars
+        objOptions.add_argument("--disable-infobars")
+
+        # set preferences to remove personalization popup
+        objPrefs = {
+            'user_experience_metrics': {
+                'personalization_data_consent_enabled': True
+            }
+        }
+
+        # add the preferences to the browser options
+        objOptions.add_experimental_option('prefs', objPrefs)
+
+        # start a webdriver with selected preferences and options
+        objDriver = webdriver.Edge(options=objOptions)
+
         # initialize a message variable
         strMessage = ''
 
-        # set up the webdriver
-        objDriver = webdriver.Edge()
-
         # log in to the page
-        blnContinue = cwf.blnLogin(objDriver, pstrUserName, pstrPassword)
-
-        # discard the password
-        del pstrPassword
+        blnContinue = cwf.blnLogin(objDriver)
 
         if blnContinue:
             # if login successful, add the absence entry for each data point
@@ -142,6 +154,9 @@ def blnSubmitAbsences(pstrUserName, pstrPassword):
                         strMessage += ', ' + tplAbsence[2] + ', failed with '
                         strMessage += 'the following error:\n'
                         strMessage += strError
+
+                        # change the error indicator
+                        blnContinue = False
                     else:
                         # submission successfull, add the message to the log
                         strMessage += 'SUCCESS: Submission of absence from '
