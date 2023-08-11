@@ -154,6 +154,9 @@ def blnSubmitAbsences():
                         strMessage += ', ' + tplAbsence[2] + ', failed with '
                         strMessage += 'the following error:\n'
                         strMessage += strError
+
+                        # change the error indicator
+                        blnContinue = False
                     else:
                         # submission successfull, add the message to the log
                         strMessage += 'SUCCESS: Submission of absence from '
