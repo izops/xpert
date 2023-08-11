@@ -19,8 +19,6 @@ logging.basicConfig(
 
 # %% define functions to webscrape data
 def tplDownloadData(
-    pstrUserName,
-    pstrPassword,
     pstrDateFrom,
     pstrDateTo,
     pstrAbsenceType
@@ -28,8 +26,6 @@ def tplDownloadData(
     """Download absence data from xperience in the given period.
     
     Inputs:
-        - pstrUserName - username for xperience login
-        - pstrPassword - password for xperience login
         - pstrDateFrom - start date of absence filtering, YYYYMMDD string
         - pstrDateTo - end date of absence filtering, YYYYMMDD string
         - pstrAbsenceType - absence type to scrape
@@ -41,7 +37,7 @@ def tplDownloadData(
     objDriver = webdriver.Edge()
 
     # login to the xperience
-    blnLogin = wcf.blnLogin(objDriver, pstrUserName, pstrPassword)
+    blnLogin = wcf.blnLogin(objDriver)
 
     # log the login result
     logging.debug('lstDownloadData - blnLogin: ' + str(blnLogin))

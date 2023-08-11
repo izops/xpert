@@ -67,13 +67,12 @@ def lstReadData(pstrPath):
     return lstCalendarData
 
 # %% define process handling
-def blnSubmitAbsences(pstrUserName, pstrPassword):
-    """Handle entire process of obtaining login info, logging into xperience
+def blnSubmitAbsences():
+    """Handle entire process of logging into xperience
     website, reading calendar data and submitting all relevant entries.
 
     Inputs:
-        - pstrUserName - string containing username for xperience login
-        - pstrPassword - string containing password for xperience login
+        - None
 
     Outputs:
         - blnContinue - boolean indicator if the login worked well
@@ -96,10 +95,7 @@ def blnSubmitAbsences(pstrUserName, pstrPassword):
         objDriver = webdriver.Edge()
 
         # log in to the page
-        blnContinue = cwf.blnLogin(objDriver, pstrUserName, pstrPassword)
-
-        # discard the password
-        del pstrPassword
+        blnContinue = cwf.blnLogin(objDriver)
 
         if blnContinue:
             # if login successful, add the absence entry for each data point

@@ -4,7 +4,6 @@ import sys
 
 sys.path.append('../emea_oth_xpert')
 import general.global_constants as g
-import web.credentials as wcr
 import web.submit_absences as wsa
 import web.process_scraped_data as wps
 import ui.absences_inputs as uai
@@ -49,11 +48,6 @@ def RunProcess(pintChoice, ptplFullName):
         g.INT_UI_CHOICE_FULL_DOWNLOAD
     ]
 
-    lstNoCredentials = [
-        g.INT_UI_CHOICE_OUTLOOK_EXPORT,
-        g.INT_UI_CHOICE_OUTLOOK_IMPORT
-    ]
-
     # coordinate the process steps based on user choice
     if pintChoice in lstAbsenceSubmission or pintChoice in lstScraping:
         # request the starting and ending point for the calendar analysis
@@ -92,13 +86,6 @@ def RunProcess(pintChoice, ptplFullName):
     # log absence type to scrape
     logging.debug('RunProcess - strScrapeAbsence: ' + strScrapeAbsence)
 
-    if pintChoice not in lstNoCredentials \
-    and strScrapeAbsence != 'c' \
-    and pintChoice >= 0:
-        # get xperience credentials
-        strUserName = wcr.strGetUserName()
-        strPassword = wcr.strGetPassword(ptplFullName[0])
-
     # initialize safety parameter
     blnSafety = True
 
@@ -129,7 +116,7 @@ def RunProcess(pintChoice, ptplFullName):
 
         try:
             # run absence submission process
-            blnContinue = wsa.blnSubmitAbsences(strUserName, strPassword)
+            blnContinue = wsa.blnSubmitAbsences()
 
             # inform the user about the process end if ended successfully
             if blnContinue:
@@ -144,9 +131,6 @@ def RunProcess(pintChoice, ptplFullName):
             # change the safety indicator
             blnSafety = False
 
-        # discard the password
-        del strPassword
-
     if pintChoice in lstScraping and strScrapeAbsence != 'c':
         # inform user about the process start
         print(g.STR_UI_PROCESS_ABSENCE_DOWNLOAD + g.STR_UI_PROCESS_STARTED)
@@ -154,8 +138,6 @@ def RunProcess(pintChoice, ptplFullName):
         try:
             # scrape xperience data, process and save them to an external file
             blnSuccess = wps.blnObtainXperienceAbsences(
-                strUserName,
-                strPassword,
                 strDateStart,
                 strDateEnd,
                 strScrapeAbsence
@@ -171,9 +153,6 @@ def RunProcess(pintChoice, ptplFullName):
 
             # change the safety indicator
             blnSafety = False
-
-        # discard the password
-        del strPassword
 
     if blnSafety and pintChoice in [
         g.INT_UI_CHOICE_OUTLOOK_IMPORT,

@@ -96,8 +96,6 @@ def dtfProcessDownloadedData(
     return dtfAbsences
 
 def blnObtainXperienceAbsences(
-    pstrUserName,
-    pstrPassword,
     pstrDateFrom,
     pstrDateTo,
     pstrAbsenceType
@@ -106,8 +104,6 @@ def blnObtainXperienceAbsences(
     data and outputting them to an external file.
 
     Inputs:
-        - pstrUserName - username for xperience login
-        - pstrPassword - password for xperience login
         - pstrDateFrom - start date of absence filtering, YYYYMMDD string
         - pstrDateTo - end date of absence filtering, YYYYMMDD string
         - pstrAbsenceType - absence type to scrape
@@ -117,7 +113,6 @@ def blnObtainXperienceAbsences(
         additionally, external txt file with scraped data created
     """
     # log inputs
-    logging.info('blnObtainXperienceAbsences - pstrUserName: ' + pstrUserName)
     logging.info('blnObtainXperienceAbsences - pstrDateFrom: ' + pstrDateFrom)
     logging.info('blnObtainXperienceAbsences - pstrDateTo: ' + pstrDateTo)
     logging.info('blnObtainXperienceAbsences - pstrAbsenceType: ' + str(
@@ -126,8 +121,6 @@ def blnObtainXperienceAbsences(
 
     # scrape data from web based on user request
     blnContinue, lstScrapedAbsences = wsa.tplDownloadData(
-        pstrUserName,
-        pstrPassword,
         pstrDateFrom,
         pstrDateTo,
         pstrAbsenceType

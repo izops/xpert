@@ -205,11 +205,10 @@ STR_UI_PROCESS_ABSENCE_SAVING = 'Saving of absences to Outlook calendar'
 
 # process fail info
 STR_UI_PROCESS_FAILED = ' has failed unexpectedly. Please, contact the '
-STR_UI_PROCESS_FAILED += 'maintainer of repository for help.\n'
+STR_UI_PROCESS_FAILED += 'maintainer of the repository for help.\n'
 
 # login fail info
-STR_UI_LOGIN_FAILED = 'Login failed. Either you provided incorrect'
-STR_UI_LOGIN_FAILED += ' credentials or your password expired.'
+STR_UI_LOGIN_FAILED = 'Login failed. Okta login timed out without sign on.'
 
 # goodbyes
 STR_UI_GOODBYE_CANCEL = '\nAll right then%s, goodbye!'
