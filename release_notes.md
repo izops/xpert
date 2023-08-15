@@ -1,5 +1,13 @@
 # Release notes
 
+## V4.0
+
+Author: Ivan Zustiak  
+Date: 15 August 2023  
+New features:  
+- Browser window not visible while processing web requests (headless mode)
+
+--------------------------------------------------------------------------------
 ## V3.0
 
 Author: Ivan Zustiak  
