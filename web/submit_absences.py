@@ -91,8 +91,10 @@ def blnSubmitAbsences():
         # initialize options
         objOptions = webdriver.EdgeOptions()
 
-        # disable edge infobars
-        objOptions.add_argument("--disable-infobars")
+        # set up browser - disable infobars and set the headless mode
+        objOptions.use_chromium = True
+        objOptions.add_argument('--disable-infobars')
+        objOptions.add_argument('headless')
 
         # set preferences to remove personalization popup
         objPrefs = {
