@@ -51,9 +51,3 @@ Outlook saving.
 To use the latest version of the tool, use the version available on branch
 'main'. To use a specific version of the tool, use the following command:
 `git checkout <version number>`, for example `git checkout V1.1`
-
-
-## Contact
-
-To report a problem, please contact
-[the author](mailto:ivan.zustiak@zurich.com).
